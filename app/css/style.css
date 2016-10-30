@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: yellow;
+}
+
+h1, h2, h3, p, a {
+  color: #2A363B;
+}
+
+.white-button {
+  background: #fff;
+  margin: 4px 2px;
+}
+
+#wrapper {
+  background: #99B898;
+}
+
+#main-nav {
+  width: 100%;
+  background: #FECEA8;
+}
+
+#text-editor {
+  height: 600px;
+}
+
+#entry-list {
+  background: #E84A5F;
+  display: inline-block;
+  width: 20%;
+  height: inherit;
+  float: left;
+}
+
+#editor-window {
+  background: #FF847C;
+  display: inline-block;
+  width: 80%;
+  height: inherit;
+}
+
+#editor {
+  width: 700px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+}
