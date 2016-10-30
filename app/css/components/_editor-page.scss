@@ -1,0 +1,41 @@
+.editor-button {
+  margin: 4px 2px;
+}
+
+#entry-list {
+  // background: #E84A5F;
+  display: inline-block;
+  width: 20%;
+  height: inherit;
+  float: left;
+}
+
+#editor-window {
+  // background: #FF847C;
+  display: inline-block;
+  width: 80%;
+  height: inherit;
+
+  #editor {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+
+    #editor-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+      padding-left: 8px;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+    }
+
+  }
+}

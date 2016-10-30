@@ -7,7 +7,7 @@ var EditorPage = require('EditorPage');
 var About = require('About');
 
 require('style!css!bootstrap/dist/css/bootstrap.css');
-require('style!css!applicationStyles');
+require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
   <Router history={hashHistory}>
