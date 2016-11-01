@@ -94,7 +94,7 @@
 
 	var Main = __webpack_require__(226);
 	var EditorPage = __webpack_require__(228);
-	var About = __webpack_require__(232);
+	var AboutPage = __webpack_require__(232);
 
 	__webpack_require__(233);
 	__webpack_require__(242);
@@ -105,7 +105,7 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: Main },
-	    React.createElement(Route, { path: 'about', component: About }),
+	    React.createElement(Route, { path: 'about', component: AboutPage }),
 	    React.createElement(IndexRoute, { component: EditorPage })
 	  )
 	), document.getElementById('app'));
@@ -25567,36 +25567,12 @@
 /* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
 	var React = __webpack_require__(5);
-	var Editor = __webpack_require__(230);
 
 	var EditorWindow = React.createClass({
 	  displayName: 'EditorWindow',
-
-	  render: function render() {
-
-	    return React.createElement(
-	      'div',
-	      { id: 'editor-window' },
-	      React.createElement(Editor, null)
-	    );
-	  }
-	});
-
-	module.exports = EditorWindow;
-
-/***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(5);
-
-	var Editor = React.createClass({
-	  displayName: 'Editor',
 
 	  enableEditMode: function enableEditMode() {
 	    richTextField.document.designMode = 'On';
@@ -25610,6 +25586,11 @@
 	  executeCommandWithArgument: function executeCommandWithArgument(command) {
 	    richTextField.document.execCommand(command, false, arg);
 	  },
+	  handleChange: function handleChange() {
+	    setTimeout(function () {
+	      alert('changed');
+	    }, 2000);
+	  },
 	  render: function render() {
 	    var _this = this;
 
@@ -25617,9 +25598,13 @@
 
 	    function toggleEdit() {
 	      if (isInEditMode) {
+	        $('#edit-mode-button').html('Turn On');
+	        $('#edit-mode-status').html('off');
 	        richTextField.document.designMode = 'Off';
 	        isInEditMode = false;
 	      } else {
+	        $('#edit-mode-button').html('Turn Off');
+	        $('#edit-mode-status').html('on');
 	        richTextField.document.designMode = 'On';
 	        isInEditMode = true;
 	      }
@@ -25627,95 +25612,120 @@
 
 	    return React.createElement(
 	      'div',
-	      { id: 'editor' },
-	      React.createElement('input', { id: 'editor-title', type: 'text', placeholder: 'Enter Title Here...' }),
+	      { id: 'editor-window' },
 	      React.createElement(
 	        'div',
-	        { id: 'editor-menu' },
+	        { id: 'editor' },
+	        React.createElement('input', { id: 'editor-title', type: 'text', placeholder: 'Enter Title Here...', onChange: this.handleChange }),
 	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('bold');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-bold' })
+	          'div',
+	          { id: 'editor-menu' },
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('bold');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-bold' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('italic');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-italic' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('underline');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-underline' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('strikeThrough');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-strikethrough' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('cut');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-cut' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('copy');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-copy' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('undo');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-undo' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('redo');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-repeat' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('insertUnorderedList');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-list-ul' })
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this.executeCommand('insertOrderedList');
+	              }, className: 'btn btn-sm btn-default editor-button' },
+	            React.createElement('i', { className: 'fa fa-list-ol' })
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'pull-right' },
+	            React.createElement(
+	              'p',
+	              { id: 'edit-mode-text' },
+	              'Edit mode is ',
+	              React.createElement(
+	                'span',
+	                { id: 'edit-mode-status' },
+	                'on'
+	              )
+	            ),
+	            React.createElement(
+	              'button',
+	              { onClick: function onClick() {
+	                  return toggleEdit();
+	                }, className: 'btn btn-sm btn-default editor-button pull-right', id: 'edit-mode-button' },
+	              'Turn Off'
+	            )
+	          )
 	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('italic');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-italic' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('underline');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-underline' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('strikeThrough');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-strikethrough' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('cut');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-cut' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('copy');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-copy' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('undo');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-undo' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('redo');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-repeat' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('insertUnorderedList');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-list-ul' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this.executeCommand('insertOrderedList');
-	            }, className: 'btn btn-sm btn-default editor-button' },
-	          React.createElement('i', { className: 'fa fa-list-ol' })
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return toggleEdit();
-	            }, className: 'btn btn-sm btn-default editor-button pull-right' },
-	          'Edit Mode'
-	        )
-	      ),
-	      React.createElement('iframe', { name: 'richTextField' })
+	        React.createElement('iframe', { name: 'richTextField' })
+	      )
 	    );
 	  }
 	});
 
-	module.exports = Editor;
+	module.exports = EditorWindow;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(230)))
+
+/***/ },
+/* 230 */
+/***/ function(module, exports) {
+
+	module.exports = jQuery;
 
 /***/ },
 /* 231 */
@@ -25736,6 +25746,40 @@
 	        "h3",
 	        null,
 	        "Entry List"
+	      ),
+	      React.createElement(
+	        "ul",
+	        { id: "entries" },
+	        React.createElement(
+	          "li",
+	          null,
+	          "Journal Entry 1"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Journal Entry 2"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Journal Entry 3"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Journal Entry 4"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Journal Entry 5"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Journal Entry 6"
+	        )
 	      )
 	    );
 	  }
@@ -25751,8 +25795,8 @@
 
 	var React = __webpack_require__(5);
 
-	var About = React.createClass({
-	  displayName: 'About',
+	var AboutPage = React.createClass({
+	  displayName: 'AboutPage',
 
 	  render: function render() {
 	    return React.createElement(
@@ -25763,7 +25807,7 @@
 	  }
 	});
 
-	module.exports = About;
+	module.exports = AboutPage;
 
 /***/ },
 /* 233 */
@@ -26178,7 +26222,7 @@
 
 
 	// module
-	exports.push([module.id, ".navbar {\n  margin-bottom: 0; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n#entry-list {\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n\n#editor-window {\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n", ""]);
+	exports.push([module.id, ".navbar {\n  margin-bottom: 0; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n#entry-list {\n  background: #E84A5F;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list h3 {\n    margin-left: 20px; }\n  #entry-list ul#entries {\n    list-style: none;\n    margin-top: 20px; }\n    #entry-list ul#entries li {\n      margin-bottom: 20px; }\n\n#editor-window {\n  background: #FF847C;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n", ""]);
 
 	// exports
 

@@ -4,7 +4,7 @@ var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 var Main = require('Main');
 var EditorPage = require('EditorPage');
-var About = require('About');
+var AboutPage = require('AboutPage');
 
 require('style!css!bootstrap/dist/css/bootstrap.css');
 require('style!css!sass!applicationStyles');
@@ -12,7 +12,7 @@ require('style!css!sass!applicationStyles');
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
-      <Route path="about" component={About} />
+      <Route path="about" component={AboutPage} />
       <IndexRoute component={EditorPage} />
     </Route>
   </Router>,

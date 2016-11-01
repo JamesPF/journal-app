@@ -1,6 +1,6 @@
 var React = require('react');
 
-var About = React.createClass({
+var AboutPage = React.createClass({
   render: function () {
     return (
       <h2>About</h2>
@@ -8,4 +8,4 @@ var About = React.createClass({
   }
 });
 
-module.exports = About;
+module.exports = AboutPage;

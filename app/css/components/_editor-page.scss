@@ -3,15 +3,26 @@
 }
 
 #entry-list {
-  // background: #E84A5F;
+  background: #E84A5F;
   display: inline-block;
   width: 20%;
   height: inherit;
   float: left;
+  h3 {
+    margin-left: 20px;
+  }
+
+  ul#entries {
+    list-style: none;
+    margin-top: 20px;
+    li {
+      margin-bottom: 20px;
+    }
+  }
 }
 
 #editor-window {
-  // background: #FF847C;
+  background: #FF847C;
   display: inline-block;
   width: 80%;
   height: inherit;
@@ -21,6 +32,13 @@
     display: block;
     margin: 0 auto;
     margin-top: 20px;
+
+    #edit-mode-text {
+      display: inline;
+      font-size: 16px;
+      line-height: 38px;
+      padding-right: 6px;
+    }
 
     #editor-title {
       font-size: 24px;
@@ -36,6 +54,5 @@
       border: 1px solid #cccccc;
       border-radius: 5px;
     }
-
   }
 }

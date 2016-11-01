@@ -24,10 +24,9 @@ module.exports = {
       applicationStyles: 'app/css/app.scss',
       Main: 'app/components/Main.jsx',
       Nav: 'app/components/Nav.jsx',
-      About: 'app/components/About.jsx',
+      AboutPage: 'app/components/AboutPage.jsx',
       EditorPage: 'app/components/EditorPage.jsx',
       EditorWindow: 'app/components/EditorWindow.jsx',
-      Editor: 'app/components/Editor.jsx',
       EntryList: 'app/components/EntryList.jsx'
     },
     extensions: ['', '.js', '.jsx']
