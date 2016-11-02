@@ -1,0 +1,23 @@
+#journal-index {
+  width: 80%;
+  display: block;
+  margin: 0 auto;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+.journal-item {
+  height: 200px;
+}
+
+.journal-item:nth-child(odd) {
+  background: red;
+}
+
+.journal-item:nth-child(even) {
+  background: blue;
+}
