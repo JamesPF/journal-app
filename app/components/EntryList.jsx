@@ -6,12 +6,36 @@ var EntryList = React.createClass({
       <div id="entry-list">
         <h3>Entry List</h3>
         <ul id="entries">
-          <li>Journal Entry 1</li>
-          <li>Journal Entry 2</li>
-          <li>Journal Entry 3</li>
-          <li>Journal Entry 4</li>
-          <li>Journal Entry 5</li>
-          <li>Journal Entry 6</li>
+          <li className="entry">
+            <a href="">
+              <img src="/images/entry.png" />
+              <p className="text-center">Journal Entry 1</p>
+            </a>
+          </li>
+          <li className="entry">
+            <a href="">
+              <img src="/images/entry.png" />
+              <p className="text-center">Journal Entry 2</p>
+            </a>
+          </li>
+          <li className="entry">
+            <a href="">
+              <img src="/images/entry.png" />
+              <p className="text-center">Journal Entry 3</p>
+            </a>
+          </li>
+          <li className="entry">
+            <a href="">
+              <img src="/images/entry.png" />
+              <p className="text-center">Journal Entry 4</p>
+            </a>
+          </li>
+          <li className="entry">
+            <a href="">
+              <img src="/images/entry.png" />
+              <p className="text-center">Journal Entry 5</p>
+            </a>
+          </li>
         </ul>
       </div>
     );

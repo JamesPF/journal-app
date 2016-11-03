@@ -3,11 +3,12 @@
 }
 
 #entry-list {
-  // background: #E84A5F;
+  background: #E84A5F;
   display: inline-block;
   width: 20%;
-  height: inherit;
+  height: 611px;
   float: left;
+  overflow: scroll;
   h3 {
     margin-left: 20px;
   }
@@ -16,13 +17,20 @@
     list-style: none;
     margin-top: 20px;
     li {
+      display: block;
+      margin: 0 auto;
+      margin-left: -26px;
       margin-bottom: 20px;
+
+      img {
+        margin-left: 10px;
+      }
     }
   }
 }
 
 #editor-window {
-  // background: #FF847C;
+  background: #FF847C;
   display: inline-block;
   width: 80%;
   height: inherit;

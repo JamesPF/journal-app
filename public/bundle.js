@@ -25589,35 +25589,77 @@
 	        ),
 	        React.createElement(
 	          "div",
-	          { className: "col-md-6 col-centered" },
+	          { id: "journal-list", className: "col-sm-10 col-centered" },
 	          React.createElement(
 	            "div",
-	            { className: "col-md-4 journal-item" },
-	            React.createElement("img", { src: "" }),
+	            { className: "col-sm-3 journal-item" },
 	            React.createElement(
-	              "p",
-	              null,
-	              "Journal Item 1"
+	              "div",
+	              { className: "journal-link-container" },
+	              React.createElement(
+	                "a",
+	                { href: "" },
+	                React.createElement("img", { className: "journal-icon", src: "/images/journal.png" }),
+	                React.createElement(
+	                  "p",
+	                  { className: "text-center" },
+	                  "Journal Item 1"
+	                )
+	              )
 	            )
 	          ),
 	          React.createElement(
 	            "div",
-	            { className: "col-md-4 journal-item" },
-	            React.createElement("img", { src: "" }),
+	            { className: "col-sm-3 journal-item" },
 	            React.createElement(
-	              "p",
-	              null,
-	              "Journal Item 2"
+	              "div",
+	              { className: "journal-link-container" },
+	              React.createElement(
+	                "a",
+	                { href: "" },
+	                React.createElement("img", { className: "journal-icon", src: "/images/journal.png" }),
+	                React.createElement(
+	                  "p",
+	                  { className: "text-center" },
+	                  "Journal Item 2"
+	                )
+	              )
 	            )
 	          ),
 	          React.createElement(
 	            "div",
-	            { className: "col-md-4 journal-item" },
-	            React.createElement("img", { src: "" }),
+	            { className: "col-sm-3 journal-item" },
 	            React.createElement(
-	              "p",
-	              null,
-	              "Journal Item 3"
+	              "div",
+	              { className: "journal-link-container" },
+	              React.createElement(
+	                "a",
+	                { href: "" },
+	                React.createElement("img", { className: "journal-icon", src: "/images/journal.png" }),
+	                React.createElement(
+	                  "p",
+	                  { className: "text-center" },
+	                  "Journal Item 3"
+	                )
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            "div",
+	            { className: "col-sm-3 journal-item" },
+	            React.createElement(
+	              "div",
+	              { className: "journal-link-container" },
+	              React.createElement(
+	                "a",
+	                { href: "" },
+	                React.createElement("img", { className: "journal-icon", src: "/images/journal.png" }),
+	                React.createElement(
+	                  "p",
+	                  { className: "text-center" },
+	                  "Journal Item 4"
+	                )
+	              )
 	            )
 	          )
 	        )
@@ -25842,33 +25884,73 @@
 	        { id: "entries" },
 	        React.createElement(
 	          "li",
-	          null,
-	          "Journal Entry 1"
+	          { className: "entry" },
+	          React.createElement(
+	            "a",
+	            { href: "" },
+	            React.createElement("img", { src: "/images/entry.png" }),
+	            React.createElement(
+	              "p",
+	              { className: "text-center" },
+	              "Journal Entry 1"
+	            )
+	          )
 	        ),
 	        React.createElement(
 	          "li",
-	          null,
-	          "Journal Entry 2"
+	          { className: "entry" },
+	          React.createElement(
+	            "a",
+	            { href: "" },
+	            React.createElement("img", { src: "/images/entry.png" }),
+	            React.createElement(
+	              "p",
+	              { className: "text-center" },
+	              "Journal Entry 2"
+	            )
+	          )
 	        ),
 	        React.createElement(
 	          "li",
-	          null,
-	          "Journal Entry 3"
+	          { className: "entry" },
+	          React.createElement(
+	            "a",
+	            { href: "" },
+	            React.createElement("img", { src: "/images/entry.png" }),
+	            React.createElement(
+	              "p",
+	              { className: "text-center" },
+	              "Journal Entry 3"
+	            )
+	          )
 	        ),
 	        React.createElement(
 	          "li",
-	          null,
-	          "Journal Entry 4"
+	          { className: "entry" },
+	          React.createElement(
+	            "a",
+	            { href: "" },
+	            React.createElement("img", { src: "/images/entry.png" }),
+	            React.createElement(
+	              "p",
+	              { className: "text-center" },
+	              "Journal Entry 4"
+	            )
+	          )
 	        ),
 	        React.createElement(
 	          "li",
-	          null,
-	          "Journal Entry 5"
-	        ),
-	        React.createElement(
-	          "li",
-	          null,
-	          "Journal Entry 6"
+	          { className: "entry" },
+	          React.createElement(
+	            "a",
+	            { href: "" },
+	            React.createElement("img", { src: "/images/entry.png" }),
+	            React.createElement(
+	              "p",
+	              { className: "text-center" },
+	              "Journal Entry 5"
+	            )
+	          )
 	        )
 	      )
 	    );
@@ -26312,7 +26394,7 @@
 
 
 	// module
-	exports.push([module.id, ".navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n#journal-index {\n  width: 80%;\n  display: block;\n  margin: 0 auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto;\n  margin-top: 60px; }\n\n.journal-item {\n  height: 200px; }\n\n.journal-item:nth-child(odd) {\n  background: red; }\n\n.journal-item:nth-child(even) {\n  background: blue; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n#entry-list {\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list h3 {\n    margin-left: 20px; }\n  #entry-list ul#entries {\n    list-style: none;\n    margin-top: 20px; }\n    #entry-list ul#entries li {\n      margin-bottom: 20px; }\n\n#editor-window {\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n", ""]);
+	exports.push([module.id, ".navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n#journal-index {\n  width: 80%;\n  display: block;\n  margin: 0 auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-list {\n  margin-top: 80px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n#entry-list {\n  background: #E84A5F;\n  display: inline-block;\n  width: 20%;\n  height: 611px;\n  float: left;\n  overflow: scroll; }\n  #entry-list h3 {\n    margin-left: 20px; }\n  #entry-list ul#entries {\n    list-style: none;\n    margin-top: 20px; }\n    #entry-list ul#entries li {\n      display: block;\n      margin: 0 auto;\n      margin-left: -26px;\n      margin-bottom: 20px; }\n      #entry-list ul#entries li img {\n        margin-left: 10px; }\n\n#editor-window {\n  background: #FF847C;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n", ""]);
 
 	// exports
 

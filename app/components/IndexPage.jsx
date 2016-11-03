@@ -7,18 +7,38 @@ var IndexPage = React.createClass({
         <div id="journal-index">
           <h1 className="text-center">Journals</h1>
           <button className="btn btn-success pull-right">+ Create New Journal</button>
-          <div className="col-md-6 col-centered">
-            <div className="col-md-4 journal-item">
-              <img src="" />
-              <p>Journal Item 1</p>
+          <div id="journal-list" className="col-sm-10 col-centered">
+            <div className="col-sm-3 journal-item">
+              <div className="journal-link-container">
+                <a href="">
+                  <img className="journal-icon" src="/images/journal.png" />
+                  <p className="text-center">Journal Item 1</p>
+                </a>
+              </div>
             </div>
-            <div className="col-md-4 journal-item">
-              <img src="" />
-              <p>Journal Item 2</p>
+            <div className="col-sm-3 journal-item">
+              <div className="journal-link-container">
+                <a href="">
+                  <img className="journal-icon" src="/images/journal.png" />
+                  <p className="text-center">Journal Item 2</p>
+                </a>
+              </div>
             </div>
-            <div className="col-md-4 journal-item">
-              <img src="" />
-              <p>Journal Item 3</p>
+            <div className="col-sm-3 journal-item">
+              <div className="journal-link-container">
+                <a href="">
+                  <img className="journal-icon" src="/images/journal.png" />
+                  <p className="text-center">Journal Item 3</p>
+                </a>
+              </div>
+            </div>
+            <div className="col-sm-3 journal-item">
+              <div className="journal-link-container">
+                <a href="">
+                  <img className="journal-icon" src="/images/journal.png" />
+                  <p className="text-center">Journal Item 4</p>
+                </a>
+              </div>
             </div>
           </div>
         </div>

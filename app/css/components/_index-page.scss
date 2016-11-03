@@ -7,17 +7,38 @@
 .col-centered {
   float: none;
   margin: 0 auto;
-  margin-top: 60px;
+}
+
+#journal-list {
+  margin-top: 80px;
 }
 
 .journal-item {
-  height: 200px;
+
+  .journal-link-container {
+    background-color: #ddd;
+    border-radius: 3px;
+
+    .journal-icon {
+      display: block;
+      margin: 0 auto;
+      margin-top: 10px;
+      width: 100%;
+    }
+    p {
+      margin-bottom: 12px;
+      line-height: 36px;
+    }
+    a {
+      color: #333;
+    }
+  }
 }
 
 .journal-item:nth-child(odd) {
-  background: red;
+  // background: red;
 }
 
 .journal-item:nth-child(even) {
-  background: blue;
+  // background: blue;
 }
