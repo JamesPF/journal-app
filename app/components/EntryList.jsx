@@ -4,8 +4,6 @@ var EntryList = React.createClass({
   render: function () {
     return (
       <div id="entry-list">
-        <h3>Entry List</h3> <button id="add-entry" className="btn btn-success"><i className="fa fa-plus"></i></button>
-        <input type="search" placeholder="Search..." />
         <ul id="entries">
           <li className="entry">
             <a href="">

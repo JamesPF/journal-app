@@ -30,7 +30,10 @@ module.exports = {
       AboutPage: 'app/components/AboutPage.jsx',
       EditorPage: 'app/components/EditorPage.jsx',
       EditorWindow: 'app/components/EditorWindow.jsx',
-      EntryList: 'app/components/EntryList.jsx'
+      EntryListWindow: 'app/components/EntryListWindow.jsx',
+      EntryList: 'app/components/EntryList.jsx',
+      EntryAdd: 'app/components/EntryAdd.jsx',
+      EntrySearch: 'app/components/EntrySearch.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },

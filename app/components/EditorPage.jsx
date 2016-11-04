@@ -1,12 +1,12 @@
 var React = require('react');
 var EditorWindow = require('EditorWindow');
-var EntryList = require('EntryList');
+var EntryListWindow = require('EntryListWindow');
 
 var EditorPage = React.createClass({
   render: function () {
     return (
       <div id="text-editor">
-        <EntryList/>
+        <EntryListWindow/>
         <EditorWindow/>
       </div>
     );
