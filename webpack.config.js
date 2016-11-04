@@ -25,6 +25,8 @@ module.exports = {
       Main: 'app/components/Main.jsx',
       Nav: 'app/components/Nav.jsx',
       IndexPage: 'app/components/IndexPage.jsx',
+      JournalCreate: 'app/components/JournalCreate.jsx',
+      JournalList: 'app/components/JournalList.jsx',
       AboutPage: 'app/components/AboutPage.jsx',
       EditorPage: 'app/components/EditorPage.jsx',
       EditorWindow: 'app/components/EditorWindow.jsx',

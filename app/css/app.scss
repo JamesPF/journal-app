@@ -3,3 +3,12 @@
 @import 'components/index-page';
 @import 'components/editor-page';
 @import 'components/about-page';
+
+footer {
+  height: 60px;
+  border-top: 1px solid #e7e7e7;
+
+  p {
+    margin-top: 25px;
+  }
+}

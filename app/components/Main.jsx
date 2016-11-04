@@ -7,6 +7,9 @@ var Main = React.createClass({
       <div id="wrapper">
         <Nav />
         {this.props.children}
+        <footer>
+          <p className="text-center">Copyright 2016</p>
+        </footer>
       </div>
     );
   }
