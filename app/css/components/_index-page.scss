@@ -10,8 +10,17 @@
   margin: 0 auto;
 }
 
+#journal-search {
+  width: 300px;
+  margin-bottom: 10px;
+  padding-left: 8px;
+  font-size: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
 #journal-list {
-  margin-top: 80px;
+  margin-top: 12px;
 }
 
 .journal-item {

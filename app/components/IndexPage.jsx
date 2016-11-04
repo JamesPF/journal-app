@@ -9,6 +9,7 @@ var IndexPage = React.createClass({
         <div id="journal-index">
           <h1 className="text-center">Journals</h1>
           <JournalCreate />
+          <input id="journal-search" type="search" placeholder="Search..." />
           <JournalList />
         </div>
       </div>
