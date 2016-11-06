@@ -3,7 +3,7 @@ var JournalCreate = require('JournalCreate');
 var JournalSearch = require('JournalSearch');
 var JournalList = require('JournalList');
 
-var IndexPage = React.createClass({
+var JournalsPage = React.createClass({
   render: function () {
     return (
       <div>
@@ -19,4 +19,4 @@ var IndexPage = React.createClass({
   }
 });
 
-module.exports = IndexPage;
+module.exports = JournalsPage;

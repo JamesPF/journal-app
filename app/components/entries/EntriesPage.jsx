@@ -2,7 +2,7 @@ var React = require('react');
 var EditorWindow = require('EditorWindow');
 var EntryListWindow = require('EntryListWindow');
 
-var EditorPage = React.createClass({
+var EntriesPage = React.createClass({
   render: function () {
     return (
       <div id="text-editor">
@@ -13,4 +13,4 @@ var EditorPage = React.createClass({
   }
 });
 
-module.exports = EditorPage;
+module.exports = EntriesPage;

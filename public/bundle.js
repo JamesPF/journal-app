@@ -93,8 +93,8 @@
 
 
 	var Main = __webpack_require__(226);
-	var IndexPage = __webpack_require__(228);
-	var EditorPage = __webpack_require__(233);
+	var JournalsPage = __webpack_require__(228);
+	var EntriesPage = __webpack_require__(233);
 	var AboutPage = __webpack_require__(241);
 
 	__webpack_require__(242);
@@ -108,8 +108,8 @@
 	    Route,
 	    { path: '/', component: Main },
 	    React.createElement(Route, { path: 'about', component: AboutPage }),
-	    React.createElement(Route, { path: 'editor', component: EditorPage }),
-	    React.createElement(IndexRoute, { component: IndexPage })
+	    React.createElement(Route, { path: 'entries', component: EntriesPage }),
+	    React.createElement(IndexRoute, { component: JournalsPage })
 	  )
 	), document.getElementById('app'));
 
@@ -25527,7 +25527,7 @@
 	          React.createElement(
 	            IndexLink,
 	            { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	            'Index'
+	            'Journals'
 	          )
 	        ),
 	        React.createElement(
@@ -25535,8 +25535,8 @@
 	          null,
 	          React.createElement(
 	            Link,
-	            { to: '/editor', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	            'Editor'
+	            { to: '/entries', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	            'Entries'
 	          )
 	        ),
 	        React.createElement(
@@ -25580,8 +25580,8 @@
 	var JournalSearch = __webpack_require__(230);
 	var JournalList = __webpack_require__(231);
 
-	var IndexPage = React.createClass({
-	  displayName: 'IndexPage',
+	var JournalsPage = React.createClass({
+	  displayName: 'JournalsPage',
 
 	  render: function render() {
 	    return React.createElement(
@@ -25608,7 +25608,7 @@
 	  }
 	});
 
-	module.exports = IndexPage;
+	module.exports = JournalsPage;
 
 /***/ },
 /* 229 */
@@ -25762,8 +25762,8 @@
 	var EditorWindow = __webpack_require__(234);
 	var EntryListWindow = __webpack_require__(236);
 
-	var EditorPage = React.createClass({
-	  displayName: 'EditorPage',
+	var EntriesPage = React.createClass({
+	  displayName: 'EntriesPage',
 
 	  render: function render() {
 	    return React.createElement(
@@ -25775,7 +25775,7 @@
 	  }
 	});
 
-	module.exports = EditorPage;
+	module.exports = EntriesPage;
 
 /***/ },
 /* 234 */
