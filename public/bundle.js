@@ -25580,10 +25580,25 @@
 	var JournalSearch = __webpack_require__(230);
 	var JournalList = __webpack_require__(231);
 
+	var journals = [{ name: 'Cool Journal' }, { name: 'Awesome Journal' }];
+
 	var JournalsPage = React.createClass({
 	  displayName: 'JournalsPage',
 
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      journals: journals
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      journals: this.props.journals
+	    };
+	  },
 	  render: function render() {
+	    var journals = this.state.journals;
+
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -25601,7 +25616,7 @@
 	          '+ Create New Journal'
 	        ),
 	        React.createElement(JournalSearch, null),
-	        React.createElement(JournalList, null),
+	        React.createElement(JournalList, { journals: journals }),
 	        React.createElement(JournalCreate, null)
 	      )
 	    );
@@ -25710,7 +25725,9 @@
 	    return React.createElement(
 	      'div',
 	      { id: 'journal-list', className: 'col-sm-10 col-centered' },
-	      React.createElement(Journal, null)
+	      this.props.journals.map(function (journal) {
+	        return React.createElement(Journal, { name: journal.name });
+	      })
 	    );
 	  }
 	});
@@ -25729,6 +25746,9 @@
 	  displayName: "Journal",
 
 	  render: function render() {
+	    var name = this.props.name;
+
+
 	    return React.createElement(
 	      "div",
 	      { className: "col-sm-3 journal-item" },
@@ -25742,7 +25762,7 @@
 	          React.createElement(
 	            "p",
 	            { className: "text-center" },
-	            "Journal Item"
+	            name
 	          )
 	        )
 	      )
