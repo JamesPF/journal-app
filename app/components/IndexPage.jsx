@@ -9,9 +9,10 @@ var IndexPage = React.createClass({
       <div>
         <div id="journal-index">
           <h1 className="text-center">Journals</h1>
-          <JournalCreate />
+          <button className="btn btn-success pull-right" data-toggle="modal" data-target="#addJournalModal">+ Create New Journal</button>
           <JournalSearch />
           <JournalList />
+          <JournalCreate />
         </div>
       </div>
     );

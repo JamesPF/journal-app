@@ -7,6 +7,7 @@ var IndexPage = require('IndexPage');
 var EditorPage = require('EditorPage');
 var AboutPage = require('AboutPage');
 
+require('bootstrap/dist/js/bootstrap.js');
 require('style!css!bootstrap/dist/css/bootstrap.css');
 require('style!css!sass!applicationStyles');
 
