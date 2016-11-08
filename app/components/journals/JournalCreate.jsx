@@ -1,7 +1,8 @@
 var React = require('react');
 
 var JournalCreate = React.createClass({
-  onJournalSubmit: function () {
+  onJournalSubmit: function (e) {
+    e.preventDefault();
     var journalName = this.refs.journal.value;
 
     if (journalName.length > 0) {

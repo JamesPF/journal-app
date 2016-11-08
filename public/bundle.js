@@ -94,7 +94,7 @@
 
 	var Main = __webpack_require__(226);
 	var JournalsPage = __webpack_require__(228);
-	var EntriesPage = __webpack_require__(233);
+	var EntriesPage = __webpack_require__(234);
 	var AboutPage = __webpack_require__(241);
 
 	__webpack_require__(242);
@@ -25577,8 +25577,8 @@
 
 	var React = __webpack_require__(5);
 	var JournalCreate = __webpack_require__(229);
-	var JournalSearch = __webpack_require__(230);
-	var JournalList = __webpack_require__(231);
+	var JournalSearch = __webpack_require__(231);
+	var JournalList = __webpack_require__(232);
 
 	var journals = [{ name: 'Cool Journal' }, { name: 'Awesome Journal' }];
 
@@ -25648,7 +25648,8 @@
 	var JournalCreate = React.createClass({
 	  displayName: 'JournalCreate',
 
-	  onJournalSubmit: function onJournalSubmit() {
+	  onJournalSubmit: function onJournalSubmit(e) {
+	    e.preventDefault();
 	    var journalName = this.refs.journal.value;
 
 	    if (journalName.length > 0) {
@@ -25715,10 +25716,16 @@
 	});
 
 	module.exports = JournalCreate;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(235)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(230)))
 
 /***/ },
 /* 230 */
+/***/ function(module, exports) {
+
+	module.exports = jQuery;
+
+/***/ },
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25736,13 +25743,13 @@
 	module.exports = JournalSearch;
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(5);
-	var Journal = __webpack_require__(232);
+	var Journal = __webpack_require__(233);
 
 	var JournalList = React.createClass({
 	  displayName: 'JournalList',
@@ -25761,7 +25768,7 @@
 	module.exports = JournalList;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25799,13 +25806,13 @@
 	module.exports = Journal;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(5);
-	var EditorWindow = __webpack_require__(234);
+	var EditorWindow = __webpack_require__(235);
 	var EntryListWindow = __webpack_require__(236);
 
 	var EntriesPage = React.createClass({
@@ -25824,7 +25831,7 @@
 	module.exports = EntriesPage;
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
@@ -25979,13 +25986,7 @@
 	});
 
 	module.exports = EditorWindow;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(235)))
-
-/***/ },
-/* 235 */
-/***/ function(module, exports) {
-
-	module.exports = jQuery;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(230)))
 
 /***/ },
 /* 236 */
@@ -28529,7 +28530,7 @@
 
 	}(jQuery);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(235)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(230)))
 
 /***/ },
 /* 243 */
