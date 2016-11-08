@@ -25595,6 +25595,18 @@
 	      journals: this.props.journals
 	    };
 	  },
+	  handleAddJournal: function handleAddJournal(journalName) {
+	    var journals = this.state.journals;
+
+	    var journal = {};
+
+	    journal.name = journalName;
+	    journals.push(journal);
+
+	    this.setState({
+	      journals: journals
+	    });
+	  },
 	  render: function render() {
 	    var journals = this.state.journals;
 
@@ -25617,7 +25629,7 @@
 	        ),
 	        React.createElement(JournalSearch, null),
 	        React.createElement(JournalList, { journals: journals }),
-	        React.createElement(JournalCreate, null)
+	        React.createElement(JournalCreate, { onAddJournal: this.handleAddJournal })
 	      )
 	    );
 	  }
@@ -25629,58 +25641,71 @@
 /* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
 	var React = __webpack_require__(5);
 
 	var JournalCreate = React.createClass({
-	  displayName: "JournalCreate",
+	  displayName: 'JournalCreate',
 
+	  onJournalSubmit: function onJournalSubmit() {
+	    var journalName = this.refs.journal.value;
+
+	    if (journalName.length > 0) {
+	      this.refs.journal.value = '';
+	      this.props.onAddJournal(journalName);
+	      $('#addJournalModal').modal('toggle');
+	    }
+	  },
 	  render: function render() {
 	    return React.createElement(
-	      "div",
-	      { className: "modal fade", id: "addJournalModal", tabIndex: "-1", role: "dialog" },
+	      'div',
+	      { className: 'modal fade', id: 'addJournalModal', tabIndex: '-1', role: 'dialog' },
 	      React.createElement(
-	        "div",
-	        { className: "modal-dialog", role: "document" },
+	        'div',
+	        { className: 'modal-dialog', role: 'document' },
 	        React.createElement(
-	          "div",
-	          { className: "modal-content" },
+	          'div',
+	          { className: 'modal-content' },
 	          React.createElement(
-	            "div",
-	            { className: "modal-header" },
+	            'form',
+	            { onSubmit: this.onJournalSubmit },
 	            React.createElement(
-	              "button",
-	              { type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
+	              'div',
+	              { className: 'modal-header' },
 	              React.createElement(
-	                "span",
-	                { "aria-hidden": "true" },
-	                "\xD7"
+	                'button',
+	                { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+	                React.createElement(
+	                  'span',
+	                  { 'aria-hidden': 'true' },
+	                  '\xD7'
+	                )
+	              ),
+	              React.createElement(
+	                'h4',
+	                { className: 'modal-title' },
+	                'Create New Journal'
 	              )
 	            ),
 	            React.createElement(
-	              "h4",
-	              { className: "modal-title" },
-	              "Create New Journal"
-	            )
-	          ),
-	          React.createElement(
-	            "div",
-	            { className: "modal-body" },
-	            React.createElement("input", { className: "create-journal", type: "text", placeholder: "Journal title..." })
-	          ),
-	          React.createElement(
-	            "div",
-	            { className: "modal-footer" },
-	            React.createElement(
-	              "button",
-	              { type: "button", className: "btn btn-default", "data-dismiss": "modal" },
-	              "Cancel"
+	              'div',
+	              { className: 'modal-body' },
+	              React.createElement('input', { ref: 'journal', className: 'create-journal', type: 'text', placeholder: 'Journal title...' })
 	            ),
 	            React.createElement(
-	              "button",
-	              { type: "button", className: "btn btn-primary" },
-	              "Save"
+	              'div',
+	              { className: 'modal-footer' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
+	                'Cancel'
+	              ),
+	              React.createElement(
+	                'button',
+	                { type: 'submit', className: 'btn btn-primary' },
+	                'Save'
+	              )
 	            )
 	          )
 	        )
@@ -25690,6 +25715,7 @@
 	});
 
 	module.exports = JournalCreate;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(235)))
 
 /***/ },
 /* 230 */

@@ -11,13 +11,24 @@ var journals = [
 var JournalsPage = React.createClass({
   getDefaultProps: function () {
     return {
-      journals: journals
+      journals
     }
   },
   getInitialState: function () {
     return {
       journals: this.props.journals
     }
+  },
+  handleAddJournal: function (journalName) {
+    var {journals} = this.state;
+    var journal = {};
+
+    journal.name = journalName;
+    journals.push(journal);
+    
+    this.setState({
+      journals
+    });
   },
   render: function () {
     var {journals} = this.state;
@@ -29,7 +40,7 @@ var JournalsPage = React.createClass({
           <button className="btn btn-success pull-right" data-toggle="modal" data-target="#addJournalModal">+ Create New Journal</button>
           <JournalSearch />
           <JournalList journals={journals} />
-          <JournalCreate />
+          <JournalCreate onAddJournal={this.handleAddJournal} />
         </div>
       </div>
     );
