@@ -5,6 +5,8 @@ var EntryList = require('EntryList');
 
 var EntryListWindow = React.createClass({
   render: function () {
+    var {entries} = this.props;
+
     return (
       <div id="entry-list-container">
         <div id="add-search">
@@ -12,7 +14,7 @@ var EntryListWindow = React.createClass({
           <EntryAdd/>
           <EntrySearch/>
         </div>
-        <EntryList/>
+        <EntryList entries={entries} />
       </div>
     );
   }

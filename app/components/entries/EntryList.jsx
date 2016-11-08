@@ -6,7 +6,12 @@ var EntryList = React.createClass({
     return (
       <div id="entry-list">
         <ul id="entries">
-          <Entry />
+          {this.props.entries.map( (entry) => {
+            return (
+              <Entry name={entry.name} />
+              );
+            }
+          )}
         </ul>
       </div>
     );
