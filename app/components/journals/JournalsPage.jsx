@@ -3,15 +3,10 @@ var JournalCreate = require('JournalCreate');
 var JournalSearch = require('JournalSearch');
 var JournalList = require('JournalList');
 
-var journals = [
-  {name: 'Cool Journal'},
-  {name: 'Awesome Journal'}
-];
-
 var JournalsPage = React.createClass({
   getDefaultProps: function () {
     return {
-      journals
+      journals: []
     }
   },
   getInitialState: function () {
@@ -21,11 +16,13 @@ var JournalsPage = React.createClass({
   },
   handleAddJournal: function (journalName) {
     var {journals} = this.state;
-    var journal = {};
+    var journal = {
+      id: journals.length,
+      name: journalName
+    };
 
-    journal.name = journalName;
     journals.push(journal);
-    
+
     this.setState({
       journals
     });

@@ -7,7 +7,7 @@ var JournalList = React.createClass({
       <div id="journal-list" className="col-sm-10 col-centered">
         {this.props.journals.map( (journal) => {
           return (
-            <Journal name={journal.name} />
+            <Journal name={journal.name} key={journal.id} />
             );
           }
         )}
