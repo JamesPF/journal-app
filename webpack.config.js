@@ -32,7 +32,6 @@ module.exports = {
       AboutPage: 'app/components/about/AboutPage.jsx',
       EntriesPage: 'app/components/entries/EntriesPage.jsx',
       EditorWindow: 'app/components/entries/EditorWindow.jsx',
-      EntryListWindow: 'app/components/entries/EntryListWindow.jsx',
       EntryList: 'app/components/entries/EntryList.jsx',
       Entry: 'app/components/entries/Entry.jsx',
       EntryAdd: 'app/components/entries/EntryAdd.jsx',

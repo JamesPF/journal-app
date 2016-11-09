@@ -8,7 +8,7 @@ var EntryList = React.createClass({
         <ul id="entries">
           {this.props.entries.map( (entry) => {
             return (
-              <Entry name={entry.name} />
+              <Entry name={entry.name} key={entry.id} />
               );
             }
           )}
