@@ -25811,6 +25811,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var React = __webpack_require__(5);
 	var EditorWindow = __webpack_require__(235);
 	var EntryAdd = __webpack_require__(236);
@@ -25822,12 +25824,14 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      entries: []
+	      entries: [],
+	      activeEntry: {}
 	    };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      entries: this.props.entries
+	      entries: this.props.entries,
+	      activeEntry: this.props.activeEntry
 	    };
 	  },
 	  handleEntryAdd: function handleEntryAdd() {
@@ -25835,7 +25839,8 @@
 
 	    var entry = {
 	      id: entries.length,
-	      name: ''
+	      title: '',
+	      content: ''
 	    };
 
 	    entries.push(entry);
@@ -25844,10 +25849,8 @@
 	      entries: entries
 	    });
 	  },
+	  selectEntry: function selectEntry() {},
 	  render: function render() {
-	    var entries = this.state.entries;
-
-
 	    return React.createElement(
 	      'div',
 	      { id: 'text-editor' },
@@ -25862,12 +25865,12 @@
 	            null,
 	            'Entry List'
 	          ),
-	          React.createElement(EntryAdd, { onEntryAdd: this.handleEntryAdd }),
+	          React.createElement(EntryAdd, _extends({}, this.state, { onEntryAdd: this.handleEntryAdd })),
 	          React.createElement(EntrySearch, null)
 	        ),
-	        React.createElement(EntryList, { entries: entries })
+	        React.createElement(EntryList, this.state)
 	      ),
-	      React.createElement(EditorWindow, null)
+	      React.createElement(EditorWindow, this.state)
 	    );
 	  }
 	});
@@ -26087,6 +26090,11 @@
 	var EntryList = React.createClass({
 	  displayName: 'EntryList',
 
+	  propTypes: {
+	    entries: React.PropTypes.array.isRequired,
+	    activeEntry: React.PropTypes.object.isRequired,
+	    selectEntry: React.PropTypes.func.isRequired
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
@@ -26095,7 +26103,7 @@
 	        'ul',
 	        { id: 'entries' },
 	        this.props.entries.map(function (entry) {
-	          return React.createElement(Entry, { name: entry.name, key: entry.id });
+	          return React.createElement(Entry, { title: entry.title, key: entry.id });
 	        })
 	      )
 	    );
@@ -26115,22 +26123,24 @@
 	var Entry = React.createClass({
 	  displayName: "Entry",
 
+	  propTypes: {
+	    entry: React.PropTypes.object.isRequired,
+	    selectEntry: React.PropTypes.func.isRequired,
+	    activeEntry: React.PropTypes.object.isRequired
+	  },
+	  onClick: function onClick() {},
 	  render: function render() {
-	    var name = this.props.name;
+	    var entry = this.props.entry;
 
 
 	    return React.createElement(
 	      "li",
-	      { className: "entry" },
+	      { className: "entry", onClick: this.onClick },
+	      React.createElement("img", { src: "/images/entry.png" }),
 	      React.createElement(
-	        "a",
-	        { href: "" },
-	        React.createElement("img", { src: "/images/entry.png" }),
-	        React.createElement(
-	          "p",
-	          { className: "text-center" },
-	          name
-	        )
+	        "p",
+	        { className: "text-center" },
+	        title
 	      )
 	    );
 	  }
@@ -28961,7 +28971,7 @@
 
 
 	// module
-	exports.push([module.id, ".navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px; }\n        #entry-list-container #entry-list ul#entries li a:hover {\n          text-decoration: none; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
+	exports.push([module.id, ".navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px;\n        cursor: pointer; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
 
 	// exports
 
