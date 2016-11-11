@@ -25824,12 +25824,14 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      entries: []
+	      entries: [],
+	      selectedEntry: {}
 	    };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      entries: this.props.entries
+	      entries: this.props.entries,
+	      selectedEntry: this.props.selectedEntry
 	    };
 	  },
 	  handleEntryAdd: function handleEntryAdd() {
@@ -25847,8 +25849,11 @@
 	      entries: entries
 	    });
 	  },
-	  selectEntry: function selectEntry(activeEntry) {
-	    console.log(activeEntry);
+	  selectEntry: function selectEntry(selectedEntry) {
+	    console.log(selectedEntry);
+	    this.setState({
+	      selectedEntry: selectedEntry
+	    });
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -25888,6 +25893,9 @@
 	var EditorWindow = React.createClass({
 	  displayName: 'EditorWindow',
 
+	  propTypes: {
+	    selectedEntry: React.PropTypes.object.isRequired
+	  },
 	  enableEditMode: function enableEditMode() {
 	    richTextField.document.designMode = 'On';
 	  },
@@ -25900,13 +25908,10 @@
 	  executeCommandWithArgument: function executeCommandWithArgument(command) {
 	    richTextField.document.execCommand(command, false, arg);
 	  },
-	  handleChange: function handleChange() {
-	    setTimeout(function () {
-	      alert('changed');
-	    }, 2000);
-	  },
 	  render: function render() {
 	    var _this = this;
+
+	    var selectedEntry = this.props.selectedEntry;
 
 	    var isInEditMode = true;
 
@@ -25930,7 +25935,7 @@
 	      React.createElement(
 	        'div',
 	        { id: 'editor' },
-	        React.createElement('input', { id: 'editor-title', type: 'text', placeholder: 'Enter Title Here...', onChange: this.handleChange }),
+	        React.createElement('input', { id: 'editor-title', type: 'text', placeholder: 'Enter Title Here...', value: selectedEntry.title }),
 	        React.createElement(
 	          'div',
 	          { id: 'editor-menu' },

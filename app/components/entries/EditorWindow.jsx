@@ -1,6 +1,9 @@
 var React = require('react');
 
 var EditorWindow = React.createClass({
+  propTypes: {
+    selectedEntry: React.PropTypes.object.isRequired
+  },
   enableEditMode: function () {
     richTextField.document.designMode = 'On';
   },
@@ -13,12 +16,8 @@ var EditorWindow = React.createClass({
   executeCommandWithArgument: function (command) {
     richTextField.document.execCommand(command, false, arg);
   },
-  handleChange: function () {
-    setTimeout(() => {
-      alert('changed');
-    }, 2000);
-  },
   render: function () {
+    var {selectedEntry} = this.props;
     var isInEditMode = true;
 
     function toggleEdit () {
@@ -38,7 +37,7 @@ var EditorWindow = React.createClass({
     return (
       <div id="editor-window">
         <div id="editor">
-          <input id="editor-title" type="text" placeholder="Enter Title Here..." onChange={this.handleChange} />
+          <input id="editor-title" type="text" placeholder="Enter Title Here..." value={selectedEntry.title} />
           <div id="editor-menu">
             <button onClick={() => this.executeCommand('bold')} className="btn btn-sm btn-default editor-button"><i className="fa fa-bold"></i></button>
             <button onClick={() => this.executeCommand('italic')} className="btn btn-sm btn-default editor-button"><i className="fa fa-italic"></i></button>

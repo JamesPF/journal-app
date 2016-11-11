@@ -7,12 +7,14 @@ var EntryList = require('EntryList');
 var EntriesPage = React.createClass({
   getDefaultProps: function () {
     return {
-      entries: []
+      entries: [],
+      selectedEntry: {}
     }
   },
   getInitialState: function () {
     return {
-      entries: this.props.entries
+      entries: this.props.entries,
+      selectedEntry: this.props.selectedEntry
     }
   },
   handleEntryAdd: function () {
@@ -29,8 +31,11 @@ var EntriesPage = React.createClass({
       entries
     });
   },
-  selectEntry: function (activeEntry) {
-    console.log(activeEntry);
+  selectEntry: function (selectedEntry) {
+    console.log(selectedEntry);
+    this.setState({
+      selectedEntry
+    });
   },
   render: function () {
     return (
