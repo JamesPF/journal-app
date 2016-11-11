@@ -4,7 +4,6 @@ var Entry = require('Entry');
 var EntryList = React.createClass({
   propTypes: {
     entries: React.PropTypes.array.isRequired,
-    activeEntry: React.PropTypes.object.isRequired,
     selectEntry: React.PropTypes.func.isRequired
   },
   render: function () {
@@ -13,7 +12,7 @@ var EntryList = React.createClass({
         <ul id="entries">
           {this.props.entries.map( (entry) => {
             return (
-              <Entry title={entry.title} key={entry.id} />
+              <Entry entry={entry} key={entry.id} {...this.props} />
               );
             }
           )}

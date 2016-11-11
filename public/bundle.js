@@ -25824,14 +25824,12 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      entries: [],
-	      activeEntry: {}
+	      entries: []
 	    };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      entries: this.props.entries,
-	      activeEntry: this.props.activeEntry
+	      entries: this.props.entries
 	    };
 	  },
 	  handleEntryAdd: function handleEntryAdd() {
@@ -25849,7 +25847,9 @@
 	      entries: entries
 	    });
 	  },
-	  selectEntry: function selectEntry() {},
+	  selectEntry: function selectEntry(activeEntry) {
+	    console.log(activeEntry);
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
@@ -25868,7 +25868,7 @@
 	          React.createElement(EntryAdd, _extends({}, this.state, { onEntryAdd: this.handleEntryAdd })),
 	          React.createElement(EntrySearch, null)
 	        ),
-	        React.createElement(EntryList, this.state)
+	        React.createElement(EntryList, _extends({}, this.state, { selectEntry: this.selectEntry }))
 	      ),
 	      React.createElement(EditorWindow, this.state)
 	    );
@@ -26084,6 +26084,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var React = __webpack_require__(5);
 	var Entry = __webpack_require__(239);
 
@@ -26092,10 +26094,11 @@
 
 	  propTypes: {
 	    entries: React.PropTypes.array.isRequired,
-	    activeEntry: React.PropTypes.object.isRequired,
 	    selectEntry: React.PropTypes.func.isRequired
 	  },
 	  render: function render() {
+	    var _this = this;
+
 	    return React.createElement(
 	      'div',
 	      { id: 'entry-list' },
@@ -26103,7 +26106,7 @@
 	        'ul',
 	        { id: 'entries' },
 	        this.props.entries.map(function (entry) {
-	          return React.createElement(Entry, { title: entry.title, key: entry.id });
+	          return React.createElement(Entry, _extends({ entry: entry, key: entry.id }, _this.props));
 	        })
 	      )
 	    );
@@ -26125,10 +26128,15 @@
 
 	  propTypes: {
 	    entry: React.PropTypes.object.isRequired,
-	    selectEntry: React.PropTypes.func.isRequired,
-	    activeEntry: React.PropTypes.object.isRequired
+	    selectEntry: React.PropTypes.func.isRequired
 	  },
-	  onClick: function onClick() {},
+	  onClick: function onClick() {
+	    var _props = this.props;
+	    var entry = _props.entry;
+	    var selectEntry = _props.selectEntry;
+
+	    selectEntry(entry);
+	  },
 	  render: function render() {
 	    var entry = this.props.entry;
 
@@ -26140,7 +26148,7 @@
 	      React.createElement(
 	        "p",
 	        { className: "text-center" },
-	        title
+	        entry.title
 	      )
 	    );
 	  }
