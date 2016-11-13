@@ -25850,9 +25850,20 @@
 	    });
 	  },
 	  selectEntry: function selectEntry(selectedEntry) {
-	    console.log(selectedEntry);
 	    this.setState({
 	      selectedEntry: selectedEntry
+	    });
+	  },
+	  updateTitle: function updateTitle(newTitle) {
+	    var _state = this.state;
+	    var entries = _state.entries;
+	    var selectedEntry = _state.selectedEntry;
+
+	    var entryIndex = selectedEntry.id;
+
+	    entries[entryIndex].title = newTitle;
+	    this.setState({
+	      entries: entries
 	    });
 	  },
 	  render: function render() {
@@ -25875,7 +25886,7 @@
 	        ),
 	        React.createElement(EntryList, _extends({}, this.state, { selectEntry: this.selectEntry }))
 	      ),
-	      React.createElement(EditorWindow, this.state)
+	      React.createElement(EditorWindow, _extends({}, this.state, { updateTitle: this.updateTitle }))
 	    );
 	  }
 	});
@@ -25894,7 +25905,8 @@
 	  displayName: 'EditorWindow',
 
 	  propTypes: {
-	    selectedEntry: React.PropTypes.object.isRequired
+	    selectedEntry: React.PropTypes.object.isRequired,
+	    updateTitle: React.PropTypes.func.isRequired
 	  },
 	  enableEditMode: function enableEditMode() {
 	    richTextField.document.designMode = 'On';
@@ -25907,6 +25919,13 @@
 	  },
 	  executeCommandWithArgument: function executeCommandWithArgument(command) {
 	    richTextField.document.execCommand(command, false, arg);
+	  },
+	  onTitleChange: function onTitleChange() {
+	    var updateTitle = this.props.updateTitle;
+
+	    var title = this.refs.title.value;
+	    // console.log(title);
+	    updateTitle(title);
 	  },
 	  render: function render() {
 	    var _this = this;
@@ -25935,7 +25954,7 @@
 	      React.createElement(
 	        'div',
 	        { id: 'editor' },
-	        React.createElement('input', { id: 'editor-title', type: 'text', placeholder: 'Enter Title Here...', value: selectedEntry.title }),
+	        React.createElement('input', { ref: 'title', id: 'editor-title', type: 'text', placeholder: 'Enter Title Here...', value: selectedEntry.title, onChange: this.onTitleChange }),
 	        React.createElement(
 	          'div',
 	          { id: 'editor-menu' },
@@ -26133,7 +26152,8 @@
 
 	  propTypes: {
 	    entry: React.PropTypes.object.isRequired,
-	    selectEntry: React.PropTypes.func.isRequired
+	    selectEntry: React.PropTypes.func.isRequired,
+	    selectedEntry: React.PropTypes.object.isRequired
 	  },
 	  onClick: function onClick() {
 	    var _props = this.props;
