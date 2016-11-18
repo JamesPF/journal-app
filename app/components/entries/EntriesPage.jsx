@@ -22,7 +22,7 @@ var EntriesPage = React.createClass({
     var entry = {
       id: entries.length,
       title: '',
-      content: ''
+      content: 'test.html'
     };
 
     entries.push(entry);
@@ -45,6 +45,9 @@ var EntriesPage = React.createClass({
       entries
     });
   },
+  updateContent: function (newContent) {
+    console.log(newContent);
+  },
   render: function () {
     return (
       <div id="text-editor">
@@ -56,7 +59,7 @@ var EntriesPage = React.createClass({
           </div>
           <EntryList {...this.state} selectEntry={this.selectEntry} />
         </div>
-        <EditorWindow {...this.state} updateTitle={this.updateTitle} />
+        <EditorWindow {...this.state} updateTitle={this.updateTitle} updateContent={this.updateContent} />
       </div>
     );
   }

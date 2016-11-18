@@ -1,15 +1,27 @@
 var React = require('react');
+var EntryTitle = require('EntryTitle');
 
 var EditorWindow = React.createClass({
   propTypes: {
     selectedEntry: React.PropTypes.object.isRequired,
-    updateTitle: React.PropTypes.func.isRequired
+    updateTitle: React.PropTypes.func.isRequired,
+    updateContent: React.PropTypes.func.isRequired
   },
   enableEditMode: function () {
     richTextField.document.designMode = 'On';
   },
   componentDidMount: function () {
+    var {selectedEntry} = this.props;
+
     this.enableEditMode();
+
+    var iframeBody = richTextField.document.getElementsByTagName("body")[0];
+    iframeBody.innerHTML = "This is some text";
+
+    // Calls onContentChange every ten seconds
+    setInterval(() => {
+      iframeBody.addEventListener('change', this.onContentChange());
+    }, 10000);
   },
   executeCommand: function (command) {
     richTextField.document.execCommand(command, false, null);
@@ -17,11 +29,13 @@ var EditorWindow = React.createClass({
   executeCommandWithArgument: function (command) {
     richTextField.document.execCommand(command, false, arg);
   },
-  onTitleChange: function () {
-    var {updateTitle} = this.props;
-    var title = this.refs.title.value;
-    // console.log(title);
-    updateTitle(title);
+  onContentChange: function () {
+    var {updateContent} = this.props;
+
+    var iframeBody = richTextField.document.getElementsByTagName("body")[0];
+    var content = $(iframeBody).text();
+
+    updateContent(content);
   },
   render: function () {
     var {selectedEntry} = this.props;
@@ -44,7 +58,7 @@ var EditorWindow = React.createClass({
     return (
       <div id="editor-window">
         <div id="editor">
-          <input ref="title" id="editor-title" type="text" placeholder="Enter Title Here..." value={selectedEntry.title} onChange={this.onTitleChange} />
+          <EntryTitle {...this.props} updateTitle={this.props.updateTitle} />
           <div id="editor-menu">
             <button onClick={() => this.executeCommand('bold')} className="btn btn-sm btn-default editor-button"><i className="fa fa-bold"></i></button>
             <button onClick={() => this.executeCommand('italic')} className="btn btn-sm btn-default editor-button"><i className="fa fa-italic"></i></button>
@@ -56,11 +70,12 @@ var EditorWindow = React.createClass({
             <button onClick={() => this.executeCommand('redo')} className="btn btn-sm btn-default editor-button"><i className="fa fa-repeat"></i></button>
             <button onClick={() => this.executeCommand('insertUnorderedList')} className="btn btn-sm btn-default editor-button"><i className="fa fa-list-ul"></i></button>
             <button onClick={() => this.executeCommand('insertOrderedList')} className="btn btn-sm btn-default editor-button"><i className="fa fa-list-ol"></i></button>
+            <button className="btn btn-success editor-save-button">Save</button>
             <div className="pull-right">
               <p id="edit-mode-text">Edit mode is <span id="edit-mode-status">on</span></p><button onClick={() => toggleEdit()} className="btn btn-sm btn-default editor-button pull-right" id="edit-mode-button">Turn Off</button>
             </div>
           </div>
-          <iframe name="richTextField"></iframe>
+          <iframe name="richTextField" src={selectedEntry.content}></iframe>
         </div>
       </div>
     );

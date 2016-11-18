@@ -34,6 +34,7 @@ module.exports = {
       EditorWindow: 'app/components/entries/EditorWindow.jsx',
       EntryList: 'app/components/entries/EntryList.jsx',
       Entry: 'app/components/entries/Entry.jsx',
+      EntryTitle: 'app/components/entries/EntryTitle.jsx',
       EntryAdd: 'app/components/entries/EntryAdd.jsx',
       EntrySearch: 'app/components/entries/EntrySearch.jsx'
     },
