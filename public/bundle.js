@@ -25598,8 +25598,14 @@
 
 	    var journal = {
 	      id: journals.length,
+	      userid: 1,
 	      name: journalName
 	    };
+
+	    // Creates URL based off of id, userid, and journal name
+	    var journalUrl = journal.name.replace(/[^\w\s]/gi, '').replace(/\s+/g, '-').toLowerCase();
+	    journal.url = '/' + journal.userid + '/' + journal.id + '/' + journalUrl;
+	    console.log(journal.url);
 
 	    journals.push(journal);
 
@@ -25748,6 +25754,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var React = __webpack_require__(5);
 	var Journal = __webpack_require__(233);
 
@@ -25759,7 +25767,7 @@
 	      'div',
 	      { id: 'journal-list', className: 'col-sm-10 col-centered' },
 	      this.props.journals.map(function (journal) {
-	        return React.createElement(Journal, { name: journal.name, key: journal.id });
+	        return React.createElement(Journal, _extends({ key: journal.id }, journal));
 	      })
 	    );
 	  }
@@ -25779,7 +25787,9 @@
 	  displayName: "Journal",
 
 	  render: function render() {
-	    var name = this.props.name;
+	    var _props = this.props;
+	    var name = _props.name;
+	    var url = _props.url;
 
 
 	    return React.createElement(
@@ -25790,7 +25800,7 @@
 	        { className: "journal-link-container" },
 	        React.createElement(
 	          "a",
-	          { href: "" },
+	          { href: url },
 	          React.createElement("img", { className: "journal-icon", src: "/images/journal.png" }),
 	          React.createElement(
 	            "p",

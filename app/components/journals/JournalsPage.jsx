@@ -18,8 +18,14 @@ var JournalsPage = React.createClass({
     var {journals} = this.state;
     var journal = {
       id: journals.length,
+      userid: 1,
       name: journalName
     };
+
+    // Creates URL based off of id, userid, and journal name
+    var journalUrl = journal.name.replace(/[^\w\s]/gi, '').replace(/\s+/g, '-').toLowerCase();
+    journal.url = `/${journal.userid}/${journal.id}/${journalUrl}`;
+    console.log(journal.url);
 
     journals.push(journal);
 
