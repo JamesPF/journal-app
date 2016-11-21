@@ -24,6 +24,8 @@ module.exports = {
       applicationStyles: 'app/css/app.scss',
       Main: 'app/components/Main.jsx',
       Nav: 'app/components/Nav.jsx',
+      SignupPage: 'app/components/signup/SignupPage.jsx',
+      LoginPage: 'app/components/login/LoginPage.jsx',
       JournalsPage: 'app/components/journals/JournalsPage.jsx',
       JournalCreate: 'app/components/journals/JournalCreate.jsx',
       JournalSearch: 'app/components/journals/JournalSearch.jsx',

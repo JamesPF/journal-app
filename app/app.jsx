@@ -3,6 +3,8 @@ var ReactDOM = require('react-dom');
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 var Main = require('Main');
+var SignupPage = require('SignupPage');
+var LoginPage = require('LoginPage');
 var JournalsPage = require('JournalsPage');
 var EntriesPage = require('EntriesPage');
 var AboutPage = require('AboutPage');
@@ -14,6 +16,8 @@ require('style!css!sass!applicationStyles');
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
+      <Route path="signup" component={SignupPage} />
+      <Route path="login" component={LoginPage} />
       <Route path="about" component={AboutPage} />
       <Route path="entries" component={EntriesPage} />
       <IndexRoute component={JournalsPage} />
