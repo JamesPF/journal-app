@@ -53,6 +53,13 @@
     a {
       color: #333;
     }
+    .journal-title:hover {
+      background: url('/images/pencil-icon.png') no-repeat;
+      background-position: right 6px center;
+    }
+    .journal-title:focus {
+      background-color: #fff;
+    }
   }
 }
 

@@ -25732,6 +25732,9 @@
 	      journals: journals
 	    });
 	  },
+	  handleUpdateName: function handleUpdateName(newName) {
+	    console.log(newName);
+	  },
 	  render: function render() {
 	    var journals = this.state.journals;
 
@@ -25753,7 +25756,7 @@
 	          '+ Create New Journal'
 	        ),
 	        React.createElement(JournalSearch, null),
-	        React.createElement(JournalList, { journals: journals }),
+	        React.createElement(JournalList, { journals: journals, onUpdateName: this.handleUpdateName }),
 	        React.createElement(JournalCreate, { onAddJournal: this.handleAddJournal })
 	      )
 	    );
@@ -25882,11 +25885,13 @@
 	  displayName: 'JournalList',
 
 	  render: function render() {
+	    var _this = this;
+
 	    return React.createElement(
 	      'div',
 	      { id: 'journal-list', className: 'col-sm-10 col-centered' },
 	      this.props.journals.map(function (journal) {
-	        return React.createElement(Journal, _extends({ key: journal.id }, journal));
+	        return React.createElement(Journal, _extends({ key: journal.id }, _this.props, journal));
 	      })
 	    );
 	  }
@@ -25898,13 +25903,27 @@
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var React = __webpack_require__(5);
 
 	var Journal = React.createClass({
-	  displayName: "Journal",
+	  displayName: 'Journal',
 
+	  handleEditMode: function handleEditMode() {
+	    var nameText = this.refs.name;
+	    nameText.contentEditable = 'true';
+	    nameText.focus();
+	  },
+	  exitEditMode: function exitEditMode() {
+	    var onUpdateName = this.props.onUpdateName;
+
+	    var nameText = this.refs.name;
+	    nameText.contentEditable = 'false';
+	    var newName = this.refs.name.textContent;
+
+	    onUpdateName(newName);
+	  },
 	  render: function render() {
 	    var _props = this.props;
 	    var name = _props.name;
@@ -25912,20 +25931,20 @@
 
 
 	    return React.createElement(
-	      "div",
-	      { className: "col-sm-3 journal-item" },
+	      'div',
+	      { className: 'col-sm-3 journal-item' },
 	      React.createElement(
-	        "div",
-	        { className: "journal-link-container" },
+	        'div',
+	        { className: 'journal-link-container' },
 	        React.createElement(
-	          "a",
+	          'a',
 	          { href: url },
-	          React.createElement("img", { className: "journal-icon", src: "/images/journal.png" }),
-	          React.createElement(
-	            "p",
-	            { className: "text-center" },
-	            name
-	          )
+	          React.createElement('img', { className: 'journal-icon', src: '/images/journal.png' })
+	        ),
+	        React.createElement(
+	          'p',
+	          { className: 'text-center journal-title', ref: 'name', onClick: this.handleEditMode, onBlur: this.exitEditMode },
+	          name
 	        )
 	      )
 	    );
@@ -29191,7 +29210,7 @@
 
 
 	// module
-	exports.push([module.id, ".navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .signup-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .login-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n.editor-save-button {\n  margin-left: 12px;\n  padding: 4px 12px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px;\n        cursor: pointer; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
+	exports.push([module.id, ".navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .signup-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .login-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n  .journal-item .journal-link-container .journal-title:hover {\n    background: url(\"/images/pencil-icon.png\") no-repeat;\n    background-position: right 6px center; }\n  .journal-item .journal-link-container .journal-title:focus {\n    background-color: #fff; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n.editor-save-button {\n  margin-left: 12px;\n  padding: 4px 12px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px;\n        cursor: pointer; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
 
 	// exports
 

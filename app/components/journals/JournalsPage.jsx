@@ -33,6 +33,9 @@ var JournalsPage = React.createClass({
       journals
     });
   },
+  handleUpdateName: function (newName) {
+    console.log(newName);
+  },
   render: function () {
     var {journals} = this.state;
 
@@ -42,7 +45,7 @@ var JournalsPage = React.createClass({
           <h1 className="text-center">Journals</h1>
           <button className="btn btn-success pull-right" data-toggle="modal" data-target="#addJournalModal">+ Create New Journal</button>
           <JournalSearch />
-          <JournalList journals={journals} />
+          <JournalList journals={journals} onUpdateName={this.handleUpdateName} />
           <JournalCreate onAddJournal={this.handleAddJournal} />
         </div>
       </div>
