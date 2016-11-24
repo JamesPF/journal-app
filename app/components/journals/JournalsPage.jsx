@@ -19,7 +19,8 @@ var JournalsPage = React.createClass({
     var journal = {
       id: journals.length,
       userid: 1,
-      name: journalName
+      name: journalName,
+      type: 'Book'
     };
 
     // Creates URL based off of id, userid, and journal name

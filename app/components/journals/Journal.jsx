@@ -32,7 +32,7 @@ var Journal = React.createClass({
       <div className="col-sm-3 journal-item">
         <div className="journal-link-container">
           <a href={journal.url}>
-            <img className="journal-icon" src="/images/journal.png" />
+            <img className="journal-icon" src="/images/journal-2.png" />
           </a>
           <p className="text-center journal-title" ref="name" onClick={this.handleEditMode} onBlur={this.exitEditMode}
             onKeyPress={this.handleKeyPress}>{journal.name}</p>

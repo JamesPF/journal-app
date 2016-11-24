@@ -3,6 +3,7 @@
   min-height: 620px;
   display: block;
   margin: 0 auto;
+  overflow: auto;
 }
 
 .col-centered {
@@ -44,6 +45,7 @@
       display: block;
       margin: 0 auto;
       margin-top: 10px;
+      padding-top: 18px;
       width: 100%;
     }
     p {
@@ -52,6 +54,9 @@
     }
     a {
       color: #333;
+    }
+    .journal-title {
+      font-family: $journal-title;
     }
     .journal-title:hover {
       background: url('/images/pencil-icon.png') no-repeat;
