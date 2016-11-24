@@ -33,8 +33,14 @@ var JournalsPage = React.createClass({
       journals
     });
   },
-  handleUpdateName: function (newName) {
-    console.log(newName);
+  handleUpdateName: function (updatedJournal, newName) {
+    var {journals} = this.state;
+    var journalIndex = updatedJournal.id;
+
+    journals[journalIndex].name = newName;
+    this.setState({
+      journals
+    });
   },
   render: function () {
     var {journals} = this.state;

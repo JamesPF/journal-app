@@ -25732,8 +25732,15 @@
 	      journals: journals
 	    });
 	  },
-	  handleUpdateName: function handleUpdateName(newName) {
-	    console.log(newName);
+	  handleUpdateName: function handleUpdateName(updatedJournal, newName) {
+	    var journals = this.state.journals;
+
+	    var journalIndex = updatedJournal.id;
+
+	    journals[journalIndex].name = newName;
+	    this.setState({
+	      journals: journals
+	    });
 	  },
 	  render: function render() {
 	    var journals = this.state.journals;
@@ -25884,6 +25891,9 @@
 	var JournalList = React.createClass({
 	  displayName: 'JournalList',
 
+	  propTypes: {
+	    journals: React.PropTypes.array.isRequired
+	  },
 	  render: function render() {
 	    var _this = this;
 
@@ -25891,7 +25901,7 @@
 	      'div',
 	      { id: 'journal-list', className: 'col-sm-10 col-centered' },
 	      this.props.journals.map(function (journal) {
-	        return React.createElement(Journal, _extends({ key: journal.id }, _this.props, journal));
+	        return React.createElement(Journal, _extends({ journal: journal, key: journal.id }, _this.props));
 	      })
 	    );
 	  }
@@ -25910,24 +25920,38 @@
 	var Journal = React.createClass({
 	  displayName: 'Journal',
 
+	  propTypes: {
+	    journal: React.PropTypes.object.isRequired
+	  },
 	  handleEditMode: function handleEditMode() {
+	    var _props = this.props;
+	    var journal = _props.journal;
+	    var selectJournal = _props.selectJournal;
+
 	    var nameText = this.refs.name;
 	    nameText.contentEditable = 'true';
 	    nameText.focus();
+	    console.log(journal.name);
 	  },
 	  exitEditMode: function exitEditMode() {
-	    var onUpdateName = this.props.onUpdateName;
+	    var _props2 = this.props;
+	    var journal = _props2.journal;
+	    var onUpdateName = _props2.onUpdateName;
 
 	    var nameText = this.refs.name;
 	    nameText.contentEditable = 'false';
 	    var newName = this.refs.name.textContent;
 
-	    onUpdateName(newName);
+	    onUpdateName(journal, newName);
+	  },
+	  handleKeyPress: function handleKeyPress(e) {
+	    var nameText = this.refs.name;
+	    if (e.key === 'Enter') {
+	      nameText.blur();
+	    }
 	  },
 	  render: function render() {
-	    var _props = this.props;
-	    var name = _props.name;
-	    var url = _props.url;
+	    var journal = this.props.journal;
 
 
 	    return React.createElement(
@@ -25938,13 +25962,14 @@
 	        { className: 'journal-link-container' },
 	        React.createElement(
 	          'a',
-	          { href: url },
+	          { href: journal.url },
 	          React.createElement('img', { className: 'journal-icon', src: '/images/journal.png' })
 	        ),
 	        React.createElement(
 	          'p',
-	          { className: 'text-center journal-title', ref: 'name', onClick: this.handleEditMode, onBlur: this.exitEditMode },
-	          name
+	          { className: 'text-center journal-title', ref: 'name', onClick: this.handleEditMode, onBlur: this.exitEditMode,
+	            onKeyPress: this.handleKeyPress },
+	          journal.name
 	        )
 	      )
 	    );
