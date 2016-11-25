@@ -14,21 +14,40 @@
 #journal-search {
   width: 300px;
   margin-bottom: 10px;
+  margin-right: 20px;
   padding-left: 8px;
   font-size: 20px;
   border: 1px solid #cccccc;
   border-radius: 5px;
 }
 
+label {
+  margin-right: 10px;
+}
+
+#journal-filter {
+  height: 32px;
+  vertical-align: top;
+}
+
 .create-journal {
   display: block;
   width: 90%;
   margin: 10px auto;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
   padding-left: 8px;
   font-size: 20px;
   border: 1px solid #cccccc;
   border-radius: 5px;
+}
+
+#journal-type-label {
+  margin-left: 28px;
+}
+
+#set-journal-type {
+  height: 32px;
+  vertical-align: bottom;
 }
 
 #journal-list {

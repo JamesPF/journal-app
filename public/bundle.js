@@ -25758,14 +25758,9 @@
 	          { className: 'text-center' },
 	          'Journals'
 	        ),
-	        React.createElement(
-	          'button',
-	          { className: 'btn btn-success pull-right', 'data-toggle': 'modal', 'data-target': '#addJournalModal' },
-	          '+ Create New Journal'
-	        ),
+	        React.createElement(JournalCreate, { onAddJournal: this.handleAddJournal }),
 	        React.createElement(JournalSearch, null),
-	        React.createElement(JournalList, { journals: journals, onUpdateName: this.handleUpdateName }),
-	        React.createElement(JournalCreate, { onAddJournal: this.handleAddJournal })
+	        React.createElement(JournalList, { journals: journals, onUpdateName: this.handleUpdateName })
 	      )
 	    );
 	  }
@@ -25780,10 +25775,18 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
 	var React = __webpack_require__(5);
+	var ReactDOM = __webpack_require__(162);
 
 	var JournalCreate = React.createClass({
 	  displayName: 'JournalCreate',
 
+	  triggerAutoFocus: function triggerAutoFocus() {
+	    var _this = this;
+
+	    setTimeout(function () {
+	      _this.refs.journal.focus();
+	    }, 500);
+	  },
 	  onJournalSubmit: function onJournalSubmit(e) {
 	    e.preventDefault();
 	    var journalName = this.refs.journal.value;
@@ -25797,51 +25800,109 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'modal fade', id: 'addJournalModal', tabIndex: '-1', role: 'dialog' },
+	      null,
+	      React.createElement(
+	        'button',
+	        { className: 'btn btn-success pull-right', 'data-toggle': 'modal', 'data-target': '#addJournalModal', onClick: this.triggerAutoFocus },
+	        '+ Create New Journal'
+	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'modal-dialog', role: 'document' },
+	        { className: 'modal fade', id: 'addJournalModal', tabIndex: '-1', role: 'dialog' },
 	        React.createElement(
 	          'div',
-	          { className: 'modal-content' },
+	          { className: 'modal-dialog', role: 'document' },
 	          React.createElement(
-	            'form',
-	            { onSubmit: this.onJournalSubmit },
+	            'div',
+	            { className: 'modal-content' },
 	            React.createElement(
-	              'div',
-	              { className: 'modal-header' },
+	              'form',
+	              { onSubmit: this.onJournalSubmit },
 	              React.createElement(
-	                'button',
-	                { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+	                'div',
+	                { className: 'modal-header' },
 	                React.createElement(
-	                  'span',
-	                  { 'aria-hidden': 'true' },
-	                  '\xD7'
+	                  'button',
+	                  { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+	                  React.createElement(
+	                    'span',
+	                    { 'aria-hidden': 'true' },
+	                    '\xD7'
+	                  )
+	                ),
+	                React.createElement(
+	                  'h4',
+	                  { className: 'modal-title' },
+	                  'Create New Journal'
 	                )
 	              ),
 	              React.createElement(
-	                'h4',
-	                { className: 'modal-title' },
-	                'Create New Journal'
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'modal-body' },
-	              React.createElement('input', { ref: 'journal', className: 'create-journal', type: 'text', placeholder: 'Journal title...' })
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'modal-footer' },
-	              React.createElement(
-	                'button',
-	                { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
-	                'Cancel'
+	                'div',
+	                { className: 'modal-body' },
+	                React.createElement('input', { ref: 'journal', className: 'create-journal', type: 'text', placeholder: 'Journal title...' }),
+	                React.createElement(
+	                  'label',
+	                  { id: 'journal-type-label', 'for': 'set-journal-type' },
+	                  'Notes for:'
+	                ),
+	                React.createElement(
+	                  'select',
+	                  { name: 'set-journal-type', id: 'set-journal-type' },
+	                  React.createElement(
+	                    'option',
+	                    null,
+	                    'Select Type'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    null,
+	                    'A Book'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    null,
+	                    'A Course'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    null,
+	                    'A Podcast'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    null,
+	                    'A Video'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    null,
+	                    'A Presentation'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    null,
+	                    'An Article'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    null,
+	                    'Other'
+	                  )
+	                )
 	              ),
 	              React.createElement(
-	                'button',
-	                { type: 'submit', className: 'btn btn-primary' },
-	                'Save'
+	                'div',
+	                { className: 'modal-footer' },
+	                React.createElement(
+	                  'button',
+	                  { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
+	                  'Cancel'
+	                ),
+	                React.createElement(
+	                  'button',
+	                  { type: 'submit', className: 'btn btn-primary' },
+	                  'Save'
+	                )
 	              )
 	            )
 	          )
@@ -25872,7 +25933,60 @@
 	  displayName: "JournalSearch",
 
 	  render: function render() {
-	    return React.createElement("input", { id: "journal-search", type: "search", placeholder: "Search..." });
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement("input", { id: "journal-search", type: "search", placeholder: "Search..." }),
+	      React.createElement(
+	        "label",
+	        { "for": "journal-search-filter" },
+	        "Filter By: "
+	      ),
+	      React.createElement(
+	        "select",
+	        { id: "journal-filter", name: "journal-search-filter" },
+	        React.createElement(
+	          "option",
+	          null,
+	          "All"
+	        ),
+	        React.createElement(
+	          "option",
+	          null,
+	          "Books"
+	        ),
+	        React.createElement(
+	          "option",
+	          null,
+	          "Courses"
+	        ),
+	        React.createElement(
+	          "option",
+	          null,
+	          "Podcasts"
+	        ),
+	        React.createElement(
+	          "option",
+	          null,
+	          "Videos"
+	        ),
+	        React.createElement(
+	          "option",
+	          null,
+	          "Presentations"
+	        ),
+	        React.createElement(
+	          "option",
+	          null,
+	          "Articles"
+	        ),
+	        React.createElement(
+	          "option",
+	          null,
+	          "Other"
+	        )
+	      )
+	    );
 	  }
 	});
 
@@ -29236,7 +29350,7 @@
 
 
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Joe Schmoe';\n  src: url(\"/fonts/dk-joe-schmoe.ttf\"); }\n\n.navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .signup-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .login-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto;\n  overflow: auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 10px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    padding-top: 18px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n  .journal-item .journal-link-container .journal-title {\n    font-family: \"Joe Schmoe\", Helvetica, sans-serif; }\n  .journal-item .journal-link-container .journal-title:hover {\n    background: url(\"/images/pencil-icon.png\") no-repeat;\n    background-position: right 6px center; }\n  .journal-item .journal-link-container .journal-title:focus {\n    background-color: #fff; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n.editor-save-button {\n  margin-left: 12px;\n  padding: 4px 12px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px;\n        cursor: pointer; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Joe Schmoe';\n  src: url(\"/fonts/dk-joe-schmoe.ttf\"); }\n\n.navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .signup-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .login-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto;\n  overflow: auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  margin-right: 20px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\nlabel {\n  margin-right: 10px; }\n\n#journal-filter {\n  height: 32px;\n  vertical-align: top; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 24px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-type-label {\n  margin-left: 28px; }\n\n#set-journal-type {\n  height: 32px;\n  vertical-align: bottom; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    padding-top: 18px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n  .journal-item .journal-link-container .journal-title {\n    font-family: \"Joe Schmoe\", Helvetica, sans-serif; }\n  .journal-item .journal-link-container .journal-title:hover {\n    background: url(\"/images/pencil-icon.png\") no-repeat;\n    background-position: right 6px center; }\n  .journal-item .journal-link-container .journal-title:focus {\n    background-color: #fff; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n.editor-save-button {\n  margin-left: 12px;\n  padding: 4px 12px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px;\n        cursor: pointer; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
 
 	// exports
 
