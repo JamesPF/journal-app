@@ -26091,6 +26091,50 @@
 	        'div',
 	        { className: 'journal-link-container' },
 	        React.createElement(
+	          'select',
+	          null,
+	          React.createElement(
+	            'option',
+	            { value: 'Click to Update Type' },
+	            'Click to Update Type'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'Book' },
+	            'A Book'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'Course' },
+	            'A Course'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'Podcast' },
+	            'A Podcast'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'Video' },
+	            'A Video'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'Presentation' },
+	            'A Presentation'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'Article' },
+	            'An Article'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'Other' },
+	            'Other'
+	          )
+	        ),
+	        React.createElement(
 	          'a',
 	          { href: journal.url },
 	          React.createElement('img', { className: 'journal-icon', src: '/images/journal-2.png' })
@@ -29365,7 +29409,7 @@
 
 
 	// module
-	exports.push([module.id, "@font-face {\n  font-family: 'Joe Schmoe';\n  src: url(\"/fonts/dk-joe-schmoe.ttf\"); }\n\n.navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .signup-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .login-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto;\n  overflow: auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  margin-right: 20px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\nlabel {\n  margin-right: 10px; }\n\n#journal-filter {\n  height: 32px;\n  vertical-align: top; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 24px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-type-label {\n  margin-left: 28px; }\n\n#set-journal-type {\n  height: 32px;\n  vertical-align: bottom; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    padding-top: 18px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n  .journal-item .journal-link-container .journal-title {\n    font-family: \"Joe Schmoe\", Helvetica, sans-serif; }\n  .journal-item .journal-link-container .journal-title:hover {\n    background: url(\"/images/pencil-icon.png\") no-repeat;\n    background-position: right 6px center; }\n  .journal-item .journal-link-container .journal-title:focus {\n    background-color: #fff; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n.editor-save-button {\n  margin-left: 12px;\n  padding: 4px 12px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px;\n        cursor: pointer; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Joe Schmoe';\n  src: url(\"/fonts/dk-joe-schmoe.ttf\"); }\n\n.navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .signup-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .login-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto;\n  overflow: auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  margin-right: 20px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\nlabel {\n  margin-right: 10px; }\n\n#journal-filter {\n  height: 32px;\n  vertical-align: top; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 24px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-type-label {\n  margin-left: 28px; }\n\n#set-journal-type {\n  height: 32px;\n  vertical-align: bottom; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container select {\n    position: absolute;\n    width: 70%;\n    margin-left: 10px;\n    margin-top: 2px;\n    border: none;\n    background: none;\n    -moz-appearance: none;\n    -webkit-appearance: none; }\n  .journal-item .journal-link-container select::-ms-expand {\n    display: none; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    padding-top: 18px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n  .journal-item .journal-link-container .journal-title {\n    font-family: \"Joe Schmoe\", Helvetica, sans-serif; }\n  .journal-item .journal-link-container .journal-title:hover {\n    background: url(\"/images/pencil-icon.png\") no-repeat;\n    background-position: right 6px center; }\n  .journal-item .journal-link-container .journal-title:focus {\n    background-color: #fff; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n.editor-save-button {\n  margin-left: 12px;\n  padding: 4px 12px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px;\n        cursor: pointer; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
 
 	// exports
 

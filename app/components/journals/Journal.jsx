@@ -31,6 +31,16 @@ var Journal = React.createClass({
     return (
       <div className="col-sm-3 journal-item">
         <div className="journal-link-container">
+          <select>
+            <option value="Click to Update Type">Click to Update Type</option>
+            <option value="Book">A Book</option>
+            <option value="Course">A Course</option>
+            <option value="Podcast">A Podcast</option>
+            <option value="Video">A Video</option>
+            <option value="Presentation">A Presentation</option>
+            <option value="Article">An Article</option>
+            <option value="Other">Other</option>
+          </select>
           <a href={journal.url}>
             <img className="journal-icon" src="/images/journal-2.png" />
           </a>
