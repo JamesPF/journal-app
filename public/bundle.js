@@ -25704,22 +25704,29 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      journals: []
+	      journals: [],
+	      type: 'Select Type'
 	    };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      journals: this.props.journals
+	      journals: this.props.journals,
+	      type: this.props.type
 	    };
 	  },
-	  handleAddJournal: function handleAddJournal(journalName) {
+	  handleJournalTypeSelect: function handleJournalTypeSelect(type) {
+	    this.setState({
+	      type: type
+	    });
+	  },
+	  handleAddJournal: function handleAddJournal(journalName, journalType) {
 	    var journals = this.state.journals;
 
 	    var journal = {
 	      id: journals.length,
 	      userid: 1,
 	      name: journalName,
-	      type: 'Book'
+	      type: journalType
 	    };
 
 	    // Creates URL based off of id, userid, and journal name
@@ -25730,7 +25737,8 @@
 	    journals.push(journal);
 
 	    this.setState({
-	      journals: journals
+	      journals: journals,
+	      type: 'Select Type'
 	    });
 	  },
 	  handleUpdateName: function handleUpdateName(updatedJournal, newName) {
@@ -25744,7 +25752,9 @@
 	    });
 	  },
 	  render: function render() {
-	    var journals = this.state.journals;
+	    var _state = this.state;
+	    var journals = _state.journals;
+	    var type = _state.type;
 
 
 	    return React.createElement(
@@ -25758,7 +25768,7 @@
 	          { className: 'text-center' },
 	          'Journals'
 	        ),
-	        React.createElement(JournalCreate, { onAddJournal: this.handleAddJournal }),
+	        React.createElement(JournalCreate, { type: type, onAddJournal: this.handleAddJournal, onJournalTypeSelect: this.handleJournalTypeSelect }),
 	        React.createElement(JournalSearch, null),
 	        React.createElement(JournalList, { journals: journals, onUpdateName: this.handleUpdateName })
 	      )
@@ -25787,17 +25797,24 @@
 	      _this.refs.journal.focus();
 	    }, 500);
 	  },
+	  onSelectChange: function onSelectChange(e) {
+	    var selectValue = e.target.value;
+	    this.props.onJournalTypeSelect(selectValue);
+	  },
 	  onJournalSubmit: function onJournalSubmit(e) {
 	    e.preventDefault();
 	    var journalName = this.refs.journal.value;
+	    var journalType = this.props.type;
+	    console.log(journalType);
 
 	    if (journalName.length > 0) {
 	      this.refs.journal.value = '';
-	      this.props.onAddJournal(journalName);
+	      this.props.onAddJournal(journalName, journalType);
 	      $('#addJournalModal').modal('toggle');
 	    }
 	  },
 	  render: function render() {
+	    console.log(this.props.type);
 	    return React.createElement(
 	      'div',
 	      null,
@@ -25842,50 +25859,50 @@
 	                React.createElement('input', { ref: 'journal', className: 'create-journal', type: 'text', placeholder: 'Journal title...' }),
 	                React.createElement(
 	                  'label',
-	                  { id: 'journal-type-label', 'for': 'set-journal-type' },
+	                  { id: 'journal-type-label', htmlFor: 'set-journal-type' },
 	                  'Notes for:'
 	                ),
 	                React.createElement(
 	                  'select',
-	                  { name: 'set-journal-type', id: 'set-journal-type' },
+	                  { value: this.props.type, name: 'set-journal-type', id: 'set-journal-type', onChange: this.onSelectChange },
 	                  React.createElement(
 	                    'option',
-	                    null,
+	                    { value: 'Select Type' },
 	                    'Select Type'
 	                  ),
 	                  React.createElement(
 	                    'option',
-	                    null,
+	                    { value: 'Book' },
 	                    'A Book'
 	                  ),
 	                  React.createElement(
 	                    'option',
-	                    null,
+	                    { value: 'Course' },
 	                    'A Course'
 	                  ),
 	                  React.createElement(
 	                    'option',
-	                    null,
+	                    { value: 'Podcast' },
 	                    'A Podcast'
 	                  ),
 	                  React.createElement(
 	                    'option',
-	                    null,
+	                    { value: 'Video' },
 	                    'A Video'
 	                  ),
 	                  React.createElement(
 	                    'option',
-	                    null,
+	                    { value: 'Presentation' },
 	                    'A Presentation'
 	                  ),
 	                  React.createElement(
 	                    'option',
-	                    null,
+	                    { value: 'Article' },
 	                    'An Article'
 	                  ),
 	                  React.createElement(
 	                    'option',
-	                    null,
+	                    { value: 'Other' },
 	                    'Other'
 	                  )
 	                )
@@ -25939,7 +25956,7 @@
 	      React.createElement("input", { id: "journal-search", type: "search", placeholder: "Search..." }),
 	      React.createElement(
 	        "label",
-	        { "for": "journal-search-filter" },
+	        { htmlFor: "journal-search-filter" },
 	        "Filter By: "
 	      ),
 	      React.createElement(

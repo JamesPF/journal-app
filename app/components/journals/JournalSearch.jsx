@@ -5,7 +5,7 @@ var JournalSearch = React.createClass({
     return (
       <div>
         <input id="journal-search" type="search" placeholder="Search..." />
-        <label for="journal-search-filter">Filter By: </label>
+        <label htmlFor="journal-search-filter">Filter By: </label>
         <select id="journal-filter" name="journal-search-filter">
           <option>All</option>
           <option>Books</option>

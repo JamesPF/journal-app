@@ -6,21 +6,28 @@ var JournalList = require('JournalList');
 var JournalsPage = React.createClass({
   getDefaultProps: function () {
     return {
-      journals: []
+      journals: [],
+      type: 'Select Type'
     }
   },
   getInitialState: function () {
     return {
-      journals: this.props.journals
+      journals: this.props.journals,
+      type: this.props.type
     }
   },
-  handleAddJournal: function (journalName) {
+  handleJournalTypeSelect: function (type) {
+    this.setState({
+      type
+    });
+  },
+  handleAddJournal: function (journalName, journalType) {
     var {journals} = this.state;
     var journal = {
       id: journals.length,
       userid: 1,
       name: journalName,
-      type: 'Book'
+      type: journalType
     };
 
     // Creates URL based off of id, userid, and journal name
@@ -31,7 +38,8 @@ var JournalsPage = React.createClass({
     journals.push(journal);
 
     this.setState({
-      journals
+      journals,
+      type: 'Select Type'
     });
   },
   handleUpdateName: function (updatedJournal, newName) {
@@ -44,13 +52,13 @@ var JournalsPage = React.createClass({
     });
   },
   render: function () {
-    var {journals} = this.state;
+    var {journals, type} = this.state;
 
     return (
       <div>
         <div id="journal-index">
           <h1 className="text-center">Journals</h1>
-          <JournalCreate onAddJournal={this.handleAddJournal} />
+          <JournalCreate type={type} onAddJournal={this.handleAddJournal} onJournalTypeSelect={this.handleJournalTypeSelect} />
           <JournalSearch />
           <JournalList journals={journals} onUpdateName={this.handleUpdateName} />
         </div>

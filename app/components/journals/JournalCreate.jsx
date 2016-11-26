@@ -7,17 +7,24 @@ var JournalCreate = React.createClass({
       this.refs.journal.focus();
     }, 500);
   },
+  onSelectChange: function (e) {
+    var selectValue = e.target.value;
+    this.props.onJournalTypeSelect(selectValue);
+  },
   onJournalSubmit: function (e) {
     e.preventDefault();
     var journalName = this.refs.journal.value;
+    var journalType = this.props.type;
+    console.log(journalType);
 
     if (journalName.length > 0) {
       this.refs.journal.value = '';
-      this.props.onAddJournal(journalName);
+      this.props.onAddJournal(journalName, journalType);
       $('#addJournalModal').modal('toggle');
     }
   },
   render: function () {
+    console.log(this.props.type);
     return (
       <div>
         <button className="btn btn-success pull-right" data-toggle="modal" data-target="#addJournalModal" onClick={this.triggerAutoFocus}>+ Create New Journal</button>
@@ -32,16 +39,16 @@ var JournalCreate = React.createClass({
                 </div>
                 <div className="modal-body">
                     <input ref="journal" className="create-journal" type="text" placeholder="Journal title..." />
-                    <label id="journal-type-label" for="set-journal-type">Notes for:</label>
-                    <select name="set-journal-type" id="set-journal-type">
-                      <option>Select Type</option>
-                      <option>A Book</option>
-                      <option>A Course</option>
-                      <option>A Podcast</option>
-                      <option>A Video</option>
-                      <option>A Presentation</option>
-                      <option>An Article</option>
-                      <option>Other</option>
+                    <label id="journal-type-label" htmlFor="set-journal-type">Notes for:</label>
+                    <select value={this.props.type} name="set-journal-type" id="set-journal-type" onChange={this.onSelectChange}>
+                      <option value="Select Type">Select Type</option>
+                      <option value="Book">A Book</option>
+                      <option value="Course">A Course</option>
+                      <option value="Podcast">A Podcast</option>
+                      <option value="Video">A Video</option>
+                      <option value="Presentation">A Presentation</option>
+                      <option value="Article">An Article</option>
+                      <option value="Other">Other</option>
                     </select>
                 </div>
                 <div className="modal-footer">
