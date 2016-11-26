@@ -25805,16 +25805,14 @@
 	    e.preventDefault();
 	    var journalName = this.refs.journal.value;
 	    var journalType = this.props.type;
-	    console.log(journalType);
 
-	    if (journalName.length > 0) {
+	    if (journalName.length > 0 && journalType !== 'Select Type') {
 	      this.refs.journal.value = '';
 	      this.props.onAddJournal(journalName, journalType);
 	      $('#addJournalModal').modal('toggle');
 	    }
 	  },
 	  render: function render() {
-	    console.log(this.props.type);
 	    return React.createElement(
 	      'div',
 	      null,
