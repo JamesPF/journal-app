@@ -26098,10 +26098,15 @@
 	    var displayStyle = {
 	      display: 'none'
 	    };
-	    console.log(journal.typeEdit);
+
 	    if (journal.typeEdit === true) {
 	      displayStyle['display'] = 'block';
 	    }
+
+	    // Hide type select when both name area and select field are blurred
+	    // Keep showing select when name area is blurred
+	    // (otherwise select will hide itself when it's clicked, since the name edit area will be blurred)
+	    // Likely separate the update name and update type functionalities
 
 	    return React.createElement(
 	      'div',
