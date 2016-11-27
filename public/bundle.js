@@ -25726,7 +25726,8 @@
 	      id: journals.length,
 	      userid: 1,
 	      name: journalName,
-	      type: journalType
+	      type: journalType,
+	      typeEdit: false
 	    };
 
 	    // Creates URL based off of id, userid, and journal name
@@ -25739,6 +25740,16 @@
 	    this.setState({
 	      journals: journals,
 	      type: 'Select Type'
+	    });
+	  },
+	  handleTypeEdit: function handleTypeEdit(journal) {
+	    var journals = this.state.journals;
+
+	    var journalToUpdate = journal.id;
+
+	    journals[journalToUpdate].typeEdit = true;
+	    this.setState({
+	      journals: journals
 	    });
 	  },
 	  handleUpdateName: function handleUpdateName(updatedJournal, newName) {
@@ -25770,7 +25781,7 @@
 	        ),
 	        React.createElement(JournalCreate, { type: type, onAddJournal: this.handleAddJournal, onJournalTypeSelect: this.handleJournalTypeSelect }),
 	        React.createElement(JournalSearch, null),
-	        React.createElement(JournalList, { journals: journals, onUpdateName: this.handleUpdateName })
+	        React.createElement(JournalList, { journals: journals, onUpdateName: this.handleUpdateName, triggerTypeEdit: this.handleTypeEdit })
 	      )
 	    );
 	  }
@@ -26056,10 +26067,11 @@
 	  handleEditMode: function handleEditMode() {
 	    var _props = this.props;
 	    var journal = _props.journal;
-	    var selectJournal = _props.selectJournal;
+	    var triggerTypeEdit = _props.triggerTypeEdit;
 
 	    var nameText = this.refs.name;
 	    nameText.contentEditable = 'true';
+	    triggerTypeEdit(journal);
 	    nameText.focus();
 	    console.log(journal.name);
 	  },
@@ -26083,6 +26095,13 @@
 	  render: function render() {
 	    var journal = this.props.journal;
 
+	    var displayStyle = {
+	      display: 'none'
+	    };
+	    console.log(journal.typeEdit);
+	    if (journal.typeEdit === true) {
+	      displayStyle['display'] = 'block';
+	    }
 
 	    return React.createElement(
 	      'div',
@@ -26092,7 +26111,7 @@
 	        { className: 'journal-link-container' },
 	        React.createElement(
 	          'select',
-	          null,
+	          { ref: 'typeSelect', style: displayStyle },
 	          React.createElement(
 	            'option',
 	            { value: 'Click to Update Type' },

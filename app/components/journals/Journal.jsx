@@ -5,9 +5,10 @@ var Journal = React.createClass({
     journal: React.PropTypes.object.isRequired
   },
   handleEditMode: function () {
-    var {journal, selectJournal} = this.props;
+    var {journal, triggerTypeEdit} = this.props;
     var nameText = this.refs.name;
     nameText.contentEditable = 'true';
+    triggerTypeEdit(journal);
     nameText.focus();
     console.log(journal.name);
   },
@@ -27,11 +28,18 @@ var Journal = React.createClass({
   },
   render: function () {
     var {journal} = this.props;
+    var displayStyle = {
+      display: 'none'
+    };
+    console.log(journal.typeEdit);
+    if (journal.typeEdit === true) {
+      displayStyle['display'] = 'block';
+    }
 
     return (
       <div className="col-sm-3 journal-item">
         <div className="journal-link-container">
-          <select>
+          <select ref="typeSelect" style={displayStyle}>
             <option value="Click to Update Type">Click to Update Type</option>
             <option value="Book">A Book</option>
             <option value="Course">A Course</option>

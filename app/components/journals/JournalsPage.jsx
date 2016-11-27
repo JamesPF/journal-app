@@ -27,7 +27,8 @@ var JournalsPage = React.createClass({
       id: journals.length,
       userid: 1,
       name: journalName,
-      type: journalType
+      type: journalType,
+      typeEdit: false
     };
 
     // Creates URL based off of id, userid, and journal name
@@ -40,6 +41,15 @@ var JournalsPage = React.createClass({
     this.setState({
       journals,
       type: 'Select Type'
+    });
+  },
+  handleTypeEdit: function (journal) {
+    var {journals} = this.state;
+    var journalToUpdate = journal.id
+
+    journals[journalToUpdate].typeEdit = true;
+    this.setState({
+      journals
     });
   },
   handleUpdateName: function (updatedJournal, newName) {
@@ -60,7 +70,7 @@ var JournalsPage = React.createClass({
           <h1 className="text-center">Journals</h1>
           <JournalCreate type={type} onAddJournal={this.handleAddJournal} onJournalTypeSelect={this.handleJournalTypeSelect} />
           <JournalSearch />
-          <JournalList journals={journals} onUpdateName={this.handleUpdateName} />
+          <JournalList journals={journals} onUpdateName={this.handleUpdateName} triggerTypeEdit={this.handleTypeEdit} />
         </div>
       </div>
     );
