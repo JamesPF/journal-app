@@ -15,8 +15,14 @@ var Journal = React.createClass({
   exitEditMode: function () {
     var {journal, onUpdateName} = this.props;
     var nameText = this.refs.name;
+
+    // Only execute this if the select type dropdown isn't clicked on
+    // Execute this on update of select type dropdown
     nameText.contentEditable = 'false';
     var newName = this.refs.name.textContent;
+
+    console.log(this.refs.typeSelect.style.display);
+    console.log('Submitted');
 
     onUpdateName(journal, newName);
   },
@@ -36,15 +42,10 @@ var Journal = React.createClass({
       displayStyle['display'] = 'block';
     }
 
-    // Hide type select when both name area and select field are blurred
-    // Keep showing select when name area is blurred
-      // (otherwise select will hide itself when it's clicked, since the name edit area will be blurred)
-    // Likely separate the update name and update type functionalities
-
     return (
       <div className="col-sm-3 journal-item">
         <div className="journal-link-container">
-          <select ref="typeSelect" style={displayStyle}>
+          <select ref="typeSelect" style={displayStyle} onClick={this.selectClicked}>
             <option value="Click to Update Type">Click to Update Type</option>
             <option value="Book">A Book</option>
             <option value="Course">A Course</option>

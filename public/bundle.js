@@ -25758,6 +25758,7 @@
 	    var journalIndex = updatedJournal.id;
 
 	    journals[journalIndex].name = newName;
+	    journals[journalIndex].typeEdit = false;
 	    this.setState({
 	      journals: journals
 	    });
@@ -26081,8 +26082,14 @@
 	    var onUpdateName = _props2.onUpdateName;
 
 	    var nameText = this.refs.name;
+
+	    // Only execute this if the select type dropdown isn't clicked on
+	    // Execute this on update of select type dropdown
 	    nameText.contentEditable = 'false';
 	    var newName = this.refs.name.textContent;
+
+	    console.log(this.refs.typeSelect.style.display);
+	    console.log('Submitted');
 
 	    onUpdateName(journal, newName);
 	  },
@@ -26103,11 +26110,6 @@
 	      displayStyle['display'] = 'block';
 	    }
 
-	    // Hide type select when both name area and select field are blurred
-	    // Keep showing select when name area is blurred
-	    // (otherwise select will hide itself when it's clicked, since the name edit area will be blurred)
-	    // Likely separate the update name and update type functionalities
-
 	    return React.createElement(
 	      'div',
 	      { className: 'col-sm-3 journal-item' },
@@ -26116,7 +26118,7 @@
 	        { className: 'journal-link-container' },
 	        React.createElement(
 	          'select',
-	          { ref: 'typeSelect', style: displayStyle },
+	          { ref: 'typeSelect', style: displayStyle, onClick: this.selectClicked },
 	          React.createElement(
 	            'option',
 	            { value: 'Click to Update Type' },

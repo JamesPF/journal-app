@@ -57,6 +57,7 @@ var JournalsPage = React.createClass({
     var journalIndex = updatedJournal.id;
 
     journals[journalIndex].name = newName;
+    journals[journalIndex].typeEdit = false;
     this.setState({
       journals
     });
