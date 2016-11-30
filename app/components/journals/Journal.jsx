@@ -13,7 +13,7 @@ var Journal = React.createClass({
     console.log(journal.name);
   },
   exitEditMode: function () {
-    var {journal, onUpdateName} = this.props;
+    var {journal, onUpdateInfo} = this.props;
     var nameText = this.refs.name;
 
     nameText.contentEditable = 'false';
@@ -21,7 +21,7 @@ var Journal = React.createClass({
     var newJournalType = this.refs.typeSelect.value;
 
     console.log('Submitted');
-    onUpdateName(journal, newName, newJournalType);
+    onUpdateInfo(journal, newName, newJournalType);
   },
   handleKeyPress: function (e) {
     var nameText = this.refs.name;

@@ -25752,7 +25752,7 @@
 	      journals: journals
 	    });
 	  },
-	  handleUpdateName: function handleUpdateName(updatedJournal, newName, newJournalType) {
+	  handleUpdateInfo: function handleUpdateInfo(updatedJournal, newName, newJournalType) {
 	    var journals = this.state.journals;
 
 	    var journalIndex = updatedJournal.id;
@@ -25786,7 +25786,7 @@
 	        ),
 	        React.createElement(JournalCreate, { type: type, onAddJournal: this.handleAddJournal, onJournalTypeSelect: this.handleJournalTypeSelect }),
 	        React.createElement(JournalSearch, null),
-	        React.createElement(JournalList, { journals: journals, onUpdateName: this.handleUpdateName, triggerTypeEdit: this.handleTypeEdit })
+	        React.createElement(JournalList, { journals: journals, onUpdateInfo: this.handleUpdateInfo, triggerTypeEdit: this.handleTypeEdit })
 	      )
 	    );
 	  }
@@ -26083,7 +26083,7 @@
 	  exitEditMode: function exitEditMode() {
 	    var _props2 = this.props;
 	    var journal = _props2.journal;
-	    var onUpdateName = _props2.onUpdateName;
+	    var onUpdateInfo = _props2.onUpdateInfo;
 
 	    var nameText = this.refs.name;
 
@@ -26092,7 +26092,7 @@
 	    var newJournalType = this.refs.typeSelect.value;
 
 	    console.log('Submitted');
-	    onUpdateName(journal, newName, newJournalType);
+	    onUpdateInfo(journal, newName, newJournalType);
 	  },
 	  handleKeyPress: function handleKeyPress(e) {
 	    var nameText = this.refs.name;

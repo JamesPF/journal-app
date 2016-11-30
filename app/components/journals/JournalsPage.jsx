@@ -52,7 +52,7 @@ var JournalsPage = React.createClass({
       journals
     });
   },
-  handleUpdateName: function (updatedJournal, newName, newJournalType) {
+  handleUpdateInfo: function (updatedJournal, newName, newJournalType) {
     var {journals} = this.state;
     var journalIndex = updatedJournal.id;
 
@@ -75,7 +75,7 @@ var JournalsPage = React.createClass({
           <h1 className="text-center">Journals</h1>
           <JournalCreate type={type} onAddJournal={this.handleAddJournal} onJournalTypeSelect={this.handleJournalTypeSelect} />
           <JournalSearch />
-          <JournalList journals={journals} onUpdateName={this.handleUpdateName} triggerTypeEdit={this.handleTypeEdit} />
+          <JournalList journals={journals} onUpdateInfo={this.handleUpdateInfo} triggerTypeEdit={this.handleTypeEdit} />
         </div>
       </div>
     );
