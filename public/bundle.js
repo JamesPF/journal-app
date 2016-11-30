@@ -25752,16 +25752,20 @@
 	      journals: journals
 	    });
 	  },
-	  handleUpdateName: function handleUpdateName(updatedJournal, newName) {
+	  handleUpdateName: function handleUpdateName(updatedJournal, newName, newJournalType) {
 	    var journals = this.state.journals;
 
 	    var journalIndex = updatedJournal.id;
 
-	    journals[journalIndex].name = newName;
+	    if (newName.length > 0) {
+	      journals[journalIndex].name = newName;
+	      journals[journalIndex].type = newJournalType;
+	      this.setState({
+	        journals: journals
+	      });
+	    }
+
 	    journals[journalIndex].typeEdit = false;
-	    this.setState({
-	      journals: journals
-	    });
 	  },
 	  render: function render() {
 	    var _state = this.state;
@@ -25816,7 +25820,7 @@
 	  onJournalSubmit: function onJournalSubmit(e) {
 	    e.preventDefault();
 	    var journalName = this.refs.journal.value;
-	    var journalType = this.props.type;
+	    var journalType = this.refs.type.value;
 
 	    if (journalName.length > 0 && journalType !== 'Select Type') {
 	      this.refs.journal.value = '';
@@ -25874,7 +25878,7 @@
 	                ),
 	                React.createElement(
 	                  'select',
-	                  { value: this.props.type, name: 'set-journal-type', id: 'set-journal-type', onChange: this.onSelectChange },
+	                  { ref: 'type', value: this.props.type, name: 'set-journal-type', id: 'set-journal-type', onChange: this.onSelectChange },
 	                  React.createElement(
 	                    'option',
 	                    { value: 'Select Type' },
@@ -26083,20 +26087,17 @@
 
 	    var nameText = this.refs.name;
 
-	    // Only execute this if the select type dropdown isn't clicked on
-	    // Execute this on update of select type dropdown
 	    nameText.contentEditable = 'false';
 	    var newName = this.refs.name.textContent;
+	    var newJournalType = this.refs.typeSelect.value;
 
-	    console.log(this.refs.typeSelect.style.display);
 	    console.log('Submitted');
-
-	    onUpdateName(journal, newName);
+	    onUpdateName(journal, newName, newJournalType);
 	  },
 	  handleKeyPress: function handleKeyPress(e) {
 	    var nameText = this.refs.name;
 	    if (e.key === 'Enter') {
-	      nameText.blur();
+	      this.exitEditMode();
 	    }
 	  },
 	  render: function render() {
@@ -26118,12 +26119,7 @@
 	        { className: 'journal-link-container' },
 	        React.createElement(
 	          'select',
-	          { ref: 'typeSelect', style: displayStyle, onClick: this.selectClicked },
-	          React.createElement(
-	            'option',
-	            { value: 'Click to Update Type' },
-	            'Click to Update Type'
-	          ),
+	          { value: this.props.type, ref: 'typeSelect', style: displayStyle, onBlur: this.exitEditMode },
 	          React.createElement(
 	            'option',
 	            { value: 'Book' },
@@ -26167,7 +26163,7 @@
 	        ),
 	        React.createElement(
 	          'p',
-	          { className: 'text-center journal-title', ref: 'name', onClick: this.handleEditMode, onBlur: this.exitEditMode,
+	          { className: 'text-center journal-title', ref: 'name', onClick: this.handleEditMode,
 	            onKeyPress: this.handleKeyPress },
 	          journal.name
 	        )

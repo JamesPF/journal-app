@@ -16,20 +16,17 @@ var Journal = React.createClass({
     var {journal, onUpdateName} = this.props;
     var nameText = this.refs.name;
 
-    // Only execute this if the select type dropdown isn't clicked on
-    // Execute this on update of select type dropdown
     nameText.contentEditable = 'false';
     var newName = this.refs.name.textContent;
+    var newJournalType = this.refs.typeSelect.value;
 
-    console.log(this.refs.typeSelect.style.display);
     console.log('Submitted');
-
-    onUpdateName(journal, newName);
+    onUpdateName(journal, newName, newJournalType);
   },
   handleKeyPress: function (e) {
     var nameText = this.refs.name;
     if (e.key === 'Enter') {
-      nameText.blur();
+      this.exitEditMode();
     }
   },
   render: function () {
@@ -45,8 +42,7 @@ var Journal = React.createClass({
     return (
       <div className="col-sm-3 journal-item">
         <div className="journal-link-container">
-          <select ref="typeSelect" style={displayStyle} onClick={this.selectClicked}>
-            <option value="Click to Update Type">Click to Update Type</option>
+          <select value={this.props.type} ref="typeSelect" style={displayStyle} onBlur={this.exitEditMode}>
             <option value="Book">A Book</option>
             <option value="Course">A Course</option>
             <option value="Podcast">A Podcast</option>
@@ -58,7 +54,7 @@ var Journal = React.createClass({
           <a href={journal.url}>
             <img className="journal-icon" src="/images/journal-2.png" />
           </a>
-          <p className="text-center journal-title" ref="name" onClick={this.handleEditMode} onBlur={this.exitEditMode}
+          <p className="text-center journal-title" ref="name" onClick={this.handleEditMode}
             onKeyPress={this.handleKeyPress}>{journal.name}</p>
         </div>
       </div>

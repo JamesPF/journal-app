@@ -14,7 +14,7 @@ var JournalCreate = React.createClass({
   onJournalSubmit: function (e) {
     e.preventDefault();
     var journalName = this.refs.journal.value;
-    var journalType = this.props.type;
+    var journalType = this.refs.type.value;
 
     if (journalName.length > 0 && journalType !== 'Select Type') {
       this.refs.journal.value = '';
@@ -38,7 +38,7 @@ var JournalCreate = React.createClass({
                 <div className="modal-body">
                     <input ref="journal" className="create-journal" type="text" placeholder="Journal title..." />
                     <label id="journal-type-label" htmlFor="set-journal-type">Notes for:</label>
-                    <select value={this.props.type} name="set-journal-type" id="set-journal-type" onChange={this.onSelectChange}>
+                    <select ref="type" value={this.props.type} name="set-journal-type" id="set-journal-type" onChange={this.onSelectChange}>
                       <option value="Select Type">Select Type</option>
                       <option value="Book">A Book</option>
                       <option value="Course">A Course</option>
