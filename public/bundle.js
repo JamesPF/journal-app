@@ -25727,7 +25727,8 @@
 	      userid: 1,
 	      name: journalName,
 	      type: journalType,
-	      typeEdit: false
+	      typeEdit: false,
+	      typeSelectSelected: false
 	    };
 
 	    // Creates URL based off of id, userid, and journal name
@@ -25741,6 +25742,18 @@
 	      journals: journals,
 	      type: 'Select Type'
 	    });
+	  },
+	  handleTypeSelectClicked: function handleTypeSelectClicked(journal) {
+	    var journals = this.state.journals;
+
+	    var journalIndex = journal.id;
+
+	    journals[journalIndex].typeSelectSelected = true;
+	    this.setState({
+	      journals: journals
+	    });
+
+	    console.log(journals[journalIndex].typeSelectSelected);
 	  },
 	  handleTypeEdit: function handleTypeEdit(journal) {
 	    var journals = this.state.journals;
@@ -25760,6 +25773,7 @@
 	    if (newName.length > 0) {
 	      journals[journalIndex].name = newName;
 	      journals[journalIndex].type = newJournalType;
+	      journals[journalIndex].typeSelectSelected = false;
 	      this.setState({
 	        journals: journals
 	      });
@@ -25786,7 +25800,7 @@
 	        ),
 	        React.createElement(JournalCreate, { type: type, onAddJournal: this.handleAddJournal, onJournalTypeSelect: this.handleJournalTypeSelect }),
 	        React.createElement(JournalSearch, null),
-	        React.createElement(JournalList, { journals: journals, onUpdateInfo: this.handleUpdateInfo, triggerTypeEdit: this.handleTypeEdit })
+	        React.createElement(JournalList, { journals: journals, onUpdateInfo: this.handleUpdateInfo, triggerTypeEdit: this.handleTypeEdit, onTypeSelectClicked: this.handleTypeSelectClicked })
 	      )
 	    );
 	  }
@@ -26069,10 +26083,25 @@
 	  propTypes: {
 	    journal: React.PropTypes.object.isRequired
 	  },
-	  handleEditMode: function handleEditMode() {
+	  typeSelectClicked: function typeSelectClicked() {
 	    var _props = this.props;
 	    var journal = _props.journal;
-	    var triggerTypeEdit = _props.triggerTypeEdit;
+	    var onTypeSelectClicked = _props.onTypeSelectClicked;
+
+	    onTypeSelectClicked(journal);
+	  },
+	  checkTypeSelect: function checkTypeSelect() {
+	    var journal = this.props.journal;
+
+
+	    if (!journal.typeSelectSelected) {
+	      this.exitEditMode();
+	    }
+	  },
+	  handleEditMode: function handleEditMode() {
+	    var _props2 = this.props;
+	    var journal = _props2.journal;
+	    var triggerTypeEdit = _props2.triggerTypeEdit;
 
 	    var nameText = this.refs.name;
 	    nameText.contentEditable = 'true';
@@ -26081,9 +26110,9 @@
 	    console.log(journal.name);
 	  },
 	  exitEditMode: function exitEditMode() {
-	    var _props2 = this.props;
-	    var journal = _props2.journal;
-	    var onUpdateInfo = _props2.onUpdateInfo;
+	    var _props3 = this.props;
+	    var journal = _props3.journal;
+	    var onUpdateInfo = _props3.onUpdateInfo;
 
 	    var nameText = this.refs.name;
 
@@ -26119,7 +26148,7 @@
 	        { className: 'journal-link-container' },
 	        React.createElement(
 	          'select',
-	          { value: this.props.type, ref: 'typeSelect', style: displayStyle, onBlur: this.exitEditMode },
+	          { value: this.props.type, ref: 'typeSelect', style: displayStyle, onMouseDown: this.typeSelectClicked, onBlur: this.exitEditMode },
 	          React.createElement(
 	            'option',
 	            { value: 'Book' },
@@ -26163,7 +26192,7 @@
 	        ),
 	        React.createElement(
 	          'p',
-	          { className: 'text-center journal-title', ref: 'name', onClick: this.handleEditMode,
+	          { className: 'text-center journal-title', ref: 'name', onClick: this.handleEditMode, onBlur: this.checkTypeSelect,
 	            onKeyPress: this.handleKeyPress },
 	          journal.name
 	        )

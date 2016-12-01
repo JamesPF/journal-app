@@ -4,6 +4,17 @@ var Journal = React.createClass({
   propTypes: {
     journal: React.PropTypes.object.isRequired
   },
+  typeSelectClicked: function () {
+    var {journal, onTypeSelectClicked} = this.props;
+    onTypeSelectClicked(journal);
+  },
+  checkTypeSelect: function () {
+    var {journal} = this.props;
+
+    if (!journal.typeSelectSelected) {
+      this.exitEditMode();
+    }
+  },
   handleEditMode: function () {
     var {journal, triggerTypeEdit} = this.props;
     var nameText = this.refs.name;
@@ -42,7 +53,7 @@ var Journal = React.createClass({
     return (
       <div className="col-sm-3 journal-item">
         <div className="journal-link-container">
-          <select value={this.props.type} ref="typeSelect" style={displayStyle} onBlur={this.exitEditMode}>
+          <select value={this.props.type} ref="typeSelect" style={displayStyle} onMouseDown={this.typeSelectClicked} onBlur={this.exitEditMode}>
             <option value="Book">A Book</option>
             <option value="Course">A Course</option>
             <option value="Podcast">A Podcast</option>
@@ -54,7 +65,7 @@ var Journal = React.createClass({
           <a href={journal.url}>
             <img className="journal-icon" src="/images/journal-2.png" />
           </a>
-          <p className="text-center journal-title" ref="name" onClick={this.handleEditMode}
+          <p className="text-center journal-title" ref="name" onClick={this.handleEditMode} onBlur={this.checkTypeSelect}
             onKeyPress={this.handleKeyPress}>{journal.name}</p>
         </div>
       </div>
