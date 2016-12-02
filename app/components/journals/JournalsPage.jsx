@@ -8,19 +8,22 @@ var JournalsPage = React.createClass({
     return {
       journals: [],
       type: 'Select Type',
-      searchText: ''
+      searchText: '',
+      typeFilter: 'All'
     }
   },
   getInitialState: function () {
     return {
       journals: this.props.journals,
       type: this.props.type,
-      searchText: this.props.searchText
+      searchText: this.props.searchText,
+      typeFilter: this.props.typeFilter
     }
   },
-  handleSearch: function (searchText) {
+  handleSearch: function (searchText, typeFilter) {
     this.setState({
-      searchText: searchText.toLowerCase()
+      searchText: searchText.toLowerCase(),
+      typeFilter
     });
   },
   handleJournalTypeSelect: function (type) {
@@ -87,9 +90,15 @@ var JournalsPage = React.createClass({
     journals[journalIndex].typeEdit = false;
   },
   render: function () {
-    var {journals, searchText, type} = this.state;
+    var {journals, searchText, typeFilter, type} = this.state;
+    var matchedJournals = journals;
 
-    var matchedJournals = journals.filter((journal) => {
+    matchedJournals = matchedJournals.filter((journal) => {
+      // For some reason typeFilter isn't working properly
+      return typeFilter === 'All' || journal.type === typeFilter;
+    });
+
+    matchedJournals = matchedJournals.filter((journal) => {
       var name = journal.name.toLowerCase();
       return searchText.length === 0 || name.indexOf(searchText) > -1;
     });

@@ -25706,19 +25706,22 @@
 	    return {
 	      journals: [],
 	      type: 'Select Type',
-	      searchText: ''
+	      searchText: '',
+	      typeFilter: 'All'
 	    };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
 	      journals: this.props.journals,
 	      type: this.props.type,
-	      searchText: this.props.searchText
+	      searchText: this.props.searchText,
+	      typeFilter: this.props.typeFilter
 	    };
 	  },
-	  handleSearch: function handleSearch(searchText) {
+	  handleSearch: function handleSearch(searchText, typeFilter) {
 	    this.setState({
-	      searchText: searchText.toLowerCase()
+	      searchText: searchText.toLowerCase(),
+	      typeFilter: typeFilter
 	    });
 	  },
 	  handleJournalTypeSelect: function handleJournalTypeSelect(type) {
@@ -25792,10 +25795,17 @@
 	    var _state = this.state;
 	    var journals = _state.journals;
 	    var searchText = _state.searchText;
+	    var typeFilter = _state.typeFilter;
 	    var type = _state.type;
 
+	    var matchedJournals = journals;
 
-	    var matchedJournals = journals.filter(function (journal) {
+	    matchedJournals = matchedJournals.filter(function (journal) {
+	      // For some reason typeFilter isn't working properly
+	      return typeFilter === 'All' || journal.type === typeFilter;
+	    });
+
+	    matchedJournals = matchedJournals.filter(function (journal) {
 	      var name = journal.name.toLowerCase();
 	      return searchText.length === 0 || name.indexOf(searchText) > -1;
 	    });
@@ -25994,8 +26004,9 @@
 	    var onSearch = this.props.onSearch;
 
 	    var searchText = this.refs.searchText.value;
+	    var typeFilter = this.refs.typeFilter.value;
 
-	    onSearch(searchText);
+	    onSearch(searchText, typeFilter);
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -26009,7 +26020,7 @@
 	      ),
 	      React.createElement(
 	        "select",
-	        { id: "journal-filter", name: "journal-search-filter" },
+	        { ref: "typeFilter", id: "journal-filter", name: "journal-search-filter", onChange: this.searchJournals },
 	        React.createElement(
 	          "option",
 	          null,

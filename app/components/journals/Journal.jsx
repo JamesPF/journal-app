@@ -12,7 +12,7 @@ var Journal = React.createClass({
     var {journal} = this.props;
 
     if (!journal.typeSelectSelected) {
-      this.exitEditMode();
+      this.exitEditMode()
     }
   },
   handleEditMode: function () {
