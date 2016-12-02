@@ -7,14 +7,21 @@ var JournalsPage = React.createClass({
   getDefaultProps: function () {
     return {
       journals: [],
-      type: 'Select Type'
+      type: 'Select Type',
+      searchText: ''
     }
   },
   getInitialState: function () {
     return {
       journals: this.props.journals,
-      type: this.props.type
+      type: this.props.type,
+      searchText: this.props.searchText
     }
+  },
+  handleSearch: function (searchText) {
+    this.setState({
+      searchText: searchText.toLowerCase()
+    });
   },
   handleJournalTypeSelect: function (type) {
     this.setState({
@@ -80,15 +87,20 @@ var JournalsPage = React.createClass({
     journals[journalIndex].typeEdit = false;
   },
   render: function () {
-    var {journals, type} = this.state;
+    var {journals, searchText, type} = this.state;
+
+    var matchedJournals = journals.filter((journal) => {
+      var name = journal.name.toLowerCase();
+      return searchText.length === 0 || name.indexOf(searchText) > -1;
+    });
 
     return (
       <div>
         <div id="journal-index">
           <h1 className="text-center">Journals</h1>
           <JournalCreate type={type} onAddJournal={this.handleAddJournal} onJournalTypeSelect={this.handleJournalTypeSelect} />
-          <JournalSearch />
-          <JournalList journals={journals} onUpdateInfo={this.handleUpdateInfo} triggerTypeEdit={this.handleTypeEdit} onTypeSelectClicked={this.handleTypeSelectClicked} />
+          <JournalSearch onSearch={this.handleSearch} />
+          <JournalList journals={matchedJournals} onUpdateInfo={this.handleUpdateInfo} triggerTypeEdit={this.handleTypeEdit} onTypeSelectClicked={this.handleTypeSelectClicked} />
         </div>
       </div>
     );

@@ -25705,14 +25705,21 @@
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      journals: [],
-	      type: 'Select Type'
+	      type: 'Select Type',
+	      searchText: ''
 	    };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
 	      journals: this.props.journals,
-	      type: this.props.type
+	      type: this.props.type,
+	      searchText: this.props.searchText
 	    };
+	  },
+	  handleSearch: function handleSearch(searchText) {
+	    this.setState({
+	      searchText: searchText.toLowerCase()
+	    });
 	  },
 	  handleJournalTypeSelect: function handleJournalTypeSelect(type) {
 	    this.setState({
@@ -25784,8 +25791,14 @@
 	  render: function render() {
 	    var _state = this.state;
 	    var journals = _state.journals;
+	    var searchText = _state.searchText;
 	    var type = _state.type;
 
+
+	    var matchedJournals = journals.filter(function (journal) {
+	      var name = journal.name.toLowerCase();
+	      return searchText.length === 0 || name.indexOf(searchText) > -1;
+	    });
 
 	    return React.createElement(
 	      'div',
@@ -25799,8 +25812,8 @@
 	          'Journals'
 	        ),
 	        React.createElement(JournalCreate, { type: type, onAddJournal: this.handleAddJournal, onJournalTypeSelect: this.handleJournalTypeSelect }),
-	        React.createElement(JournalSearch, null),
-	        React.createElement(JournalList, { journals: journals, onUpdateInfo: this.handleUpdateInfo, triggerTypeEdit: this.handleTypeEdit, onTypeSelectClicked: this.handleTypeSelectClicked })
+	        React.createElement(JournalSearch, { onSearch: this.handleSearch }),
+	        React.createElement(JournalList, { journals: matchedJournals, onUpdateInfo: this.handleUpdateInfo, triggerTypeEdit: this.handleTypeEdit, onTypeSelectClicked: this.handleTypeSelectClicked })
 	      )
 	    );
 	  }
@@ -25977,11 +25990,18 @@
 	var JournalSearch = React.createClass({
 	  displayName: "JournalSearch",
 
+	  searchJournals: function searchJournals() {
+	    var onSearch = this.props.onSearch;
+
+	    var searchText = this.refs.searchText.value;
+
+	    onSearch(searchText);
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement("input", { id: "journal-search", type: "search", placeholder: "Search..." }),
+	      React.createElement("input", { ref: "searchText", id: "journal-search", type: "search", placeholder: "Search...", onChange: this.searchJournals }),
 	      React.createElement(
 	        "label",
 	        { htmlFor: "journal-search-filter" },
