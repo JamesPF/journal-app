@@ -67,7 +67,7 @@ var JournalsPage = React.createClass({
   },
   handleTypeEdit: function (journal) {
     var {journals} = this.state;
-    var journalToUpdate = journal.id
+    var journalToUpdate = journal.id;
 
     journals[journalToUpdate].typeEdit = true;
     this.setState({
@@ -94,7 +94,6 @@ var JournalsPage = React.createClass({
     var matchedJournals = journals;
 
     matchedJournals = matchedJournals.filter((journal) => {
-      // For some reason typeFilter isn't working properly
       return typeFilter === 'All' || journal.type === typeFilter;
     });
 

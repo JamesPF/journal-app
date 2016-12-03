@@ -25801,7 +25801,6 @@
 	    var matchedJournals = journals;
 
 	    matchedJournals = matchedJournals.filter(function (journal) {
-	      // For some reason typeFilter isn't working properly
 	      return typeFilter === 'All' || journal.type === typeFilter;
 	    });
 
@@ -26023,42 +26022,42 @@
 	        { ref: "typeFilter", id: "journal-filter", name: "journal-search-filter", onChange: this.searchJournals },
 	        React.createElement(
 	          "option",
-	          null,
+	          { value: "All" },
 	          "All"
 	        ),
 	        React.createElement(
 	          "option",
-	          null,
-	          "Books"
+	          { value: "Book" },
+	          "Book"
 	        ),
 	        React.createElement(
 	          "option",
-	          null,
-	          "Courses"
+	          { value: "Course" },
+	          "Course"
 	        ),
 	        React.createElement(
 	          "option",
-	          null,
-	          "Podcasts"
+	          { value: "Podcast" },
+	          "Podcast"
 	        ),
 	        React.createElement(
 	          "option",
-	          null,
-	          "Videos"
+	          { value: "Video" },
+	          "Video"
 	        ),
 	        React.createElement(
 	          "option",
-	          null,
-	          "Presentations"
+	          { value: "Presentation" },
+	          "Presentation"
 	        ),
 	        React.createElement(
 	          "option",
-	          null,
-	          "Articles"
+	          { value: "Article" },
+	          "Article"
 	        ),
 	        React.createElement(
 	          "option",
-	          null,
+	          { value: "Other" },
 	          "Other"
 	        )
 	      )
@@ -26163,6 +26162,7 @@
 	  render: function render() {
 	    var journal = this.props.journal;
 
+
 	    var displayStyle = {
 	      display: 'none'
 	    };
@@ -26179,7 +26179,7 @@
 	        { className: 'journal-link-container' },
 	        React.createElement(
 	          'select',
-	          { value: this.props.type, ref: 'typeSelect', style: displayStyle, onMouseDown: this.typeSelectClicked, onBlur: this.exitEditMode },
+	          { defaultValue: journal.type, ref: 'typeSelect', style: displayStyle, onMouseDown: this.typeSelectClicked, onBlur: this.exitEditMode },
 	          React.createElement(
 	            'option',
 	            { value: 'Book' },

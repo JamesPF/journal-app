@@ -42,6 +42,7 @@ var Journal = React.createClass({
   },
   render: function () {
     var {journal} = this.props;
+
     var displayStyle = {
       display: 'none'
     };
@@ -53,7 +54,7 @@ var Journal = React.createClass({
     return (
       <div className="col-sm-3 journal-item">
         <div className="journal-link-container">
-          <select value={this.props.type} ref="typeSelect" style={displayStyle} onMouseDown={this.typeSelectClicked} onBlur={this.exitEditMode}>
+          <select defaultValue={journal.type} ref="typeSelect" style={displayStyle} onMouseDown={this.typeSelectClicked} onBlur={this.exitEditMode}>
             <option value="Book">A Book</option>
             <option value="Course">A Course</option>
             <option value="Podcast">A Podcast</option>
