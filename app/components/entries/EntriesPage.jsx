@@ -8,13 +8,15 @@ var EntriesPage = React.createClass({
   getDefaultProps: function () {
     return {
       entries: [],
-      selectedEntry: {}
+      selectedEntry: {},
+      entrySearchText: ''
     }
   },
   getInitialState: function () {
     return {
       entries: this.props.entries,
-      selectedEntry: this.props.selectedEntry
+      selectedEntry: this.props.selectedEntry,
+      entrySearchText: this.props.entrySearchText
     }
   },
   handleEntryAdd: function () {
@@ -48,16 +50,29 @@ var EntriesPage = React.createClass({
   updateContent: function (newContent) {
     console.log(newContent);
   },
+  handleEntrySearch: function (entrySearchText) {
+    this.setState({
+      entrySearchText: entrySearchText.toLowerCase()
+    });
+  },
   render: function () {
+    var {entries, entrySearchText} = this.state;
+    var matchedEntries = entries;
+
+    matchedEntries = matchedEntries.filter((entry) => {
+      var title = entry.title.toLowerCase();
+      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
+    });
+
     return (
       <div id="text-editor">
         <div id="entry-list-container">
           <div id="add-search">
             <h3>Entry List</h3>
             <EntryAdd {...this.state} onEntryAdd={this.handleEntryAdd} />
-            <EntrySearch/>
+            <EntrySearch onEntrySearch={this.handleEntrySearch} />
           </div>
-          <EntryList {...this.state} selectEntry={this.selectEntry} />
+          <EntryList entries={matchedEntries} selectEntry={this.selectEntry} />
         </div>
         <EditorWindow {...this.state} updateTitle={this.updateTitle} updateContent={this.updateContent} />
       </div>

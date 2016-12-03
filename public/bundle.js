@@ -26254,13 +26254,15 @@
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      entries: [],
-	      selectedEntry: {}
+	      selectedEntry: {},
+	      entrySearchText: ''
 	    };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
 	      entries: this.props.entries,
-	      selectedEntry: this.props.selectedEntry
+	      selectedEntry: this.props.selectedEntry,
+	      entrySearchText: this.props.entrySearchText
 	    };
 	  },
 	  handleEntryAdd: function handleEntryAdd() {
@@ -26298,7 +26300,23 @@
 	  updateContent: function updateContent(newContent) {
 	    console.log(newContent);
 	  },
+	  handleEntrySearch: function handleEntrySearch(entrySearchText) {
+	    this.setState({
+	      entrySearchText: entrySearchText.toLowerCase()
+	    });
+	  },
 	  render: function render() {
+	    var _state2 = this.state;
+	    var entries = _state2.entries;
+	    var entrySearchText = _state2.entrySearchText;
+
+	    var matchedEntries = entries;
+
+	    matchedEntries = matchedEntries.filter(function (entry) {
+	      var title = entry.title.toLowerCase();
+	      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
+	    });
+
 	    return React.createElement(
 	      'div',
 	      { id: 'text-editor' },
@@ -26314,9 +26332,9 @@
 	            'Entry List'
 	          ),
 	          React.createElement(EntryAdd, _extends({}, this.state, { onEntryAdd: this.handleEntryAdd })),
-	          React.createElement(EntrySearch, null)
+	          React.createElement(EntrySearch, { onEntrySearch: this.handleEntrySearch })
 	        ),
-	        React.createElement(EntryList, _extends({}, this.state, { selectEntry: this.selectEntry }))
+	        React.createElement(EntryList, { entries: matchedEntries, selectEntry: this.selectEntry })
 	      ),
 	      React.createElement(EditorWindow, _extends({}, this.state, { updateTitle: this.updateTitle, updateContent: this.updateContent }))
 	    );
@@ -26582,8 +26600,15 @@
 	var EntrySearch = React.createClass({
 	  displayName: "EntrySearch",
 
+	  searchEntries: function searchEntries() {
+	    var onEntrySearch = this.props.onEntrySearch;
+
+	    var entrySearchText = this.refs.searchText.value;
+
+	    onEntrySearch(entrySearchText);
+	  },
 	  render: function render() {
-	    return React.createElement("input", { id: "entry-search", type: "search", placeholder: "Search..." });
+	    return React.createElement("input", { ref: "searchText", id: "entry-search", type: "search", placeholder: "Search...", onChange: this.searchEntries });
 	  }
 	});
 
@@ -26639,8 +26664,7 @@
 
 	  propTypes: {
 	    entry: React.PropTypes.object.isRequired,
-	    selectEntry: React.PropTypes.func.isRequired,
-	    selectedEntry: React.PropTypes.object.isRequired
+	    selectEntry: React.PropTypes.func.isRequired
 	  },
 	  onClick: function onClick() {
 	    var _props = this.props;

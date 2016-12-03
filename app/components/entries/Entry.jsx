@@ -3,8 +3,7 @@ var React = require('react');
 var Entry = React.createClass({
   propTypes: {
     entry: React.PropTypes.object.isRequired,
-    selectEntry: React.PropTypes.func.isRequired,
-    selectedEntry: React.PropTypes.object.isRequired
+    selectEntry: React.PropTypes.func.isRequired
   },
   onClick: function () {
     var {entry, selectEntry} = this.props;
