@@ -69,7 +69,7 @@ var EntriesPage = React.createClass({
         <div id="entry-list-container">
           <div id="add-search">
             <h3>Entry List</h3>
-            <EntryAdd {...this.state} onEntryAdd={this.handleEntryAdd} />
+            <EntryAdd onEntryAdd={this.handleEntryAdd} />
             <EntrySearch onEntrySearch={this.handleEntrySearch} />
           </div>
           <EntryList entries={matchedEntries} selectEntry={this.selectEntry} />

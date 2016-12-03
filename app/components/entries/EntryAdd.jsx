@@ -1,12 +1,15 @@
 var React = require('react');
 
 var EntryAdd = React.createClass({
-  onAdd: function () {
-    this.props.onEntryAdd();
+  addEntry: function () {
+    var {onEntryAdd} = this.props;
+    onEntryAdd();
   },
   render: function () {
     return (
-      <button id="add-entry" className="btn btn-success" onClick={this.onAdd}><i className="fa fa-plus"></i></button>
+      <button id="add-entry" className="btn btn-success" onClick={this.addEntry}>
+        <i className="fa fa-plus"></i>
+      </button>
     );
   }
 });

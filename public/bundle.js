@@ -26331,7 +26331,7 @@
 	            null,
 	            'Entry List'
 	          ),
-	          React.createElement(EntryAdd, _extends({}, this.state, { onEntryAdd: this.handleEntryAdd })),
+	          React.createElement(EntryAdd, { onEntryAdd: this.handleEntryAdd }),
 	          React.createElement(EntrySearch, { onEntrySearch: this.handleEntrySearch })
 	        ),
 	        React.createElement(EntryList, { entries: matchedEntries, selectEntry: this.selectEntry })
@@ -26575,13 +26575,15 @@
 	var EntryAdd = React.createClass({
 	  displayName: "EntryAdd",
 
-	  onAdd: function onAdd() {
-	    this.props.onEntryAdd();
+	  addEntry: function addEntry() {
+	    var onEntryAdd = this.props.onEntryAdd;
+
+	    onEntryAdd();
 	  },
 	  render: function render() {
 	    return React.createElement(
 	      "button",
-	      { id: "add-entry", className: "btn btn-success", onClick: this.onAdd },
+	      { id: "add-entry", className: "btn btn-success", onClick: this.addEntry },
 	      React.createElement("i", { className: "fa fa-plus" })
 	    );
 	  }
@@ -26628,10 +26630,6 @@
 	var EntryList = React.createClass({
 	  displayName: 'EntryList',
 
-	  propTypes: {
-	    entries: React.PropTypes.array.isRequired,
-	    selectEntry: React.PropTypes.func.isRequired
-	  },
 	  render: function render() {
 	    var _this = this;
 
@@ -26662,10 +26660,6 @@
 	var Entry = React.createClass({
 	  displayName: "Entry",
 
-	  propTypes: {
-	    entry: React.PropTypes.object.isRequired,
-	    selectEntry: React.PropTypes.func.isRequired
-	  },
 	  onClick: function onClick() {
 	    var _props = this.props;
 	    var entry = _props.entry;

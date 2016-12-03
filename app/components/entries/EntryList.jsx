@@ -2,10 +2,6 @@ var React = require('react');
 var Entry = require('Entry');
 
 var EntryList = React.createClass({
-  propTypes: {
-    entries: React.PropTypes.array.isRequired,
-    selectEntry: React.PropTypes.func.isRequired
-  },
   render: function () {
     return (
       <div id="entry-list">
