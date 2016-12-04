@@ -9,7 +9,10 @@
   "author": "James Felz",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "mongodb": "^2.2.12",
+    "mongoose": "^4.7.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0"
