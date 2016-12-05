@@ -6,6 +6,10 @@ var Journal = mongoose.model('Journal', {
     required: true,
     minlength: 1,
     trim: true
+  },
+  type: {
+    type: String,
+    required: true
   }
 });
 

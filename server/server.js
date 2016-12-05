@@ -16,11 +16,12 @@ app.use(express.static(__dirname + '/../public'));
 // POST new journal
 app.post('/journals', (req, res) => {
   var journal = new Journal({
-    name: req.body.name
+    name: req.body.name,
+    type: req.body.type
   });
 
-  journal.save().then((doc) => {
-    res.send(doc);
+  journal.save().then((journal) => {
+    res.send(journal);
   }).catch((e) => {
     res.status(400).send();
   });
@@ -57,7 +58,7 @@ app.get('/journals/:id', (req, res) => {
 // PATCH journal by id
 app.patch('/journals/:id', (req, res) => {
   var id = req.params.id;
-  var body = _.pick(req.body, ['name']);
+  var body = _.pick(req.body, ['name', 'type']);
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
