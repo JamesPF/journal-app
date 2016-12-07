@@ -110,6 +110,44 @@ conn.once('open', () => {
     res.send('This is hooked up');
   });
 
+  app.get('/entries/:id', (req, res) => {
+    var id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+      return res.status(404).send();
+    }
+
+    gfs.files.find({
+      _id: new ObjectID(id)
+    }).toArray(function (e, files) {
+      if (files.length === 0) {
+        return res.status(404).send({
+          message: 'File not found'
+        });
+      }
+      console.log(files);
+      var data = [];
+      var readStream = gfs.createReadStream({
+        filename: files[0].filename
+      });
+
+      readStream.on('data', function (chunk) {
+        data.push(chunk);
+      });
+
+      readStream.on('end', function () {
+        data = Buffer.concat(data);
+        var entry = data;
+        res.end(entry);
+      });
+
+      readStream.on('error', function (e) {
+        console.log('An error occurred', e);
+        throw e;
+      });
+    });
+  });
+
   app.post('/entries', (req, res) => {
     var part = req.files.file;
     var writeStream = gfs.createWriteStream({
