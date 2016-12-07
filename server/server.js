@@ -8,8 +8,8 @@ const fs = require('fs');
 var {mongoose} = require('./db/mongoose');
 var Grid = require('gridfs-stream');
 var {Journal} = require('./models/journal');
+var {Entry} = require('./models/entry');
 
-var conn = mongoose.connection;
 Grid.mongo = mongoose.mongo;
 var gfs;
 
@@ -102,77 +102,76 @@ app.delete('/journals/:id', (req, res) => {
 });
 
 
+// Hook up GridFS
+gfs = Grid(mongoose.connection.db);
 
+app.get('/entries', (req, res) => {
+  res.send('This is hooked up');
+});
 
-conn.once('open', () => {
-  gfs = Grid(conn.db);
-  app.get('/entries', (req, res) => {
-    res.send('This is hooked up');
-  });
+// GET one entry by id
+app.get('/entries/:id', (req, res) => {
+  var id = req.params.id;
 
-  app.get('/entries/:id', (req, res) => {
-    var id = req.params.id;
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
 
-    if (!ObjectID.isValid(id)) {
-      return res.status(404).send();
+  gfs.files.find({
+    _id: new ObjectID(id)
+  }).toArray(function (e, files) {
+    if (files.length === 0) {
+      return res.status(404).send({
+        message: 'File not found'
+      });
     }
-
-    gfs.files.find({
-      _id: new ObjectID(id)
-    }).toArray(function (e, files) {
-      if (files.length === 0) {
-        return res.status(404).send({
-          message: 'File not found'
-        });
-      }
-      console.log(files);
-      var data = [];
-      var readStream = gfs.createReadStream({
-        filename: files[0].filename
-      });
-
-      readStream.on('data', function (chunk) {
-        data.push(chunk);
-      });
-
-      readStream.on('end', function () {
-        data = Buffer.concat(data);
-        var entry = data;
-        res.end(entry);
-      });
-
-      readStream.on('error', function (e) {
-        console.log('An error occurred', e);
-        throw e;
-      });
-    });
-  });
-
-  app.post('/entries', (req, res) => {
-    var part = req.files.file;
-    var writeStream = gfs.createWriteStream({
-      filename: part.name,
-      mode: 'w',
-      content_type: part.mimetype
+    console.log(files);
+    var data = [];
+    var readStream = gfs.createReadStream({
+      filename: files[0].filename
     });
 
-    writeStream.on('close', (file) => {
-      return res.status(200).send({
-        message: 'Success',
-        file
-      });
+    readStream.on('data', function (chunk) {
+      data.push(chunk);
     });
 
-    writeStream.write(part.data);
+    readStream.on('end', function () {
+      data = Buffer.concat(data);
+      var entry = data;
+      res.end(entry);
+    });
 
-    writeStream.end();
+    readStream.on('error', function (e) {
+      console.log('An error occurred', e);
+      throw e;
+    });
   });
 });
 
+// POST new entry
+app.post('/entries', (req, res) => {
+  var entry = new Entry({
+    name: req.params.name
+  });
 
+  var document = req.files.file;
+  var writeStream = gfs.createWriteStream({
+    filename: document.name,
+    mode: 'w',
+    content_type: document.mimetype
+  });
 
+  writeStream.on('close', (file) => {
+    return res.status(200).send({
+      message: 'Success',
+      file
+    });
+  });
 
+  writeStream.write(document.data);
 
+  writeStream.end();
+});
 
 app.listen(PORT, function () {
   console.log('App is listening on port ' + PORT);
