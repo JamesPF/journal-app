@@ -3,6 +3,7 @@ var EditorWindow = require('EditorWindow');
 var EntryAdd = require('EntryAdd');
 var EntrySearch = require('EntrySearch');
 var EntryList = require('EntryList');
+var AppAPI = require('./../../../api/AppAPI.jsx');
 
 var EntriesPage = React.createClass({
   getDefaultProps: function () {
@@ -22,12 +23,12 @@ var EntriesPage = React.createClass({
   handleEntryAdd: function () {
     var {entries} = this.state;
     var entry = {
-      id: entries.length,
       title: '',
       content: ''
     };
 
     entries.push(entry);
+    AppAPI.createEntry(entry);
 
     this.setState({
       entries
