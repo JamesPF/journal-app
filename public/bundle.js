@@ -26271,7 +26271,7 @@
 	    var entry = {
 	      id: entries.length,
 	      title: '',
-	      content: 'test.html'
+	      content: ''
 	    };
 
 	    entries.push(entry);
@@ -26524,7 +26524,7 @@
 	            )
 	          )
 	        ),
-	        React.createElement('iframe', { name: 'richTextField', src: selectedEntry.content })
+	        React.createElement('iframe', { name: 'richTextField', src: 'entry.html' })
 	      )
 	    );
 	  }

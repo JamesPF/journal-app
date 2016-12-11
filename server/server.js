@@ -1,24 +1,19 @@
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
-const busboyBodyParser = require('busboy-body-parser');
 const {ObjectID} = require('mongodb');
-const fs = require('fs');
 
 var {mongoose} = require('./db/mongoose');
-var Grid = require('gridfs-stream');
 var {Journal} = require('./models/journal');
 var {Entry} = require('./models/entry');
-
-Grid.mongo = mongoose.mongo;
-var gfs;
 
 var app = express();
 var PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-app.use(busboyBodyParser({limit: '5mb'}));
 app.use(express.static(__dirname + '/../public'));
+
+// JOURNALS
 
 // POST new journal
 app.post('/journals', (req, res) => {
@@ -101,12 +96,29 @@ app.delete('/journals/:id', (req, res) => {
   });
 });
 
+// ENTRIES
 
-// Hook up GridFS
-gfs = Grid(mongoose.connection.db);
+// POST new entry
+app.post('/entries', (req, res) => {
+  var entry = new Entry({
+    name: req.body.name,
+    content: req.body.content
+  });
 
+  entry.save().then((entry) => {
+    res.send(entry);
+  }).catch((e) => {
+    res.status(400).send();
+  });
+});
+
+// GET all entries
 app.get('/entries', (req, res) => {
-  res.send('This is hooked up');
+  Entry.find().then((entries) => {
+    res.send({entries});
+  }).catch((e) => {
+    res.status(400).send();
+  });
 });
 
 // GET one entry by id
@@ -117,61 +129,55 @@ app.get('/entries/:id', (req, res) => {
     return res.status(404).send();
   }
 
-  gfs.files.find({
-    _id: new ObjectID(id)
-  }).toArray(function (e, files) {
-    if (files.length === 0) {
-      return res.status(404).send({
-        message: 'File not found'
-      });
+  Entry.findById(id).then((entry) => {
+    if (!entry) {
+      return res.status(404).send();
     }
-    console.log(files);
-    var data = [];
-    var readStream = gfs.createReadStream({
-      filename: files[0].filename
-    });
 
-    readStream.on('data', function (chunk) {
-      data.push(chunk);
-    });
-
-    readStream.on('end', function () {
-      data = Buffer.concat(data);
-      var entry = data;
-      res.end(entry);
-    });
-
-    readStream.on('error', function (e) {
-      console.log('An error occurred', e);
-      throw e;
-    });
+    res.send(entry);
+  }).catch((e) => {
+    res.status(400).send();
   });
 });
 
-// POST new entry
-app.post('/entries', (req, res) => {
-  var entry = new Entry({
-    name: req.params.name
+// PATCH an entry by id
+app.patch('/entries/:id', (req, res) => {
+  var id = req.params.id;
+  var body = _.pick(req.body, ['name', 'content']);
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Entry.findByIdAndUpdate(id, {$set: body}, {new: true}).then((entry) => {
+    if (!entry) {
+      return res.status(404).send();
+    }
+
+    res.send({entry});
+  }).catch((e) => {
+    res.status(400).send();
   });
-
-  var document = req.files.file;
-  var writeStream = gfs.createWriteStream({
-    filename: document.name,
-    mode: 'w',
-    content_type: document.mimetype
-  });
-
-  writeStream.on('close', (file) => {
-    return res.status(200).send({
-      message: 'Success',
-      file
-    });
-  });
-
-  writeStream.write(document.data);
-
-  writeStream.end();
 });
+
+// DELETE an entry by id
+app.delete('/entries/:id', (req, res) => {
+  var id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Entry.findByIdAndRemove(id).then((entry) => {
+    if (!entry) {
+      return res.status(404).send();
+    }
+
+    res.send({entry});
+  }).catch((e) => {
+    res.status(400).send();
+  });
+})
 
 app.listen(PORT, function () {
   console.log('App is listening on port ' + PORT);

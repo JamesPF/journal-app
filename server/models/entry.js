@@ -6,6 +6,10 @@ var Entry = mongoose.model('Entry', {
     required: true,
     minlength: 1,
     trim: true
+  },
+  content: {
+    type: String,
+    required: true
   }
 });
 

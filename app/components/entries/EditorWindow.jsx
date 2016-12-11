@@ -75,7 +75,7 @@ var EditorWindow = React.createClass({
               <p id="edit-mode-text">Edit mode is <span id="edit-mode-status">on</span></p><button onClick={() => toggleEdit()} className="btn btn-sm btn-default editor-button pull-right" id="edit-mode-button">Turn Off</button>
             </div>
           </div>
-          <iframe name="richTextField" src={selectedEntry.content}></iframe>
+          <iframe name="richTextField" src="entry.html"></iframe>
         </div>
       </div>
     );

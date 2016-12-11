@@ -24,7 +24,7 @@ var EntriesPage = React.createClass({
     var entry = {
       id: entries.length,
       title: '',
-      content: 'test.html'
+      content: ''
     };
 
     entries.push(entry);
