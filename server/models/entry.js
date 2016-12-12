@@ -8,8 +8,7 @@ var Entry = mongoose.model('Entry', {
     trim: true
   },
   content: {
-    type: String,
-    required: true
+    type: String
   }
 });
 

@@ -8,7 +8,6 @@ var AppAPI = require('./../../../api/AppAPI.jsx');
 var EntriesPage = React.createClass({
   getDefaultProps: function () {
     return {
-      entries: [],
       selectedEntry: {},
       entrySearchText: ''
     }
@@ -23,7 +22,7 @@ var EntriesPage = React.createClass({
   handleEntryAdd: function () {
     var {entries} = this.state;
     var entry = {
-      title: '',
+      name: 'untitled',
       content: ''
     };
 
@@ -58,12 +57,7 @@ var EntriesPage = React.createClass({
   },
   render: function () {
     var {entries, entrySearchText} = this.state;
-    var matchedEntries = entries;
-
-    matchedEntries = matchedEntries.filter((entry) => {
-      var title = entry.title.toLowerCase();
-      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
-    });
+    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
 
     return (
       <div id="text-editor">

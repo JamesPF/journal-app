@@ -26254,7 +26254,6 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      entries: [],
 	      selectedEntry: {},
 	      entrySearchText: ''
 	    };
@@ -26270,7 +26269,7 @@
 	    var entries = this.state.entries;
 
 	    var entry = {
-	      title: '',
+	      name: 'untitled',
 	      content: ''
 	    };
 
@@ -26311,12 +26310,7 @@
 	    var entries = _state2.entries;
 	    var entrySearchText = _state2.entrySearchText;
 
-	    var matchedEntries = entries;
-
-	    matchedEntries = matchedEntries.filter(function (entry) {
-	      var title = entry.title.toLowerCase();
-	      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
-	    });
+	    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
 
 	    return React.createElement(
 	      'div',
@@ -26679,7 +26673,7 @@
 	      React.createElement(
 	        "p",
 	        { className: "text-center" },
-	        entry.title
+	        entry.name
 	      )
 	    );
 	  }
@@ -26697,6 +26691,7 @@
 
 	module.exports = {
 	  createEntry: function createEntry(entry) {
+	    console.log(entry);
 	    $.ajax('/entries', {
 	      type: 'POST',
 	      contentType: 'application/json',
@@ -26706,11 +26701,41 @@
 	      }
 	    });
 	  },
-	  getEntries: function getEntries() {},
-	  getEntry: function getEntry(entry) {},
+	  getEntries: function getEntries() {
+	    $.ajax('/entries', {
+	      type: 'GET',
+	      contentType: 'application/json',
+	      success: function success(entries) {
+	        var entries = [];
+	        try {
+	          entries = JSON.parse(entries);
+	        } catch (e) {}
+
+	        return $.isArray(entries) ? entries : [];
+	      }
+	    });
+	  },
+	  getEntry: function getEntry(entry) {
+	    $.ajax('/entries/:id', {
+	      type: 'GET',
+	      contentType: 'application/json',
+	      success: function success(entry) {
+	        var entry = JSON.parse(entry);
+	        console.log(entry);
+	      }
+	    });
+	  },
 	  updateEntry: function updateEntry(entry) {},
 	  removeEntry: function removeEntry(entry) {},
-	  filterEntries: function filterEntries() {}
+	  filterEntries: function filterEntries(entries, entrySearchText) {
+	    var matchedEntries = entries || [];
+
+	    matchedEntries = matchedEntries.filter(function (entry) {
+	      var name = entry.name.toLowerCase();
+	      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
+	    });
+	    return matchedEntries;
+	  }
 	};
 
 /***/ },
