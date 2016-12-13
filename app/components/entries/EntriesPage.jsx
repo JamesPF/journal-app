@@ -6,28 +6,23 @@ var EntryList = require('EntryList');
 var AppAPI = require('./../../../api/AppAPI.jsx');
 
 var EntriesPage = React.createClass({
-  getDefaultProps: function () {
-    return {
-      selectedEntry: {},
-      entrySearchText: ''
-    }
-  },
   getInitialState: function () {
     return {
-      entries: this.props.entries,
-      selectedEntry: this.props.selectedEntry,
-      entrySearchText: this.props.entrySearchText
+      entries: AppAPI.getEntries(),
+      selectedEntry: {},
+      entrySearchText: ''
     }
   },
   handleEntryAdd: function () {
     var {entries} = this.state;
     var entry = {
-      name: 'untitled',
+      name: 'Untitled',
       content: ''
     };
 
     entries.push(entry);
     AppAPI.createEntry(entry);
+    AppAPI.getEntries();
 
     this.setState({
       entries

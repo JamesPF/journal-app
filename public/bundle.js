@@ -26252,29 +26252,24 @@
 	var EntriesPage = React.createClass({
 	  displayName: 'EntriesPage',
 
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      selectedEntry: {},
-	      entrySearchText: ''
-	    };
-	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      entries: this.props.entries,
-	      selectedEntry: this.props.selectedEntry,
-	      entrySearchText: this.props.entrySearchText
+	      entries: AppAPI.getEntries(),
+	      selectedEntry: {},
+	      entrySearchText: ''
 	    };
 	  },
 	  handleEntryAdd: function handleEntryAdd() {
 	    var entries = this.state.entries;
 
 	    var entry = {
-	      name: 'untitled',
+	      name: 'Untitled',
 	      content: ''
 	    };
 
 	    entries.push(entry);
 	    AppAPI.createEntry(entry);
+	    AppAPI.getEntries();
 
 	    this.setState({
 	      entries: entries
@@ -26702,18 +26697,18 @@
 	    });
 	  },
 	  getEntries: function getEntries() {
+	    var entriesArray = [];
 	    $.ajax('/entries', {
 	      type: 'GET',
 	      contentType: 'application/json',
 	      success: function success(entries) {
-	        var entries = [];
-	        try {
-	          entries = JSON.parse(entries);
-	        } catch (e) {}
-
-	        return $.isArray(entries) ? entries : [];
+	        console.log(entries);
+	        entries.forEach(function (entry) {
+	          entriesArray.push(entry);
+	        });
 	      }
 	    });
+	    return entriesArray;
 	  },
 	  getEntry: function getEntry(entry) {
 	    $.ajax('/entries/:id', {

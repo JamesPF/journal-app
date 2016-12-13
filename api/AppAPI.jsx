@@ -13,20 +13,18 @@ module.exports = {
     });
   },
   getEntries: function () {
+    var entriesArray = [];
     $.ajax('/entries', {
       type: 'GET',
       contentType: 'application/json',
       success: (entries) => {
-        var entries = [];
-        try {
-          entries = JSON.parse(entries);
-        } catch (e) {
-
-        }
-
-        return $.isArray(entries) ? entries : [];
+        console.log(entries);
+        entries.forEach((entry) => {
+          entriesArray.push(entry);
+        });
       }
     });
+    return entriesArray;
   },
   getEntry: function (entry) {
     $.ajax('/entries/:id', {

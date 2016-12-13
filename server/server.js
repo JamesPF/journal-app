@@ -115,7 +115,7 @@ app.post('/entries', (req, res) => {
 // GET all entries
 app.get('/entries', (req, res) => {
   Entry.find().then((entries) => {
-    res.send({entries});
+    res.send(entries);
   }).catch((e) => {
     res.status(400).send();
   });
@@ -154,7 +154,7 @@ app.patch('/entries/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({entry});
+    res.send(entry);
   }).catch((e) => {
     res.status(400).send();
   });
@@ -173,7 +173,7 @@ app.delete('/entries/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({entry});
+    res.send(entry);
   }).catch((e) => {
     res.status(400).send();
   });
