@@ -26263,13 +26263,12 @@
 	    var entries = this.state.entries;
 
 	    var entry = {
-	      name: 'Untitled',
+	      title: 'Untitled',
 	      content: ''
 	    };
 
-	    entries.push(entry);
 	    AppAPI.createEntry(entry);
-	    AppAPI.getEntries();
+	    entries = AppAPI.getEntries();
 
 	    this.setState({
 	      entries: entries
@@ -26306,6 +26305,7 @@
 	    var entrySearchText = _state2.entrySearchText;
 
 	    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
+	    console.log('matched entries', matchedEntries);
 
 	    return React.createElement(
 	      'div',
@@ -26623,14 +26623,16 @@
 	  render: function render() {
 	    var _this = this;
 
+	    var entries = this.props.entries;
+
 	    return React.createElement(
 	      'div',
 	      { id: 'entry-list' },
 	      React.createElement(
 	        'ul',
 	        { id: 'entries' },
-	        this.props.entries.map(function (entry) {
-	          return React.createElement(Entry, _extends({ entry: entry, key: entry.id }, _this.props));
+	        entries.map(function (entry) {
+	          return React.createElement(Entry, _extends({ entry: entry, key: entry._id }, _this.props));
 	        })
 	      )
 	    );
@@ -26668,7 +26670,7 @@
 	      React.createElement(
 	        "p",
 	        { className: "text-center" },
-	        entry.name
+	        entry.title
 	      )
 	    );
 	  }
@@ -26686,13 +26688,12 @@
 
 	module.exports = {
 	  createEntry: function createEntry(entry) {
-	    console.log(entry);
 	    $.ajax('/entries', {
 	      type: 'POST',
 	      contentType: 'application/json',
 	      data: JSON.stringify(entry),
 	      success: function success(data) {
-	        console.log(data);
+	        console.log('post', data);
 	      }
 	    });
 	  },
@@ -26702,7 +26703,7 @@
 	      type: 'GET',
 	      contentType: 'application/json',
 	      success: function success(entries) {
-	        console.log(entries);
+	        console.log('get', entries);
 	        entries.forEach(function (entry) {
 	          entriesArray.push(entry);
 	        });
@@ -26725,10 +26726,11 @@
 	  filterEntries: function filterEntries(entries, entrySearchText) {
 	    var matchedEntries = entries || [];
 
-	    matchedEntries = matchedEntries.filter(function (entry) {
-	      var name = entry.name.toLowerCase();
+	    matchedEntries.filter(function (entry) {
+	      var title = entry.title.toLowerCase();
 	      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
 	    });
+
 	    return matchedEntries;
 	  }
 	};

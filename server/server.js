@@ -101,7 +101,7 @@ app.delete('/journals/:id', (req, res) => {
 // POST new entry
 app.post('/entries', (req, res) => {
   var entry = new Entry({
-    name: req.body.name,
+    title: req.body.title,
     content: req.body.content
   });
 

@@ -2,13 +2,12 @@ var $ = require('jquery');
 
 module.exports = {
   createEntry: function (entry) {
-    console.log(entry);
     $.ajax('/entries', {
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(entry),
       success: (data) => {
-        console.log(data);
+        console.log('post', data);
       }
     });
   },
@@ -18,7 +17,7 @@ module.exports = {
       type: 'GET',
       contentType: 'application/json',
       success: (entries) => {
-        console.log(entries);
+        console.log('get', entries);
         entries.forEach((entry) => {
           entriesArray.push(entry);
         });
@@ -45,10 +44,11 @@ module.exports = {
   filterEntries: function (entries, entrySearchText) {
     var matchedEntries = entries || [];
 
-    matchedEntries = matchedEntries.filter((entry) => {
-      var name = entry.name.toLowerCase();
+    matchedEntries.filter((entry) => {
+      var title = entry.title.toLowerCase();
       return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
     });
+
     return matchedEntries;
   }
 };

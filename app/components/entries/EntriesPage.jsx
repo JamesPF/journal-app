@@ -16,13 +16,12 @@ var EntriesPage = React.createClass({
   handleEntryAdd: function () {
     var {entries} = this.state;
     var entry = {
-      name: 'Untitled',
+      title: 'Untitled',
       content: ''
     };
 
-    entries.push(entry);
     AppAPI.createEntry(entry);
-    AppAPI.getEntries();
+    entries = AppAPI.getEntries();
 
     this.setState({
       entries
@@ -53,6 +52,7 @@ var EntriesPage = React.createClass({
   render: function () {
     var {entries, entrySearchText} = this.state;
     var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
+    console.log('matched entries', matchedEntries);
 
     return (
       <div id="text-editor">

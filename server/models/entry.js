@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var Entry = mongoose.model('Entry', {
-  name: {
+  title: {
     type: String,
     required: true,
     minlength: 1,

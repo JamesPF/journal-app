@@ -3,12 +3,13 @@ var Entry = require('Entry');
 
 var EntryList = React.createClass({
   render: function () {
+    var {entries} = this.props;
     return (
       <div id="entry-list">
         <ul id="entries">
-          {this.props.entries.map( (entry) => {
+          {entries.map((entry) => {
             return (
-              <Entry entry={entry} key={entry.id} {...this.props} />
+              <Entry entry={entry} key={entry._id} {...this.props} />
               );
             }
           )}

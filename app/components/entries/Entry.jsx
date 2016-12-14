@@ -11,7 +11,7 @@ var Entry = React.createClass({
     return (
       <li className="entry" onClick={this.onClick}>
         <img src="/images/entry.png" />
-        <p className="text-center">{entry.name}</p>
+        <p className="text-center">{entry.title}</p>
       </li>
     );
   }
