@@ -42,9 +42,7 @@ module.exports = {
 
   },
   filterEntries: function (entries, entrySearchText) {
-    var matchedEntries = entries || [];
-
-    matchedEntries.filter((entry) => {
+    var matchedEntries = entries.filter((entry) => {
       var title = entry.title.toLowerCase();
       return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
     });

@@ -45,14 +45,16 @@ var EntriesPage = React.createClass({
     console.log(newContent);
   },
   handleEntrySearch: function (entrySearchText) {
-    this.setState({
-      entrySearchText: entrySearchText.toLowerCase()
-    });
+    // this.setState({
+    //   entrySearchText: entrySearchText.toLowerCase()
+    // });
+    console.log('search executed');
   },
   render: function () {
     var {entries, entrySearchText} = this.state;
-    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
-    console.log('matched entries', matchedEntries);
+    console.log('pre filter', entries);
+    // var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
+    // console.log('matched entries', matchedEntries);
 
     return (
       <div id="text-editor">
@@ -62,7 +64,7 @@ var EntriesPage = React.createClass({
             <EntryAdd onEntryAdd={this.handleEntryAdd} />
             <EntrySearch onEntrySearch={this.handleEntrySearch} />
           </div>
-          <EntryList entries={matchedEntries} selectEntry={this.selectEntry} />
+          <EntryList entries={entries} selectEntry={this.selectEntry} />
         </div>
         <EditorWindow {...this.state} updateTitle={this.updateTitle} updateContent={this.updateContent} />
       </div>
