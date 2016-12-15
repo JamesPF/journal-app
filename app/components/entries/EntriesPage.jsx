@@ -4,14 +4,25 @@ var EntryAdd = require('EntryAdd');
 var EntrySearch = require('EntrySearch');
 var EntryList = require('EntryList');
 var AppAPI = require('./../../../api/AppAPI.jsx');
+var $ = require('jquery');
+var axios = require('axios');
 
 var EntriesPage = React.createClass({
   getInitialState: function () {
     return {
-      entries: AppAPI.getEntries(),
+      entries: [],
       selectedEntry: {},
       entrySearchText: ''
     }
+  },
+  componentDidMount: function () {
+    axios.get('/entries').then((result) => {
+      var entries = result.data;
+      console.log('returned', entries);
+      this.setState({
+        entries
+      });
+    });
   },
   handleEntryAdd: function () {
     var {entries} = this.state;
@@ -20,8 +31,8 @@ var EntriesPage = React.createClass({
       content: ''
     };
 
-    AppAPI.createEntry(entry);
-    entries = AppAPI.getEntries();
+    // AppAPI.createEntry(entry);
+    // entries = AppAPI.getEntries();
 
     this.setState({
       entries
@@ -45,16 +56,16 @@ var EntriesPage = React.createClass({
     console.log(newContent);
   },
   handleEntrySearch: function (entrySearchText) {
-    // this.setState({
-    //   entrySearchText: entrySearchText.toLowerCase()
-    // });
+    this.setState({
+      entrySearchText: entrySearchText.toLowerCase()
+    });
     console.log('search executed');
   },
   render: function () {
     var {entries, entrySearchText} = this.state;
     console.log('pre filter', entries);
-    // var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
-    // console.log('matched entries', matchedEntries);
+    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
+    console.log('matched entries', matchedEntries);
 
     return (
       <div id="text-editor">
@@ -64,7 +75,7 @@ var EntriesPage = React.createClass({
             <EntryAdd onEntryAdd={this.handleEntryAdd} />
             <EntrySearch onEntrySearch={this.handleEntrySearch} />
           </div>
-          <EntryList entries={entries} selectEntry={this.selectEntry} />
+          <EntryList entries={matchedEntries} selectEntry={this.selectEntry} />
         </div>
         <EditorWindow {...this.state} updateTitle={this.updateTitle} updateContent={this.updateContent} />
       </div>

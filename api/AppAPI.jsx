@@ -7,23 +7,9 @@ module.exports = {
       contentType: 'application/json',
       data: JSON.stringify(entry),
       success: (data) => {
-        console.log('post', data);
+        console.log('api', data);
       }
     });
-  },
-  getEntries: function () {
-    var entriesArray = [];
-    $.ajax('/entries', {
-      type: 'GET',
-      contentType: 'application/json',
-      success: (entries) => {
-        console.log('get', entries);
-        entries.forEach((entry) => {
-          entriesArray.push(entry);
-        });
-      }
-    });
-    return entriesArray;
   },
   getEntry: function (entry) {
     $.ajax('/entries/:id', {
