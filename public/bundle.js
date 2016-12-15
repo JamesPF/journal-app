@@ -26266,13 +26266,14 @@
 
 	    axios.get('/entries').then(function (result) {
 	      var entries = result.data;
-	      console.log('returned', entries);
 	      _this.setState({
 	        entries: entries
 	      });
 	    });
 	  },
 	  handleEntryAdd: function handleEntryAdd() {
+	    var _this2 = this;
+
 	    var entries = this.state.entries;
 
 	    var entry = {
@@ -26280,11 +26281,13 @@
 	      content: ''
 	    };
 
-	    // AppAPI.createEntry(entry);
-	    // entries = AppAPI.getEntries();
-
-	    this.setState({
-	      entries: entries
+	    axios.post('/entries', entry).then(function () {
+	      axios.get('/entries').then(function (result) {
+	        var entries = result.data;
+	        _this2.setState({
+	          entries: entries
+	        });
+	      });
 	    });
 	  },
 	  selectEntry: function selectEntry(selectedEntry) {
@@ -26311,16 +26314,13 @@
 	    this.setState({
 	      entrySearchText: entrySearchText.toLowerCase()
 	    });
-	    console.log('search executed');
 	  },
 	  render: function render() {
 	    var _state2 = this.state;
 	    var entries = _state2.entries;
 	    var entrySearchText = _state2.entrySearchText;
 
-	    console.log('pre filter', entries);
 	    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
-	    console.log('matched entries', matchedEntries);
 
 	    return React.createElement(
 	      'div',
@@ -26640,18 +26640,6 @@
 
 	    var entries = this.props.entries;
 
-	    console.log('entry list', entries);
-	    // var entries = [{
-	    //   _id: 1,
-	    //   title: 'test 1',
-	    //   content: ''
-	    // },
-	    // {
-	    //   _id: 2,
-	    //   title: 'test 2',
-	    //   content: ''
-	    // }];
-
 	    return React.createElement(
 	      'div',
 	      { id: 'entry-list' },
@@ -26714,23 +26702,12 @@
 	var $ = __webpack_require__(232);
 
 	module.exports = {
-	  createEntry: function createEntry(entry) {
-	    $.ajax('/entries', {
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify(entry),
-	      success: function success(data) {
-	        console.log('api', data);
-	      }
-	    });
-	  },
 	  getEntry: function getEntry(entry) {
 	    $.ajax('/entries/:id', {
 	      type: 'GET',
 	      contentType: 'application/json',
 	      success: function success(entry) {
 	        var entry = JSON.parse(entry);
-	        console.log(entry);
 	      }
 	    });
 	  },

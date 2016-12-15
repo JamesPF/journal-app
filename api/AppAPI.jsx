@@ -1,23 +1,12 @@
 var $ = require('jquery');
 
 module.exports = {
-  createEntry: function (entry) {
-    $.ajax('/entries', {
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(entry),
-      success: (data) => {
-        console.log('api', data);
-      }
-    });
-  },
   getEntry: function (entry) {
     $.ajax('/entries/:id', {
       type: 'GET',
       contentType: 'application/json',
       success: (entry) => {
         var entry = JSON.parse(entry);
-        console.log(entry);
       }
     });
   },

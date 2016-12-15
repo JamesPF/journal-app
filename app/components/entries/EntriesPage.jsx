@@ -18,7 +18,6 @@ var EntriesPage = React.createClass({
   componentDidMount: function () {
     axios.get('/entries').then((result) => {
       var entries = result.data;
-      console.log('returned', entries);
       this.setState({
         entries
       });
@@ -31,11 +30,13 @@ var EntriesPage = React.createClass({
       content: ''
     };
 
-    // AppAPI.createEntry(entry);
-    // entries = AppAPI.getEntries();
-
-    this.setState({
-      entries
+    axios.post('/entries', entry).then(() => {
+      axios.get('/entries').then((result) => {
+        var entries = result.data;
+        this.setState({
+          entries
+        });
+      });
     });
   },
   selectEntry: function (selectedEntry) {
@@ -59,13 +60,10 @@ var EntriesPage = React.createClass({
     this.setState({
       entrySearchText: entrySearchText.toLowerCase()
     });
-    console.log('search executed');
   },
   render: function () {
     var {entries, entrySearchText} = this.state;
-    console.log('pre filter', entries);
     var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
-    console.log('matched entries', matchedEntries);
 
     return (
       <div id="text-editor">
