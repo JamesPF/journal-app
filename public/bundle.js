@@ -26248,7 +26248,6 @@
 	var EntrySearch = __webpack_require__(240);
 	var EntryList = __webpack_require__(241);
 	var AppAPI = __webpack_require__(243);
-	var $ = __webpack_require__(232);
 	var axios = __webpack_require__(257);
 
 	var EntriesPage = React.createClass({

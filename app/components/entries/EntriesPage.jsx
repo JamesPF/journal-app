@@ -4,7 +4,6 @@ var EntryAdd = require('EntryAdd');
 var EntrySearch = require('EntrySearch');
 var EntryList = require('EntryList');
 var AppAPI = require('./../../../api/AppAPI.jsx');
-var $ = require('jquery');
 var axios = require('axios');
 
 var EntriesPage = React.createClass({
