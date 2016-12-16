@@ -143,7 +143,7 @@ app.get('/entries/:id', (req, res) => {
 // PATCH an entry by id
 app.patch('/entries/:id', (req, res) => {
   var id = req.params.id;
-  var body = _.pick(req.body, ['name', 'content']);
+  var body = _.pick(req.body, ['title', 'content']);
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();

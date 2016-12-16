@@ -1,10 +1,12 @@
 var React = require('react');
+var axios = require('axios');
+var lodash = require('lodash');
+
 var EditorWindow = require('EditorWindow');
 var EntryAdd = require('EntryAdd');
 var EntrySearch = require('EntrySearch');
 var EntryList = require('EntryList');
 var AppAPI = require('./../../../api/AppAPI.jsx');
-var axios = require('axios');
 
 var EntriesPage = React.createClass({
   getInitialState: function () {
@@ -45,11 +47,17 @@ var EntriesPage = React.createClass({
   },
   updateTitle: function (newTitle) {
     var {entries, selectedEntry} = this.state;
-    var entryIndex = selectedEntry.id;
 
-    entries[entryIndex].title = newTitle;
-    this.setState({
-      entries
+    var entryId = selectedEntry._id;
+    axios.patch(`/entries/${entryId}`, {title: newTitle}).then((entry) => {
+      selectedEntry.title = newTitle;
+
+      axios.get('/entries').then((result) => {
+        var entries = result.data;
+        this.setState({
+          entries
+        });
+      });
     });
   },
   updateContent: function (newContent) {
