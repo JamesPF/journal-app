@@ -19,8 +19,15 @@ var EntriesPage = React.createClass({
   componentDidMount: function () {
     axios.get('/entries').then((result) => {
       var entries = result.data;
+      var selectedEntry = {};
+
+      if (entries) {
+        selectedEntry = entries[0];
+      }
+      
       this.setState({
-        entries
+        entries,
+        selectedEntry
       });
     });
   },

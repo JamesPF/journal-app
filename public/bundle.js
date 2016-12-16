@@ -26267,8 +26267,15 @@
 
 	    axios.get('/entries').then(function (result) {
 	      var entries = result.data;
+	      var selectedEntry = {};
+
+	      if (entries) {
+	        selectedEntry = entries[0];
+	      }
+
 	      _this.setState({
-	        entries: entries
+	        entries: entries,
+	        selectedEntry: selectedEntry
 	      });
 	    });
 	  },
