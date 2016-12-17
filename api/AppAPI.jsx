@@ -10,9 +10,6 @@ module.exports = {
       }
     });
   },
-  updateEntry: function (entry) {
-
-  },
   removeEntry: function (entry) {
 
   },

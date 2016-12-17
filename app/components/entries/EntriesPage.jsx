@@ -24,7 +24,7 @@ var EntriesPage = React.createClass({
       if (entries) {
         selectedEntry = entries[0];
       }
-      
+
       this.setState({
         entries,
         selectedEntry

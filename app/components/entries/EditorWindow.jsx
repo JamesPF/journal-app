@@ -11,17 +11,20 @@ var EditorWindow = React.createClass({
     richTextField.document.designMode = 'On';
   },
   componentDidMount: function () {
-    var {selectedEntry} = this.props;
-
     this.enableEditMode();
 
-    var iframeBody = richTextField.document.getElementsByTagName("body")[0];
-    iframeBody.innerHTML = "This is some text";
+    // var iframeBody = richTextField.document.getElementsByTagName("body")[0];
+    // iframeBody.innerHTML = "This is some text";
+    //
+    // // Calls onContentChange every ten seconds
+    // setInterval(() => {
+    //   iframeBody.addEventListener('change', this.onContentChange());
+    // }, 10000);
+  },
+  componentDidUpdate: function () {
+    var {selectedEntry} = this.props;
 
-    // Calls onContentChange every ten seconds
-    setInterval(() => {
-      iframeBody.addEventListener('change', this.onContentChange());
-    }, 10000);
+    document.getElementById('content-edit-field').contentWindow.document.body.innerHTML = selectedEntry.content;
   },
   executeCommand: function (command) {
     richTextField.document.execCommand(command, false, null);
@@ -75,7 +78,7 @@ var EditorWindow = React.createClass({
               <p id="edit-mode-text">Edit mode is <span id="edit-mode-status">on</span></p><button onClick={() => toggleEdit()} className="btn btn-sm btn-default editor-button pull-right" id="edit-mode-button">Turn Off</button>
             </div>
           </div>
-          <iframe name="richTextField" src="entry.html"></iframe>
+          <iframe id="content-edit-field" name="richTextField" src="about:blank"></iframe>
         </div>
       </div>
     );
