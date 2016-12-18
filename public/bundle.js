@@ -26323,8 +26323,17 @@
 	      });
 	    });
 	  },
-	  updateContent: function updateContent(newContent) {
-	    console.log(newContent);
+	  handleUpdateContent: function handleUpdateContent(newContent) {
+	    var _state2 = this.state;
+	    var entries = _state2.entries;
+	    var selectedEntry = _state2.selectedEntry;
+
+
+	    var entryId = selectedEntry._id;
+	    axios.patch('/entries/' + entryId, { content: newContent }).then(function (entry) {
+	      selectedEntry.content = newContent;
+	    });
+	    // console.log('from parent', newContent);
 	  },
 	  handleEntrySearch: function handleEntrySearch(entrySearchText) {
 	    this.setState({
@@ -26332,9 +26341,9 @@
 	    });
 	  },
 	  render: function render() {
-	    var _state2 = this.state;
-	    var entries = _state2.entries;
-	    var entrySearchText = _state2.entrySearchText;
+	    var _state3 = this.state;
+	    var entries = _state3.entries;
+	    var entrySearchText = _state3.entrySearchText;
 
 	    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
 
@@ -26357,7 +26366,7 @@
 	        ),
 	        React.createElement(EntryList, { entries: matchedEntries, selectEntry: this.selectEntry })
 	      ),
-	      React.createElement(EditorWindow, _extends({}, this.state, { updateTitle: this.updateTitle, updateContent: this.updateContent }))
+	      React.createElement(EditorWindow, _extends({}, this.state, { updateTitle: this.updateTitle, onUpdateContent: this.handleUpdateContent }))
 	    );
 	  }
 	});
@@ -44958,7 +44967,7 @@
 	  propTypes: {
 	    selectedEntry: React.PropTypes.object.isRequired,
 	    updateTitle: React.PropTypes.func.isRequired,
-	    updateContent: React.PropTypes.func.isRequired
+	    onUpdateContent: React.PropTypes.func.isRequired
 	  },
 	  enableEditMode: function enableEditMode() {
 	    richTextField.document.designMode = 'On';
@@ -44975,10 +44984,19 @@
 	    // }, 10000);
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
-	    var selectedEntry = this.props.selectedEntry;
+	    var _props = this.props;
+	    var selectedEntry = _props.selectedEntry;
+	    var onUpdateContent = _props.onUpdateContent;
 
+	    var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;
 
-	    document.getElementById('content-edit-field').contentWindow.document.body.innerHTML = selectedEntry.content;
+	    contentBody.innerHTML = selectedEntry.content;
+	    console.log('logged', contentBody);
+
+	    contentBody.addEventListener('keyup', function () {
+	      console.log('updated', contentBody.innerHTML);
+	      onUpdateContent(contentBody.innerHTML);
+	    });
 	  },
 	  executeCommand: function executeCommand(command) {
 	    richTextField.document.execCommand(command, false, null);
@@ -44986,15 +45004,16 @@
 	  executeCommandWithArgument: function executeCommandWithArgument(command) {
 	    richTextField.document.execCommand(command, false, arg);
 	  },
-	  onContentChange: function onContentChange() {
-	    var updateContent = this.props.updateContent;
-
-
-	    var iframeBody = richTextField.document.getElementsByTagName("body")[0];
-	    var content = $(iframeBody).text();
-
-	    updateContent(content);
-	  },
+	  // onContentChange: function () {
+	  //   var {updateContent} = this.props;
+	  //
+	  //   var iframeBody = document.getElementById('content-edit-field').contentWindow.document.body.innerHTML;
+	  //   var content = $(iframeBody).text();
+	  //
+	  //   // document.getElementById('content-edit-field').contentWindow.document.body.innerHTML = selectedEntry.content;
+	  //
+	  //   updateContent(content);
+	  // },
 	  render: function render() {
 	    var _this = this;
 

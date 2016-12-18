@@ -67,8 +67,14 @@ var EntriesPage = React.createClass({
       });
     });
   },
-  updateContent: function (newContent) {
-    console.log(newContent);
+  handleUpdateContent: function (newContent) {
+    var {entries, selectedEntry} = this.state;
+
+    var entryId = selectedEntry._id;
+    axios.patch(`/entries/${entryId}`, {content: newContent}).then((entry) => {
+      selectedEntry.content = newContent;
+    });
+    // console.log('from parent', newContent);
   },
   handleEntrySearch: function (entrySearchText) {
     this.setState({
@@ -89,7 +95,7 @@ var EntriesPage = React.createClass({
           </div>
           <EntryList entries={matchedEntries} selectEntry={this.selectEntry} />
         </div>
-        <EditorWindow {...this.state} updateTitle={this.updateTitle} updateContent={this.updateContent} />
+        <EditorWindow {...this.state} updateTitle={this.updateTitle} onUpdateContent={this.handleUpdateContent} />
       </div>
     );
   }

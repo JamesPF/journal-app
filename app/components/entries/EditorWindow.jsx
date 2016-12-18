@@ -5,7 +5,7 @@ var EditorWindow = React.createClass({
   propTypes: {
     selectedEntry: React.PropTypes.object.isRequired,
     updateTitle: React.PropTypes.func.isRequired,
-    updateContent: React.PropTypes.func.isRequired
+    onUpdateContent: React.PropTypes.func.isRequired
   },
   enableEditMode: function () {
     richTextField.document.designMode = 'On';
@@ -22,9 +22,16 @@ var EditorWindow = React.createClass({
     // }, 10000);
   },
   componentDidUpdate: function () {
-    var {selectedEntry} = this.props;
+    var {selectedEntry, onUpdateContent} = this.props;
+    var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;
 
-    document.getElementById('content-edit-field').contentWindow.document.body.innerHTML = selectedEntry.content;
+    contentBody.innerHTML = selectedEntry.content;
+    console.log('logged', contentBody);
+
+    contentBody.addEventListener('keyup', () => {
+      console.log('updated', contentBody.innerHTML);
+      onUpdateContent(contentBody.innerHTML);
+    });
   },
   executeCommand: function (command) {
     richTextField.document.execCommand(command, false, null);
@@ -32,14 +39,16 @@ var EditorWindow = React.createClass({
   executeCommandWithArgument: function (command) {
     richTextField.document.execCommand(command, false, arg);
   },
-  onContentChange: function () {
-    var {updateContent} = this.props;
-
-    var iframeBody = richTextField.document.getElementsByTagName("body")[0];
-    var content = $(iframeBody).text();
-
-    updateContent(content);
-  },
+  // onContentChange: function () {
+  //   var {updateContent} = this.props;
+  //
+  //   var iframeBody = document.getElementById('content-edit-field').contentWindow.document.body.innerHTML;
+  //   var content = $(iframeBody).text();
+  //
+  //   // document.getElementById('content-edit-field').contentWindow.document.body.innerHTML = selectedEntry.content;
+  //
+  //   updateContent(content);
+  // },
   render: function () {
     var {selectedEntry} = this.props;
     var isInEditMode = true;
