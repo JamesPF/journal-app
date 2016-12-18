@@ -26250,7 +26250,6 @@
 	var EntryAdd = __webpack_require__(266);
 	var EntrySearch = __webpack_require__(267);
 	var EntryList = __webpack_require__(268);
-	var AppAPI = __webpack_require__(270);
 
 	var EntriesPage = React.createClass({
 	  displayName: 'EntriesPage',
@@ -26333,7 +26332,6 @@
 	    axios.patch('/entries/' + entryId, { content: newContent }).then(function (entry) {
 	      selectedEntry.content = newContent;
 	    });
-	    // console.log('from parent', newContent);
 	  },
 	  handleEntrySearch: function handleEntrySearch(entrySearchText) {
 	    this.setState({
@@ -26345,7 +26343,12 @@
 	    var entries = _state3.entries;
 	    var entrySearchText = _state3.entrySearchText;
 
-	    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
+	    var matchedEntries = entries;
+
+	    matchedEntries = matchedEntries.filter(function (entry) {
+	      var title = entry.title.toLowerCase();
+	      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
+	    });
 
 	    return React.createElement(
 	      'div',
@@ -44974,14 +44977,6 @@
 	  },
 	  componentDidMount: function componentDidMount() {
 	    this.enableEditMode();
-
-	    // var iframeBody = richTextField.document.getElementsByTagName("body")[0];
-	    // iframeBody.innerHTML = "This is some text";
-	    //
-	    // // Calls onContentChange every ten seconds
-	    // setInterval(() => {
-	    //   iframeBody.addEventListener('change', this.onContentChange());
-	    // }, 10000);
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    var _props = this.props;
@@ -44991,10 +44986,8 @@
 	    var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;
 
 	    contentBody.innerHTML = selectedEntry.content;
-	    console.log('logged', contentBody);
 
 	    contentBody.addEventListener('keyup', function () {
-	      console.log('updated', contentBody.innerHTML);
 	      onUpdateContent(contentBody.innerHTML);
 	    });
 	  },
@@ -45004,16 +44997,6 @@
 	  executeCommandWithArgument: function executeCommandWithArgument(command) {
 	    richTextField.document.execCommand(command, false, arg);
 	  },
-	  // onContentChange: function () {
-	  //   var {updateContent} = this.props;
-	  //
-	  //   var iframeBody = document.getElementById('content-edit-field').contentWindow.document.body.innerHTML;
-	  //   var content = $(iframeBody).text();
-	  //
-	  //   // document.getElementById('content-edit-field').contentWindow.document.body.innerHTML = selectedEntry.content;
-	  //
-	  //   updateContent(content);
-	  // },
 	  render: function render() {
 	    var _this = this;
 
@@ -45155,12 +45138,12 @@
 /* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(5);
 
 	var EntryTitle = React.createClass({
-	  displayName: 'EntryTitle',
+	  displayName: "EntryTitle",
 
 	  propTypes: {
 	    selectedEntry: React.PropTypes.object.isRequired,
@@ -45176,8 +45159,8 @@
 	  render: function render() {
 	    var selectedEntry = this.props.selectedEntry;
 
-	    console.log('titile', selectedEntry);
-	    return React.createElement('input', { ref: 'title', id: 'editor-title', type: 'text', placeholder: 'Enter Title Here...', value: selectedEntry.title, onChange: this.onTitleChange });
+
+	    return React.createElement("input", { ref: "title", id: "editor-title", type: "text", placeholder: "Enter Title Here...", value: selectedEntry.title, onChange: this.onTitleChange });
 	  }
 	});
 
@@ -45308,35 +45291,7 @@
 	module.exports = Entry;
 
 /***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var $ = __webpack_require__(232);
-
-	module.exports = {
-	  getEntry: function getEntry(entry) {
-	    $.ajax('/entries/:id', {
-	      type: 'GET',
-	      contentType: 'application/json',
-	      success: function success(entry) {
-	        var entry = JSON.parse(entry);
-	      }
-	    });
-	  },
-	  removeEntry: function removeEntry(entry) {},
-	  filterEntries: function filterEntries(entries, entrySearchText) {
-	    var matchedEntries = entries.filter(function (entry) {
-	      var title = entry.title.toLowerCase();
-	      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
-	    });
-
-	    return matchedEntries;
-	  }
-	};
-
-/***/ },
+/* 270 */,
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 

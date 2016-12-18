@@ -12,24 +12,14 @@ var EditorWindow = React.createClass({
   },
   componentDidMount: function () {
     this.enableEditMode();
-
-    // var iframeBody = richTextField.document.getElementsByTagName("body")[0];
-    // iframeBody.innerHTML = "This is some text";
-    //
-    // // Calls onContentChange every ten seconds
-    // setInterval(() => {
-    //   iframeBody.addEventListener('change', this.onContentChange());
-    // }, 10000);
   },
   componentDidUpdate: function () {
     var {selectedEntry, onUpdateContent} = this.props;
     var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;
 
     contentBody.innerHTML = selectedEntry.content;
-    console.log('logged', contentBody);
 
     contentBody.addEventListener('keyup', () => {
-      console.log('updated', contentBody.innerHTML);
       onUpdateContent(contentBody.innerHTML);
     });
   },
@@ -39,16 +29,6 @@ var EditorWindow = React.createClass({
   executeCommandWithArgument: function (command) {
     richTextField.document.execCommand(command, false, arg);
   },
-  // onContentChange: function () {
-  //   var {updateContent} = this.props;
-  //
-  //   var iframeBody = document.getElementById('content-edit-field').contentWindow.document.body.innerHTML;
-  //   var content = $(iframeBody).text();
-  //
-  //   // document.getElementById('content-edit-field').contentWindow.document.body.innerHTML = selectedEntry.content;
-  //
-  //   updateContent(content);
-  // },
   render: function () {
     var {selectedEntry} = this.props;
     var isInEditMode = true;

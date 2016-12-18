@@ -6,7 +6,6 @@ var EditorWindow = require('EditorWindow');
 var EntryAdd = require('EntryAdd');
 var EntrySearch = require('EntrySearch');
 var EntryList = require('EntryList');
-var AppAPI = require('./../../../api/AppAPI.jsx');
 
 var EntriesPage = React.createClass({
   getInitialState: function () {
@@ -74,7 +73,6 @@ var EntriesPage = React.createClass({
     axios.patch(`/entries/${entryId}`, {content: newContent}).then((entry) => {
       selectedEntry.content = newContent;
     });
-    // console.log('from parent', newContent);
   },
   handleEntrySearch: function (entrySearchText) {
     this.setState({
@@ -83,7 +81,12 @@ var EntriesPage = React.createClass({
   },
   render: function () {
     var {entries, entrySearchText} = this.state;
-    var matchedEntries = AppAPI.filterEntries(entries, entrySearchText);
+    var matchedEntries = entries;
+
+    matchedEntries = matchedEntries.filter((entry) => {
+      var title = entry.title.toLowerCase();
+      return entrySearchText.length === 0 || title.indexOf(entrySearchText) > -1;
+    });
 
     return (
       <div id="text-editor">

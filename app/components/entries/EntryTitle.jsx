@@ -13,7 +13,7 @@ var EntryTitle = React.createClass({
   },
   render: function () {
     var {selectedEntry} = this.props;
-    console.log('titile', selectedEntry);
+
     return (
       <input ref="title" id="editor-title" type="text" placeholder="Enter Title Here..." value={selectedEntry.title} onChange={this.onTitleChange} />
     );
