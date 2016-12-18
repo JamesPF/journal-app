@@ -25695,6 +25695,8 @@
 	'use strict';
 
 	var React = __webpack_require__(5);
+	var axios = __webpack_require__(237);
+
 	var JournalCreate = __webpack_require__(231);
 	var JournalSearch = __webpack_require__(233);
 	var JournalList = __webpack_require__(234);
@@ -25718,6 +25720,9 @@
 	      typeFilter: this.props.typeFilter
 	    };
 	  },
+	  componentDidMount: function componentDidMount() {
+	    // GET JOURNALS
+	  },
 	  handleSearch: function handleSearch(searchText, typeFilter) {
 	    this.setState({
 	      searchText: searchText.toLowerCase(),
@@ -25730,6 +25735,8 @@
 	    });
 	  },
 	  handleAddJournal: function handleAddJournal(journalName, journalType) {
+	    var _this = this;
+
 	    var journals = this.state.journals;
 
 	    var journal = {
@@ -25741,16 +25748,14 @@
 	      typeSelectSelected: false
 	    };
 
-	    // Creates URL based off of id, userid, and journal name
-	    var journalUrl = journal.name.replace(/[^\w\s]/gi, '').replace(/\s+/g, '-').toLowerCase();
-	    journal.url = '/' + journal.userid + '/' + journal.id + '/' + journalUrl;
-	    console.log(journal.url);
-
-	    journals.push(journal);
-
-	    this.setState({
-	      journals: journals,
-	      type: 'Select Type'
+	    axios.post('/journals', journal).then(function (journal) {
+	      axios.get('/journals').then(function (result) {
+	        var journals = result.data;
+	        _this.setState({
+	          journals: journals,
+	          type: 'Select Type'
+	        });
+	      });
 	    });
 	  },
 	  handleTypeSelectClicked: function handleTypeSelectClicked(journal) {

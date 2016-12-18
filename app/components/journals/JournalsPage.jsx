@@ -1,4 +1,6 @@
 var React = require('react');
+var axios = require('axios');
+
 var JournalCreate = require('JournalCreate');
 var JournalSearch = require('JournalSearch');
 var JournalList = require('JournalList');
@@ -19,6 +21,9 @@ var JournalsPage = React.createClass({
       searchText: this.props.searchText,
       typeFilter: this.props.typeFilter
     }
+  },
+  componentDidMount: function () {
+    // GET JOURNALS
   },
   handleSearch: function (searchText, typeFilter) {
     this.setState({
@@ -42,16 +47,14 @@ var JournalsPage = React.createClass({
       typeSelectSelected: false
     };
 
-    // Creates URL based off of id, userid, and journal name
-    var journalUrl = journal.name.replace(/[^\w\s]/gi, '').replace(/\s+/g, '-').toLowerCase();
-    journal.url = `/${journal.userid}/${journal.id}/${journalUrl}`;
-    console.log(journal.url);
-
-    journals.push(journal);
-
-    this.setState({
-      journals,
-      type: 'Select Type'
+    axios.post('/journals', journal).then((journal) => {
+      axios.get('/journals').then((result) => {
+        var journals = result.data;
+        this.setState({
+          journals,
+          type: 'Select Type'
+        });
+      });
     });
   },
   handleTypeSelectClicked: function (journal) {

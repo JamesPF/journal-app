@@ -13,7 +13,9 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public'));
 
+
 // JOURNALS
+// --------------------
 
 // POST new journal
 app.post('/journals', (req, res) => {
@@ -96,7 +98,9 @@ app.delete('/journals/:id', (req, res) => {
   });
 });
 
+
 // ENTRIES
+// --------------------
 
 // POST new entry
 app.post('/entries', (req, res) => {
