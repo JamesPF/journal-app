@@ -23,7 +23,14 @@ var JournalsPage = React.createClass({
     }
   },
   componentDidMount: function () {
-    // GET JOURNALS
+    axios.get('/journals').then((result) => {
+      var journals = result.data;
+
+      this.setState({
+        journals,
+        type: 'Select Type'
+      });
+    });
   },
   handleSearch: function (searchText, typeFilter) {
     this.setState({
@@ -32,15 +39,11 @@ var JournalsPage = React.createClass({
     });
   },
   handleJournalTypeSelect: function (type) {
-    this.setState({
-      type
-    });
+    this.setState({type});
   },
   handleAddJournal: function (journalName, journalType) {
     var {journals} = this.state;
     var journal = {
-      id: journals.length,
-      userid: 1,
       name: journalName,
       type: journalType,
       typeEdit: false,
@@ -50,6 +53,7 @@ var JournalsPage = React.createClass({
     axios.post('/journals', journal).then((journal) => {
       axios.get('/journals').then((result) => {
         var journals = result.data;
+
         this.setState({
           journals,
           type: 'Select Type'
@@ -59,38 +63,62 @@ var JournalsPage = React.createClass({
   },
   handleTypeSelectClicked: function (journal) {
     var {journals} = this.state;
-    var journalIndex = journal.id;
 
-    journals[journalIndex].typeSelectSelected = true;
-    this.setState({
-      journals
+    var journalId = journal._id;
+    axios.patch(`/journals/${journalId}`, {typeSelectSelected: true}).then((journal) => {
+      axios.get('/journals').then((result) => {
+        var journals = result.data;
+
+        this.setState({journals});
+      });
     });
-
-    console.log(journals[journalIndex].typeSelectSelected);
   },
   handleTypeEdit: function (journal) {
     var {journals} = this.state;
-    var journalToUpdate = journal.id;
+    // var journalToUpdate = journal.id;
 
-    journals[journalToUpdate].typeEdit = true;
-    this.setState({
-      journals
-    });
+    // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
+
+    // journals[journalToUpdate].typeEdit = true;
+    // this.setState({
+    //   journals
+    // });
   },
-  handleUpdateInfo: function (updatedJournal, newName, newJournalType) {
+  handleUpdateInfo: function (journal, newName, newJournalType) {
     var {journals} = this.state;
-    var journalIndex = updatedJournal.id;
+
+    var journalId = journal._id;
 
     if (newName.length > 0) {
-      journals[journalIndex].name = newName;
-      journals[journalIndex].type = newJournalType;
-      journals[journalIndex].typeSelectSelected = false;
-      this.setState({
-        journals
+      axios.patch(`/journals/${journalId}`, {
+        name: newName,
+        type: newJournalType,
+        typeSelectSelected: false})
+      .then((journal) => {
+        axios.get('/journals').then((result) => {
+          var journals = result.data;
+
+          this.setState({
+            journals
+          });
+        });
       });
     }
 
-    journals[journalIndex].typeEdit = false;
+    // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
+
+    // var journalIndex = journal.id;
+    //
+    // if (newName.length > 0) {
+    //   journals[journalIndex].name = newName;
+    //   journals[journalIndex].type = newJournalType;
+    //   journals[journalIndex].typeSelectSelected = false;
+    //   this.setState({
+    //     journals
+    //   });
+    // }
+    //
+    // journals[journalIndex].typeEdit = false;
   },
   render: function () {
     var {journals, searchText, typeFilter, type} = this.state;

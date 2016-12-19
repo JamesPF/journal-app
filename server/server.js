@@ -34,7 +34,7 @@ app.post('/journals', (req, res) => {
 // GET all journals
 app.get('/journals', (req, res) => {
   Journal.find().then((journals) => {
-    res.send({journals});
+    res.send(journals);
   }).catch((e) => {
     res.status(400).send(e);
   });
@@ -53,7 +53,7 @@ app.get('/journals/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({journal});
+    res.send(journal);
   }).catch((e) => {
     res.status(400).send();
   });
@@ -73,7 +73,7 @@ app.patch('/journals/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({journal});
+    res.send(journal);
   }).catch((e) => {
     res.status(400).send();
   });
@@ -92,7 +92,7 @@ app.delete('/journals/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({journal});
+    res.send(journal);
   }).catch((e) => {
     res.status(400).send();
   });
