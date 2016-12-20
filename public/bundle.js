@@ -25765,22 +25765,45 @@
 	    });
 	  },
 	  handleTypeSelectClicked: function handleTypeSelectClicked(journal) {
-	    var _this3 = this;
-
 	    var journals = this.state.journals;
 
 
 	    var journalId = journal._id;
-	    axios.patch('/journals/' + journalId, { typeSelectSelected: true }).then(function (journal) {
-	      axios.get('/journals').then(function (result) {
-	        var journals = result.data;
 
-	        _this3.setState({ journals: journals });
-	      });
+	    for (var i = 0; i < journals.length; i++) {
+	      if (journals[i]._id === journalId) {
+	        journals[i].typeSelectSelected = true;
+	      }
+	    }
+
+	    this.setState({
+	      journals: journals
 	    });
+
+	    // axios.patch(`/journals/${journalId}`, {typeSelectSelected: true}).then((journal) => {
+	    //   axios.get('/journals').then((result) => {
+	    //     var journals = result.data;
+	    //
+	    //     this.setState({journals});
+	    //   });
+	    // });
 	  },
 	  handleTypeEdit: function handleTypeEdit(journal) {
 	    var journals = this.state.journals;
+
+
+	    var journalId = journal._id;
+
+	    for (var i = 0; i < journals.length; i++) {
+	      if (journals[i]._id === journalId) {
+	        journals[i].typeEdit = true;
+	      }
+	    }
+
+	    this.setState({
+	      journals: journals
+	    });
+
 	    // var journalToUpdate = journal.id;
 
 	    // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
@@ -25791,7 +25814,7 @@
 	    // });
 	  },
 	  handleUpdateInfo: function handleUpdateInfo(journal, newName, newJournalType) {
-	    var _this4 = this;
+	    var _this3 = this;
 
 	    var journals = this.state.journals;
 
@@ -25801,16 +25824,27 @@
 	    if (newName.length > 0) {
 	      axios.patch('/journals/' + journalId, {
 	        name: newName,
-	        type: newJournalType,
-	        typeSelectSelected: false }).then(function (journal) {
+	        type: newJournalType }).then(function (journal) {
 	        axios.get('/journals').then(function (result) {
 	          var journals = result.data;
 
-	          _this4.setState({
+	          for (var i = 0; i < journals.length; i++) {
+	            if (journals[i]._id === journalId) {
+	              journals[i].typeSelectSelected = false;
+	            }
+	          }
+
+	          _this3.setState({
 	            journals: journals
 	          });
 	        });
 	      });
+	    }
+
+	    for (var i = 0; i < journals.length; i++) {
+	      if (journals[i]._id === journalId) {
+	        journals[i].typeEdit = false;
+	      }
 	    }
 
 	    // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db

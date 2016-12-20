@@ -65,16 +65,40 @@ var JournalsPage = React.createClass({
     var {journals} = this.state;
 
     var journalId = journal._id;
-    axios.patch(`/journals/${journalId}`, {typeSelectSelected: true}).then((journal) => {
-      axios.get('/journals').then((result) => {
-        var journals = result.data;
 
-        this.setState({journals});
-      });
+    for (var i = 0; i < journals.length; i++) {
+      if (journals[i]._id === journalId) {
+        journals[i].typeSelectSelected = true;
+      }
+    }
+
+    this.setState({
+      journals
     });
+
+    // axios.patch(`/journals/${journalId}`, {typeSelectSelected: true}).then((journal) => {
+    //   axios.get('/journals').then((result) => {
+    //     var journals = result.data;
+    //
+    //     this.setState({journals});
+    //   });
+    // });
   },
   handleTypeEdit: function (journal) {
     var {journals} = this.state;
+
+    var journalId = journal._id;
+
+    for (var i = 0; i < journals.length; i++) {
+      if (journals[i]._id === journalId) {
+        journals[i].typeEdit = true;
+      }
+    }
+
+    this.setState({
+      journals
+    });
+
     // var journalToUpdate = journal.id;
 
     // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
@@ -92,17 +116,28 @@ var JournalsPage = React.createClass({
     if (newName.length > 0) {
       axios.patch(`/journals/${journalId}`, {
         name: newName,
-        type: newJournalType,
-        typeSelectSelected: false})
+        type: newJournalType})
       .then((journal) => {
         axios.get('/journals').then((result) => {
           var journals = result.data;
+
+          for (var i = 0; i < journals.length; i++) {
+            if (journals[i]._id === journalId) {
+              journals[i].typeSelectSelected = false;
+            }
+          }
 
           this.setState({
             journals
           });
         });
       });
+    }
+
+    for (var i = 0; i < journals.length; i++) {
+      if (journals[i]._id === journalId) {
+        journals[i].typeEdit = false;
+      }
     }
 
     // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
