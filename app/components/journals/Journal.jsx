@@ -63,7 +63,7 @@ var Journal = React.createClass({
             <option value="Article">An Article</option>
             <option value="Other">Other</option>
           </select>
-          <a href={journal.url}>
+          <a href="/#/entries">
             <img className="journal-icon" src="/images/journal-2.png" />
           </a>
           <p className="text-center journal-title" ref="name" onClick={this.handleEditMode} onBlur={this.checkTypeSelect}

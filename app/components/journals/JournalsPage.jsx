@@ -45,9 +45,7 @@ var JournalsPage = React.createClass({
     var {journals} = this.state;
     var journal = {
       name: journalName,
-      type: journalType,
-      typeEdit: false,
-      typeSelectSelected: false
+      type: journalType
     };
 
     axios.post('/journals', journal).then((journal) => {
@@ -75,14 +73,6 @@ var JournalsPage = React.createClass({
     this.setState({
       journals
     });
-
-    // axios.patch(`/journals/${journalId}`, {typeSelectSelected: true}).then((journal) => {
-    //   axios.get('/journals').then((result) => {
-    //     var journals = result.data;
-    //
-    //     this.setState({journals});
-    //   });
-    // });
   },
   handleTypeEdit: function (journal) {
     var {journals} = this.state;
@@ -98,15 +88,6 @@ var JournalsPage = React.createClass({
     this.setState({
       journals
     });
-
-    // var journalToUpdate = journal.id;
-
-    // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
-
-    // journals[journalToUpdate].typeEdit = true;
-    // this.setState({
-    //   journals
-    // });
   },
   handleUpdateInfo: function (journal, newName, newJournalType) {
     var {journals} = this.state;
@@ -139,21 +120,6 @@ var JournalsPage = React.createClass({
         journals[i].typeEdit = false;
       }
     }
-
-    // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
-
-    // var journalIndex = journal.id;
-    //
-    // if (newName.length > 0) {
-    //   journals[journalIndex].name = newName;
-    //   journals[journalIndex].type = newJournalType;
-    //   journals[journalIndex].typeSelectSelected = false;
-    //   this.setState({
-    //     journals
-    //   });
-    // }
-    //
-    // journals[journalIndex].typeEdit = false;
   },
   render: function () {
     var {journals, searchText, typeFilter, type} = this.state;

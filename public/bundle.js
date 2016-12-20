@@ -25748,9 +25748,7 @@
 
 	    var journal = {
 	      name: journalName,
-	      type: journalType,
-	      typeEdit: false,
-	      typeSelectSelected: false
+	      type: journalType
 	    };
 
 	    axios.post('/journals', journal).then(function (journal) {
@@ -25779,14 +25777,6 @@
 	    this.setState({
 	      journals: journals
 	    });
-
-	    // axios.patch(`/journals/${journalId}`, {typeSelectSelected: true}).then((journal) => {
-	    //   axios.get('/journals').then((result) => {
-	    //     var journals = result.data;
-	    //
-	    //     this.setState({journals});
-	    //   });
-	    // });
 	  },
 	  handleTypeEdit: function handleTypeEdit(journal) {
 	    var journals = this.state.journals;
@@ -25803,15 +25793,6 @@
 	    this.setState({
 	      journals: journals
 	    });
-
-	    // var journalToUpdate = journal.id;
-
-	    // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
-
-	    // journals[journalToUpdate].typeEdit = true;
-	    // this.setState({
-	    //   journals
-	    // });
 	  },
 	  handleUpdateInfo: function handleUpdateInfo(journal, newName, newJournalType) {
 	    var _this3 = this;
@@ -25846,21 +25827,6 @@
 	        journals[i].typeEdit = false;
 	      }
 	    }
-
-	    // Figure this out and remember that I'm only trying to update 'typeEdit' on state, not the db
-
-	    // var journalIndex = journal.id;
-	    //
-	    // if (newName.length > 0) {
-	    //   journals[journalIndex].name = newName;
-	    //   journals[journalIndex].type = newJournalType;
-	    //   journals[journalIndex].typeSelectSelected = false;
-	    //   this.setState({
-	    //     journals
-	    //   });
-	    // }
-	    //
-	    // journals[journalIndex].typeEdit = false;
 	  },
 	  render: function render() {
 	    var _state = this.state;
@@ -27778,7 +27744,7 @@
 	        ),
 	        React.createElement(
 	          'a',
-	          { href: journal.url },
+	          { href: '/#/entries' },
 	          React.createElement('img', { className: 'journal-icon', src: '/images/journal-2.png' })
 	        ),
 	        React.createElement(
