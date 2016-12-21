@@ -9,6 +9,10 @@ var Entry = mongoose.model('Entry', {
   },
   content: {
     type: String
+  },
+  _journal: {
+    type: String,
+    required: true
   }
 });
 

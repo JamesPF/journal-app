@@ -1,4 +1,5 @@
 var React = require('react');
+var {Link} = require('react-router');
 
 var Journal = React.createClass({
   propTypes: {
@@ -42,6 +43,7 @@ var Journal = React.createClass({
   },
   render: function () {
     var {journal} = this.props;
+    var journalUrl = `/entries?journal=${journal._id}`;
 
     var displayStyle = {
       display: 'none'
@@ -63,9 +65,9 @@ var Journal = React.createClass({
             <option value="Article">An Article</option>
             <option value="Other">Other</option>
           </select>
-          <a href="/#/entries">
+          <Link to={journalUrl}>
             <img className="journal-icon" src="/images/journal-2.png" />
-          </a>
+          </Link>
           <p className="text-center journal-title" ref="name" onClick={this.handleEditMode} onBlur={this.checkTypeSelect}
             onKeyPress={this.handleKeyPress}>{journal.name}</p>
         </div>

@@ -10,29 +10,41 @@ var EntryList = require('EntryList');
 var EntriesPage = React.createClass({
   getInitialState: function () {
     return {
+      journalId: '',
       entries: [],
       selectedEntry: {},
       entrySearchText: ''
     }
   },
   componentDidMount: function () {
+    // console.log(this.props.location.query.journal);
+    var journalId = this.props.location.query.journal;
     axios.get('/entries').then((result) => {
       var entries = result.data;
       var selectedEntry = {};
 
-      if (entries) {
-        selectedEntry = entries[0];
+      var filteredEntries = entries.filter((entry) => {
+        return entry._journal === journalId;
+      });
+
+      if (filteredEntries) {
+        selectedEntry = filteredEntries[0];
       }
 
       this.setState({
-        entries,
+        journalId,
+        entries: filteredEntries || [],
         selectedEntry
       });
     });
   },
+  componentWillUnmount: function () {
+    this.setState({journalId: ''});
+  },
   handleEntryAdd: function () {
-    var {entries} = this.state;
+    var {entries, journalId} = this.state;
     var entry = {
+      _journal: journalId,
       title: 'Untitled',
       content: ''
     };
