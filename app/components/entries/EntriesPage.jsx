@@ -17,7 +17,7 @@ var EntriesPage = React.createClass({
     }
   },
   componentDidMount: function () {
-    // console.log(this.props.location.query.journal);
+    console.log(this.props.location.query.journal);
     var journalId = this.props.location.query.journal;
     axios.get('/entries').then((result) => {
       var entries = result.data;
@@ -27,7 +27,7 @@ var EntriesPage = React.createClass({
         return entry._journal === journalId;
       });
 
-      if (filteredEntries) {
+      if (filteredEntries.length) {
         selectedEntry = filteredEntries[0];
       }
 
@@ -38,11 +38,9 @@ var EntriesPage = React.createClass({
       });
     });
   },
-  componentWillUnmount: function () {
-    this.setState({journalId: ''});
-  },
   handleEntryAdd: function () {
     var {entries, journalId} = this.state;
+    var journalId = this.props.location.query.journal;
     var entry = {
       _journal: journalId,
       title: 'Untitled',
@@ -52,8 +50,13 @@ var EntriesPage = React.createClass({
     axios.post('/entries', entry).then(() => {
       axios.get('/entries').then((result) => {
         var entries = result.data;
+
+        var filteredEntries = entries.filter((entry) => {
+          return entry._journal === journalId;
+        });
+
         this.setState({
-          entries
+          entries: filteredEntries
         });
       });
     });
@@ -65,6 +68,7 @@ var EntriesPage = React.createClass({
   },
   updateTitle: function (newTitle) {
     var {entries, selectedEntry} = this.state;
+    var journalId = this.props.location.query.journal;
 
     var entryId = selectedEntry._id;
     axios.patch(`/entries/${entryId}`, {title: newTitle}).then((entry) => {
@@ -72,8 +76,13 @@ var EntriesPage = React.createClass({
 
       axios.get('/entries').then((result) => {
         var entries = result.data;
+
+        var filteredEntries = entries.filter((entry) => {
+          return entry._journal === journalId;
+        });
+
         this.setState({
-          entries
+          entries: filteredEntries
         });
       });
     });

@@ -17,7 +17,7 @@ var EditorWindow = React.createClass({
     var {selectedEntry, onUpdateContent} = this.props;
     var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;
 
-    contentBody.innerHTML = selectedEntry.content;
+    contentBody.innerHTML = selectedEntry.content || '';
 
     contentBody.addEventListener('keyup', () => {
       onUpdateContent(contentBody.innerHTML);
@@ -62,7 +62,6 @@ var EditorWindow = React.createClass({
             <button onClick={() => this.executeCommand('redo')} className="btn btn-sm btn-default editor-button"><i className="fa fa-repeat"></i></button>
             <button onClick={() => this.executeCommand('insertUnorderedList')} className="btn btn-sm btn-default editor-button"><i className="fa fa-list-ul"></i></button>
             <button onClick={() => this.executeCommand('insertOrderedList')} className="btn btn-sm btn-default editor-button"><i className="fa fa-list-ol"></i></button>
-            <button className="btn btn-success editor-save-button">Save</button>
             <div className="pull-right">
               <p id="edit-mode-text">Edit mode is <span id="edit-mode-status">on</span></p><button onClick={() => toggleEdit()} className="btn btn-sm btn-default editor-button pull-right" id="edit-mode-button">Turn Off</button>
             </div>
