@@ -6,6 +6,7 @@ const {ObjectID} = require('mongodb');
 var {mongoose} = require('./db/mongoose');
 var {Journal} = require('./models/journal');
 var {Entry} = require('./models/entry');
+var {User} = require('./models/user');
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -183,6 +184,25 @@ app.delete('/entries/:id', (req, res) => {
     res.status(400).send();
   });
 })
+
+
+// USERS
+// --------------------
+
+// POST new user
+app.post('/users', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+
+  var user = new User(body);
+
+  // Add generateAuthToken middleware as first 'then' statement
+  user.save().then(() => {
+    res.status(200).send(user);
+  }).catch((e) => {
+    res.status(400).send(e);
+  });
+});
+
 
 app.listen(PORT, function () {
   console.log('App is listening on port ' + PORT);
