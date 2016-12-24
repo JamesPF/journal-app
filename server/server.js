@@ -7,6 +7,7 @@ var {mongoose} = require('./db/mongoose');
 var {Journal} = require('./models/journal');
 var {Entry} = require('./models/entry');
 var {User} = require('./models/user');
+var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -195,11 +196,38 @@ app.post('/users', (req, res) => {
 
   var user = new User(body);
 
-  // Add generateAuthToken middleware as first 'then' statement
   user.save().then(() => {
-    res.status(200).send(user);
+    return user.generateAuthToken();
+  }).then((token) => {
+    res.header('x-auth', token).send(user);
   }).catch((e) => {
     res.status(400).send(e);
+  });
+});
+
+app.get('/users/me', authenticate, (req, res) => {
+  res.send(req.user);
+});
+
+// POST users login
+app.post('/users/login', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+
+  User.findByCredentials(body.email, body.password).then((user) => {
+    return user.generateAuthToken().then((token) => {
+      res.header('x-auth', token).send(user);
+    });
+  }).catch((e) => {
+    res.status(400).send();
+  });
+});
+
+// DELETE users logout
+app.delete('/users/me/token', authenticate, (req, res) => {
+  req.user.removeToken(req.token).then(() => {
+    res.status(200).send();
+  }, () => {
+    res.status(400).send();
   });
 });
 
