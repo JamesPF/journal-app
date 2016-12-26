@@ -27,6 +27,7 @@ module.exports = {
       SignupPage: 'app/components/signup/SignupPage.jsx',
       SignupForm: 'app/components/signup/SignupForm.jsx',
       LoginPage: 'app/components/login/LoginPage.jsx',
+      LoginForm: 'app/components/login/LoginForm.jsx',
       JournalsPage: 'app/components/journals/JournalsPage.jsx',
       JournalCreate: 'app/components/journals/JournalCreate.jsx',
       JournalSearch: 'app/components/journals/JournalSearch.jsx',

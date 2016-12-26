@@ -17,10 +17,10 @@ ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
       <Route path="signup" component={SignupPage} />
-      <Route path="login" component={LoginPage} />
       <Route path="about" component={AboutPage} />
+      <Route path="journals" component={JournalsPage} />
       <Route path="entries" component={EntriesPage} />
-      <IndexRoute component={JournalsPage} />
+      <IndexRoute component={LoginPage} />
     </Route>
   </Router>,
   document.getElementById('app')

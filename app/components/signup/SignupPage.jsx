@@ -1,5 +1,6 @@
 var React = require('react');
 var axios = require('axios');
+var {hashHistory} = require('react-router');
 
 var SignupForm = require('SignupForm');
 
@@ -21,7 +22,9 @@ var SignupPage = React.createClass({
   handleUserSignup: function (newUser) {
     console.log(newUser);
 
-    axios.post('/users', newUser);
+    axios.post('/users', newUser).then(() => {
+      hashHistory.push('/journals');
+    });
   },
   render: function () {
     return (
