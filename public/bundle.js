@@ -93,7 +93,7 @@
 
 
 	var Main = __webpack_require__(226);
-	var SignupPage = __webpack_require__(228);
+	var SignupPage = __webpack_require__(253);
 	var LoginPage = __webpack_require__(255);
 	var JournalsPage = __webpack_require__(257);
 	var EntriesPage = __webpack_require__(263);
@@ -25503,6 +25503,7 @@
 	'use strict';
 
 	var React = __webpack_require__(5);
+	var axios = __webpack_require__(228);
 
 	var _require = __webpack_require__(163);
 
@@ -25513,6 +25514,9 @@
 	var Nav = React.createClass({
 	  displayName: 'Nav',
 
+	  signOut: function signOut() {
+	    axios.delete('/users/me/token', user);
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
@@ -25554,7 +25558,7 @@
 	        ),
 	        React.createElement(
 	          'button',
-	          { type: 'button', className: 'btn btn-default navbar-btn' },
+	          { type: 'button', className: 'btn btn-default navbar-btn', onClick: this.signOut },
 	          'Sign Out'
 	        )
 	      )
@@ -25568,69 +25572,18 @@
 /* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var React = __webpack_require__(5);
-	var axios = __webpack_require__(229);
-
-	var _require = __webpack_require__(163);
-
-	var hashHistory = _require.hashHistory;
-
-
-	var SignupForm = __webpack_require__(254);
-
-	var SignupPage = React.createClass({
-	  displayName: 'SignupPage',
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      name: '',
-	      email: '',
-	      password: ''
-	    };
-	  },
-	  getInitialState: function getInitialState() {
-	    return {
-	      name: this.props.name,
-	      email: this.props.email,
-	      password: this.props.password
-	    };
-	  },
-	  handleUserSignup: function handleUserSignup(newUser) {
-	    console.log(newUser);
-
-	    axios.post('/users', newUser).then(function () {
-	      hashHistory.push('/journals');
-	    });
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'auth-form' },
-	      React.createElement(SignupForm, { onUserSignup: this.handleUserSignup })
-	    );
-	  }
-	});
-
-	module.exports = SignupPage;
+	module.exports = __webpack_require__(229);
 
 /***/ },
 /* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(230);
-
-/***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
-	var utils = __webpack_require__(231);
-	var bind = __webpack_require__(232);
-	var Axios = __webpack_require__(233);
-	var defaults = __webpack_require__(234);
+	var utils = __webpack_require__(230);
+	var bind = __webpack_require__(231);
+	var Axios = __webpack_require__(232);
+	var defaults = __webpack_require__(233);
 
 	/**
 	 * Create an instance of Axios
@@ -25663,15 +25616,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(251);
-	axios.CancelToken = __webpack_require__(252);
-	axios.isCancel = __webpack_require__(248);
+	axios.Cancel = __webpack_require__(250);
+	axios.CancelToken = __webpack_require__(251);
+	axios.isCancel = __webpack_require__(247);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(253);
+	axios.spread = __webpack_require__(252);
 
 	module.exports = axios;
 
@@ -25680,12 +25633,12 @@
 
 
 /***/ },
-/* 231 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(232);
+	var bind = __webpack_require__(231);
 
 	/*global toString:true*/
 
@@ -25985,7 +25938,7 @@
 
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26002,17 +25955,17 @@
 
 
 /***/ },
-/* 233 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(234);
-	var utils = __webpack_require__(231);
-	var InterceptorManager = __webpack_require__(245);
-	var dispatchRequest = __webpack_require__(246);
-	var isAbsoluteURL = __webpack_require__(249);
-	var combineURLs = __webpack_require__(250);
+	var defaults = __webpack_require__(233);
+	var utils = __webpack_require__(230);
+	var InterceptorManager = __webpack_require__(244);
+	var dispatchRequest = __webpack_require__(245);
+	var isAbsoluteURL = __webpack_require__(248);
+	var combineURLs = __webpack_require__(249);
 
 	/**
 	 * Create a new instance of Axios
@@ -26093,13 +26046,13 @@
 
 
 /***/ },
-/* 234 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(231);
-	var normalizeHeaderName = __webpack_require__(235);
+	var utils = __webpack_require__(230);
+	var normalizeHeaderName = __webpack_require__(234);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -26116,10 +26069,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(236);
+	    adapter = __webpack_require__(235);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(236);
+	    adapter = __webpack_require__(235);
 	  }
 	  return adapter;
 	}
@@ -26193,12 +26146,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 235 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(231);
+	var utils = __webpack_require__(230);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -26211,18 +26164,18 @@
 
 
 /***/ },
-/* 236 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(231);
-	var settle = __webpack_require__(237);
-	var buildURL = __webpack_require__(240);
-	var parseHeaders = __webpack_require__(241);
-	var isURLSameOrigin = __webpack_require__(242);
-	var createError = __webpack_require__(238);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(243);
+	var utils = __webpack_require__(230);
+	var settle = __webpack_require__(236);
+	var buildURL = __webpack_require__(239);
+	var parseHeaders = __webpack_require__(240);
+	var isURLSameOrigin = __webpack_require__(241);
+	var createError = __webpack_require__(237);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(242);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -26318,7 +26271,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(244);
+	      var cookies = __webpack_require__(243);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -26395,12 +26348,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 237 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(238);
+	var createError = __webpack_require__(237);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -26426,12 +26379,12 @@
 
 
 /***/ },
-/* 238 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(239);
+	var enhanceError = __webpack_require__(238);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -26449,7 +26402,7 @@
 
 
 /***/ },
-/* 239 */
+/* 238 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26474,12 +26427,12 @@
 
 
 /***/ },
-/* 240 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(231);
+	var utils = __webpack_require__(230);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -26548,12 +26501,12 @@
 
 
 /***/ },
-/* 241 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(231);
+	var utils = __webpack_require__(230);
 
 	/**
 	 * Parse headers into an object
@@ -26591,12 +26544,12 @@
 
 
 /***/ },
-/* 242 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(231);
+	var utils = __webpack_require__(230);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -26665,7 +26618,7 @@
 
 
 /***/ },
-/* 243 */
+/* 242 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26707,12 +26660,12 @@
 
 
 /***/ },
-/* 244 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(231);
+	var utils = __webpack_require__(230);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -26766,12 +26719,12 @@
 
 
 /***/ },
-/* 245 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(231);
+	var utils = __webpack_require__(230);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -26824,15 +26777,15 @@
 
 
 /***/ },
-/* 246 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(231);
-	var transformData = __webpack_require__(247);
-	var isCancel = __webpack_require__(248);
-	var defaults = __webpack_require__(234);
+	var utils = __webpack_require__(230);
+	var transformData = __webpack_require__(246);
+	var isCancel = __webpack_require__(247);
+	var defaults = __webpack_require__(233);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -26909,12 +26862,12 @@
 
 
 /***/ },
-/* 247 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(231);
+	var utils = __webpack_require__(230);
 
 	/**
 	 * Transform the data for a request or a response
@@ -26935,7 +26888,7 @@
 
 
 /***/ },
-/* 248 */
+/* 247 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26946,7 +26899,7 @@
 
 
 /***/ },
-/* 249 */
+/* 248 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26966,7 +26919,7 @@
 
 
 /***/ },
-/* 250 */
+/* 249 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26984,7 +26937,7 @@
 
 
 /***/ },
-/* 251 */
+/* 250 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27009,12 +26962,12 @@
 
 
 /***/ },
-/* 252 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(251);
+	var Cancel = __webpack_require__(250);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -27072,7 +27025,7 @@
 
 
 /***/ },
-/* 253 */
+/* 252 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27103,6 +27056,57 @@
 	  };
 	};
 
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(5);
+	var axios = __webpack_require__(228);
+
+	var _require = __webpack_require__(163);
+
+	var hashHistory = _require.hashHistory;
+
+
+	var SignupForm = __webpack_require__(254);
+
+	var SignupPage = React.createClass({
+	  displayName: 'SignupPage',
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      name: '',
+	      email: '',
+	      password: ''
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      name: this.props.name,
+	      email: this.props.email,
+	      password: this.props.password
+	    };
+	  },
+	  handleUserSignup: function handleUserSignup(newUser) {
+	    console.log(newUser);
+
+	    axios.post('/users', newUser).then(function () {
+	      hashHistory.push('/journals');
+	    });
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'auth-form' },
+	      React.createElement(SignupForm, { onUserSignup: this.handleUserSignup })
+	    );
+	  }
+	});
+
+	module.exports = SignupPage;
 
 /***/ },
 /* 254 */
@@ -27169,12 +27173,13 @@
 	'use strict';
 
 	var React = __webpack_require__(5);
-	var axios = __webpack_require__(229);
+	var axios = __webpack_require__(228);
 
 	var _require = __webpack_require__(163);
 
 	var hashHistory = _require.hashHistory;
 
+	var jwtDecode = __webpack_require__(480);
 
 	var LoginForm = __webpack_require__(256);
 
@@ -27184,8 +27189,11 @@
 	  handleUserLogin: function handleUserLogin(user) {
 	    console.log(user);
 
-	    axios.post('/users/login', user).then(function () {
-	      hashHistory.push('/journals');
+	    axios.post('/users/login', user).then(function (res) {
+	      // hashHistory.push('/journals');
+	      var token = res.headers['x-auth'];
+	      localStorage.setItem('x-auth', token);
+	      console.log(jwtDecode(token));
 	    });
 	  },
 	  render: function render() {
@@ -27260,7 +27268,7 @@
 	'use strict';
 
 	var React = __webpack_require__(5);
-	var axios = __webpack_require__(229);
+	var axios = __webpack_require__(228);
 
 	var JournalCreate = __webpack_require__(258);
 	var JournalSearch = __webpack_require__(260);
@@ -27851,7 +27859,7 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(5);
-	var axios = __webpack_require__(229);
+	var axios = __webpack_require__(228);
 	var lodash = __webpack_require__(264);
 
 	var EditorWindow = __webpack_require__(266);
@@ -48253,6 +48261,303 @@
 	exports.push([module.id, "@font-face {\n  font-family: 'Joe Schmoe';\n  src: url(\"/fonts/dk-joe-schmoe.ttf\"); }\n\n.navbar {\n  margin-bottom: 0; }\n  .navbar .navbar-right {\n    margin-right: 60px; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .signup-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n.auth-form {\n  margin-top: 100px;\n  margin-bottom: 100px; }\n  .auth-form .login-form {\n    margin: 0 auto;\n    margin-top: 40px;\n    margin-bottom: 80px;\n    float: none; }\n\n#journal-index {\n  width: 80%;\n  min-height: 620px;\n  display: block;\n  margin: 0 auto;\n  overflow: auto; }\n\n.col-centered {\n  float: none;\n  margin: 0 auto; }\n\n#journal-search {\n  width: 300px;\n  margin-bottom: 10px;\n  margin-right: 20px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\nlabel {\n  margin-right: 10px; }\n\n#journal-filter {\n  height: 32px;\n  vertical-align: top; }\n\n.create-journal {\n  display: block;\n  width: 90%;\n  margin: 10px auto;\n  margin-bottom: 24px;\n  padding-left: 8px;\n  font-size: 20px;\n  border: 1px solid #cccccc;\n  border-radius: 5px; }\n\n#journal-type-label {\n  margin-left: 28px; }\n\n#set-journal-type {\n  height: 32px;\n  vertical-align: bottom; }\n\n#journal-list {\n  margin-top: 12px; }\n\n.journal-item .journal-link-container {\n  background-color: #ddd;\n  border-radius: 3px; }\n  .journal-item .journal-link-container select {\n    position: absolute;\n    width: 70%;\n    margin-left: 10px;\n    margin-top: 2px;\n    border: none;\n    background: none;\n    -moz-appearance: none;\n    -webkit-appearance: none; }\n  .journal-item .journal-link-container select::-ms-expand {\n    display: none; }\n  .journal-item .journal-link-container .journal-icon {\n    display: block;\n    margin: 0 auto;\n    margin-top: 10px;\n    padding-top: 18px;\n    width: 100%; }\n  .journal-item .journal-link-container p {\n    margin-bottom: 12px;\n    line-height: 36px; }\n  .journal-item .journal-link-container a {\n    color: #333; }\n  .journal-item .journal-link-container .journal-title {\n    font-family: \"Joe Schmoe\", Helvetica, sans-serif; }\n  .journal-item .journal-link-container .journal-title:hover {\n    background: url(\"/images/pencil-icon.png\") no-repeat;\n    background-position: right 6px center; }\n  .journal-item .journal-link-container .journal-title:focus {\n    background-color: #fff; }\n\n#text-editor {\n  height: 640px; }\n\n.editor-button {\n  margin: 4px 2px; }\n\n.editor-save-button {\n  margin-left: 12px;\n  padding: 4px 12px; }\n\n#entry-list-container {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-right: 1px solid #aaa;\n  display: inline-block;\n  width: 20%;\n  height: inherit;\n  float: left; }\n  #entry-list-container h3 {\n    margin-left: 20px;\n    display: inline-block; }\n  #entry-list-container #add-search {\n    height: 120px; }\n    #entry-list-container #add-search #add-entry {\n      float: right;\n      margin-top: 16px;\n      margin-right: 5%; }\n    #entry-list-container #add-search #entry-search {\n      display: block;\n      width: 90%;\n      margin: 10px auto;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      font-size: 20px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n  #entry-list-container #entry-list {\n    height: 520px;\n    overflow: scroll; }\n    #entry-list-container #entry-list ul#entries {\n      list-style: none;\n      margin-top: 20px; }\n      #entry-list-container #entry-list ul#entries li {\n        display: block;\n        margin: 0 auto;\n        margin-left: -40px;\n        margin-bottom: 20px;\n        cursor: pointer; }\n        #entry-list-container #entry-list ul#entries li img {\n          width: 100%; }\n        #entry-list-container #entry-list ul#entries li p {\n          color: #333;\n          font-size: 16px; }\n\n#editor-window {\n  background: #f0f0f0;\n  border: 1px solid #e7e7e7;\n  border-left: 1px solid #aaa;\n  display: inline-block;\n  width: 80%;\n  height: inherit; }\n  #editor-window #editor {\n    width: 90%;\n    display: block;\n    margin: 0 auto;\n    margin-top: 20px; }\n    #editor-window #editor #edit-mode-text {\n      display: inline;\n      font-size: 16px;\n      line-height: 38px;\n      padding-right: 6px; }\n    #editor-window #editor #editor-title {\n      font-size: 24px;\n      margin-bottom: 10px;\n      padding-left: 8px;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n    #editor-window #editor iframe {\n      width: 100%;\n      height: 500px;\n      background-color: #fff;\n      border: 1px solid #cccccc;\n      border-radius: 5px; }\n\n#about-page {\n  min-height: 620px; }\n\nfooter {\n  height: 60px;\n  border-top: 1px solid #e7e7e7; }\n  footer p {\n    margin-top: 25px; }\n", ""]);
 
 	// exports
+
+
+/***/ },
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */,
+/* 441 */,
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */,
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */,
+/* 457 */,
+/* 458 */,
+/* 459 */,
+/* 460 */,
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */,
+/* 466 */,
+/* 467 */,
+/* 468 */,
+/* 469 */,
+/* 470 */,
+/* 471 */,
+/* 472 */,
+/* 473 */,
+/* 474 */,
+/* 475 */,
+/* 476 */,
+/* 477 */,
+/* 478 */,
+/* 479 */,
+/* 480 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var base64_url_decode = __webpack_require__(481);
+
+	module.exports = function (token,options) {
+	  if (typeof token !== 'string') {
+	    throw new Error('Invalid token specified');
+	  }
+
+	  options = options || {};
+	  var pos = options.header === true ? 0 : 1;
+	  return JSON.parse(base64_url_decode(token.split('.')[pos]));
+	};
+
+
+/***/ },
+/* 481 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var atob = __webpack_require__(482);
+
+	function b64DecodeUnicode(str) {
+	  return decodeURIComponent(atob(str).replace(/(.)/g, function (m, p) {
+	    var code = p.charCodeAt(0).toString(16).toUpperCase();
+	    if (code.length < 2) {
+	      code = '0' + code;
+	    }
+	    return '%' + code;
+	  }));
+	}
+
+	module.exports = function(str) {
+	  var output = str.replace(/-/g, "+").replace(/_/g, "/");
+	  switch (output.length % 4) {
+	    case 0:
+	      break;
+	    case 2:
+	      output += "==";
+	      break;
+	    case 3:
+	      output += "=";
+	      break;
+	    default:
+	      throw "Illegal base64url string!";
+	  }
+
+	  try{
+	    return b64DecodeUnicode(output);
+	  } catch (err) {
+	    return atob(output);
+	  }
+	};
+
+
+/***/ },
+/* 482 */
+/***/ function(module, exports) {
+
+	/**
+	 * The code was extracted from:
+	 * https://github.com/davidchambers/Base64.js
+	 */
+
+	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+	function InvalidCharacterError(message) {
+	  this.message = message;
+	}
+
+	InvalidCharacterError.prototype = new Error();
+	InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+	function polyfill (input) {
+	  var str = String(input).replace(/=+$/, '');
+	  if (str.length % 4 == 1) {
+	    throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
+	  }
+	  for (
+	    // initialize result and counters
+	    var bc = 0, bs, buffer, idx = 0, output = '';
+	    // get next character
+	    buffer = str.charAt(idx++);
+	    // character found in table? initialize bit storage and add its ascii value;
+	    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+	      // and if not first of each 4 characters,
+	      // convert the first 8 bits to one ascii character
+	      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+	  ) {
+	    // try to find character in table (0-63, not found => -1)
+	    buffer = chars.indexOf(buffer);
+	  }
+	  return output;
+	}
+
+
+	module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
 
 
 /***/ }

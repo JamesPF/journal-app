@@ -1,7 +1,12 @@
 var React = require('react');
+var axios = require('axios');
+
 var {Link, IndexLink} = require('react-router');
 
 var Nav = React.createClass({
+  signOut: function () {
+    axios.delete('/users/me/token', user);
+  },
   render: function () {
     return (
       <div className="navbar navbar-default">
@@ -12,7 +17,7 @@ var Nav = React.createClass({
         </ul>
         <div className="navbar-right">
           <p className="navbar-text">Signed in as James Felz</p>
-          <button type="button" className="btn btn-default navbar-btn">Sign Out</button>
+          <button type="button" className="btn btn-default navbar-btn" onClick={this.signOut}>Sign Out</button>
         </div>
       </div>
     );
