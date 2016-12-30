@@ -11,11 +11,10 @@ var SignupPage = React.createClass({
     console.log(newUser);
 
     axios.post('/users', newUser).then((res) => {
-      // hashHistory.push('/journals');
       var token = res.headers['x-auth'];
       localStorage.setItem('x-auth', token);
       setAuthorizationToken(token);
-      console.log(jwtDecode(token));
+      hashHistory.push('/journals');
     });
   },
   render: function () {

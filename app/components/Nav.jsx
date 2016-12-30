@@ -1,11 +1,16 @@
 var React = require('react');
 var axios = require('axios');
+var {hashHistory} = require('react-router');
 
 var {Link, IndexLink} = require('react-router');
 
 var Nav = React.createClass({
   signOut: function () {
-    axios.delete('/users/me/token', user);
+    axios.delete('/users/me/token').then(() => {
+      localStorage.removeItem('x-auth');
+      delete axios.defaults.headers.common['x-auth'];
+      hashHistory.push('/');
+    });
   },
   render: function () {
     return (

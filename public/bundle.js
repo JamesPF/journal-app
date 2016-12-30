@@ -27017,15 +27017,23 @@
 
 	var _require = __webpack_require__(163);
 
-	var Link = _require.Link;
-	var IndexLink = _require.IndexLink;
+	var hashHistory = _require.hashHistory;
+
+	var _require2 = __webpack_require__(163);
+
+	var Link = _require2.Link;
+	var IndexLink = _require2.IndexLink;
 
 
 	var Nav = React.createClass({
 	  displayName: 'Nav',
 
 	  signOut: function signOut() {
-	    axios.delete('/users/me/token', user);
+	    axios.delete('/users/me/token').then(function () {
+	      localStorage.removeItem('x-auth');
+	      delete axios.defaults.headers.common['x-auth'];
+	      hashHistory.push('/');
+	    });
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -27103,11 +27111,10 @@
 	    console.log(newUser);
 
 	    axios.post('/users', newUser).then(function (res) {
-	      // hashHistory.push('/journals');
 	      var token = res.headers['x-auth'];
 	      localStorage.setItem('x-auth', token);
 	      setAuthorizationToken(token);
-	      console.log(jwtDecode(token));
+	      hashHistory.push('/journals');
 	    });
 	  },
 	  render: function render() {
@@ -27204,11 +27211,10 @@
 	    console.log(user);
 
 	    axios.post('/users/login', user).then(function (res) {
-	      // hashHistory.push('/journals');
 	      var token = res.headers['x-auth'];
 	      localStorage.setItem('x-auth', token);
 	      setAuthorizationToken(token);
-	      console.log(jwtDecode(token));
+	      hashHistory.push('/journals');
 	    });
 	  },
 	  render: function render() {
