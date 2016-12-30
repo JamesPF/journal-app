@@ -3,7 +3,7 @@ var React = require('react');
 var LoginForm = React.createClass({
   onFormSubmit: function (e) {
     e.preventDefault();
-    
+
     var {onUserLogin} = this.props;
     var email = this.refs.email.value;
     var password = this.refs.password.value;

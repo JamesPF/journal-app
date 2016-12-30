@@ -1,6 +1,7 @@
 var React = require('react');
 var axios = require('axios');
 var lodash = require('lodash');
+var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 var EditorWindow = require('EditorWindow');
 var EntryAdd = require('EntryAdd');
@@ -14,6 +15,11 @@ var EntriesPage = React.createClass({
       entries: [],
       selectedEntry: {},
       entrySearchText: ''
+    }
+  },
+  componentWillMount: function () {
+    if (!axios.defaults.headers.common['x-auth']) {
+      hashHistory.push('/');
     }
   },
   componentDidMount: function () {

@@ -1,12 +1,17 @@
 var React = require('react');
 var axios = require('axios');
-var {hashHistory} = require('react-router');
+var {Link, hashHistory} = require('react-router');
 var jwtDecode = require('jwt-decode');
 var setAuthorizationToken = require('setAuthorizationToken');
 
 var SignupForm = require('SignupForm');
 
 var SignupPage = React.createClass({
+  componentWillMount: function () {
+    if (axios.defaults.headers.common['x-auth']) {
+      hashHistory.push('/journals');
+    }
+  },
   handleUserSignup: function (newUser) {
     console.log(newUser);
 
@@ -21,6 +26,7 @@ var SignupPage = React.createClass({
     return (
       <div className="auth-form">
         <SignupForm onUserSignup={this.handleUserSignup}/>
+        <p className="text-center">Already have an account? <Link to="/">Log in!</Link></p>
       </div>
     );
   }

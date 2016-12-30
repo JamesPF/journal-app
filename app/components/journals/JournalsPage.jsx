@@ -1,4 +1,5 @@
 var React = require('react');
+var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 var axios = require('axios');
 
 var JournalCreate = require('JournalCreate');
@@ -20,6 +21,11 @@ var JournalsPage = React.createClass({
       type: this.props.type,
       searchText: this.props.searchText,
       typeFilter: this.props.typeFilter
+    }
+  },
+  componentWillMount: function () {
+    if (!axios.defaults.headers.common['x-auth']) {
+      hashHistory.push('/');
     }
   },
   componentDidMount: function () {

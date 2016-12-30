@@ -95,7 +95,7 @@
 	var setAuthorizationToken = __webpack_require__(226);
 	var Main = __webpack_require__(252);
 	var SignupPage = __webpack_require__(254);
-	var LoginPage = __webpack_require__(256);
+	var LoginPage = __webpack_require__(259);
 	var JournalsPage = __webpack_require__(261);
 	var EntriesPage = __webpack_require__(267);
 	var AboutPage = __webpack_require__(276);
@@ -27019,6 +27019,8 @@
 
 	var hashHistory = _require.hashHistory;
 
+	var jwtDecode = __webpack_require__(255);
+
 	var _require2 = __webpack_require__(163);
 
 	var Link = _require2.Link;
@@ -27036,50 +27038,80 @@
 	    });
 	  },
 	  render: function render() {
+	    var _this = this;
+
+	    var renderNav = function renderNav() {
+	      if (axios.defaults.headers.common['x-auth']) {
+	        return React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'ul',
+	            { className: 'nav navbar-nav' },
+	            React.createElement(
+	              'li',
+	              null,
+	              React.createElement(
+	                IndexLink,
+	                { to: '/journals', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	                'Journals'
+	              )
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              React.createElement(
+	                Link,
+	                { to: '/about', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	                'About'
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'navbar-right' },
+	            React.createElement(
+	              'p',
+	              { className: 'navbar-text' },
+	              'Signed in'
+	            ),
+	            React.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default navbar-btn', onClick: _this.signOut },
+	              'Sign Out'
+	            )
+	          )
+	        );
+	      } else {
+	        return React.createElement(
+	          'ul',
+	          { className: 'nav navbar-nav' },
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              Link,
+	              { to: '/about', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	              'About'
+	            )
+	          )
+	        );
+	      }
+	    };
+
 	    return React.createElement(
 	      'div',
 	      { className: 'navbar navbar-default' },
 	      React.createElement(
 	        'div',
 	        { className: 'navbar-brand' },
-	        'My Journal'
-	      ),
-	      React.createElement(
-	        'ul',
-	        { className: 'nav navbar-nav' },
 	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            IndexLink,
-	            { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	            'Journals'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            Link,
-	            { to: '/about', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	            'About'
-	          )
+	          Link,
+	          { to: '/' },
+	          'Journal App'
 	        )
 	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'navbar-right' },
-	        React.createElement(
-	          'p',
-	          { className: 'navbar-text' },
-	          'Signed in as James Felz'
-	        ),
-	        React.createElement(
-	          'button',
-	          { type: 'button', className: 'btn btn-default navbar-btn', onClick: this.signOut },
-	          'Sign Out'
-	        )
-	      )
+	      renderNav()
 	    );
 	  }
 	});
@@ -27097,16 +27129,22 @@
 
 	var _require = __webpack_require__(163);
 
+	var Link = _require.Link;
 	var hashHistory = _require.hashHistory;
 
-	var jwtDecode = __webpack_require__(257);
+	var jwtDecode = __webpack_require__(255);
 	var setAuthorizationToken = __webpack_require__(226);
 
-	var SignupForm = __webpack_require__(255);
+	var SignupForm = __webpack_require__(258);
 
 	var SignupPage = React.createClass({
 	  displayName: 'SignupPage',
 
+	  componentWillMount: function componentWillMount() {
+	    if (axios.defaults.headers.common['x-auth']) {
+	      hashHistory.push('/journals');
+	    }
+	  },
 	  handleUserSignup: function handleUserSignup(newUser) {
 	    console.log(newUser);
 
@@ -27121,7 +27159,17 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'auth-form' },
-	      React.createElement(SignupForm, { onUserSignup: this.handleUserSignup })
+	      React.createElement(SignupForm, { onUserSignup: this.handleUserSignup }),
+	      React.createElement(
+	        'p',
+	        { className: 'text-center' },
+	        'Already have an account? ',
+	        React.createElement(
+	          Link,
+	          { to: '/' },
+	          'Log in!'
+	        )
+	      )
 	    );
 	  }
 	});
@@ -27130,6 +27178,108 @@
 
 /***/ },
 /* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var base64_url_decode = __webpack_require__(256);
+
+	module.exports = function (token,options) {
+	  if (typeof token !== 'string') {
+	    throw new Error('Invalid token specified');
+	  }
+
+	  options = options || {};
+	  var pos = options.header === true ? 0 : 1;
+	  return JSON.parse(base64_url_decode(token.split('.')[pos]));
+	};
+
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var atob = __webpack_require__(257);
+
+	function b64DecodeUnicode(str) {
+	  return decodeURIComponent(atob(str).replace(/(.)/g, function (m, p) {
+	    var code = p.charCodeAt(0).toString(16).toUpperCase();
+	    if (code.length < 2) {
+	      code = '0' + code;
+	    }
+	    return '%' + code;
+	  }));
+	}
+
+	module.exports = function(str) {
+	  var output = str.replace(/-/g, "+").replace(/_/g, "/");
+	  switch (output.length % 4) {
+	    case 0:
+	      break;
+	    case 2:
+	      output += "==";
+	      break;
+	    case 3:
+	      output += "=";
+	      break;
+	    default:
+	      throw "Illegal base64url string!";
+	  }
+
+	  try{
+	    return b64DecodeUnicode(output);
+	  } catch (err) {
+	    return atob(output);
+	  }
+	};
+
+
+/***/ },
+/* 257 */
+/***/ function(module, exports) {
+
+	/**
+	 * The code was extracted from:
+	 * https://github.com/davidchambers/Base64.js
+	 */
+
+	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+	function InvalidCharacterError(message) {
+	  this.message = message;
+	}
+
+	InvalidCharacterError.prototype = new Error();
+	InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+	function polyfill (input) {
+	  var str = String(input).replace(/=+$/, '');
+	  if (str.length % 4 == 1) {
+	    throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
+	  }
+	  for (
+	    // initialize result and counters
+	    var bc = 0, bs, buffer, idx = 0, output = '';
+	    // get next character
+	    buffer = str.charAt(idx++);
+	    // character found in table? initialize bit storage and add its ascii value;
+	    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+	      // and if not first of each 4 characters,
+	      // convert the first 8 bits to one ascii character
+	      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+	  ) {
+	    // try to find character in table (0-63, not found => -1)
+	    buffer = chars.indexOf(buffer);
+	  }
+	  return output;
+	}
+
+
+	module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
+
+
+/***/ },
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27187,7 +27337,7 @@
 	module.exports = SignupForm;
 
 /***/ },
-/* 256 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27197,9 +27347,10 @@
 
 	var _require = __webpack_require__(163);
 
+	var Link = _require.Link;
 	var hashHistory = _require.hashHistory;
 
-	var jwtDecode = __webpack_require__(257);
+	var jwtDecode = __webpack_require__(255);
 	var setAuthorizationToken = __webpack_require__(226);
 
 	var LoginForm = __webpack_require__(260);
@@ -27207,6 +27358,11 @@
 	var LoginPage = React.createClass({
 	  displayName: 'LoginPage',
 
+	  componentWillMount: function componentWillMount() {
+	    if (axios.defaults.headers.common['x-auth']) {
+	      hashHistory.push('/journals');
+	    }
+	  },
 	  handleUserLogin: function handleUserLogin(user) {
 	    console.log(user);
 
@@ -27221,114 +27377,22 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'auth-form' },
-	      React.createElement(LoginForm, { onUserLogin: this.handleUserLogin })
+	      React.createElement(LoginForm, { onUserLogin: this.handleUserLogin }),
+	      React.createElement(
+	        'p',
+	        { className: 'text-center' },
+	        'Don\'t have an account? ',
+	        React.createElement(
+	          Link,
+	          { to: '/signup' },
+	          'Sign up!'
+	        )
+	      )
 	    );
 	  }
 	});
 
 	module.exports = LoginPage;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var base64_url_decode = __webpack_require__(258);
-
-	module.exports = function (token,options) {
-	  if (typeof token !== 'string') {
-	    throw new Error('Invalid token specified');
-	  }
-
-	  options = options || {};
-	  var pos = options.header === true ? 0 : 1;
-	  return JSON.parse(base64_url_decode(token.split('.')[pos]));
-	};
-
-
-/***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var atob = __webpack_require__(259);
-
-	function b64DecodeUnicode(str) {
-	  return decodeURIComponent(atob(str).replace(/(.)/g, function (m, p) {
-	    var code = p.charCodeAt(0).toString(16).toUpperCase();
-	    if (code.length < 2) {
-	      code = '0' + code;
-	    }
-	    return '%' + code;
-	  }));
-	}
-
-	module.exports = function(str) {
-	  var output = str.replace(/-/g, "+").replace(/_/g, "/");
-	  switch (output.length % 4) {
-	    case 0:
-	      break;
-	    case 2:
-	      output += "==";
-	      break;
-	    case 3:
-	      output += "=";
-	      break;
-	    default:
-	      throw "Illegal base64url string!";
-	  }
-
-	  try{
-	    return b64DecodeUnicode(output);
-	  } catch (err) {
-	    return atob(output);
-	  }
-	};
-
-
-/***/ },
-/* 259 */
-/***/ function(module, exports) {
-
-	/**
-	 * The code was extracted from:
-	 * https://github.com/davidchambers/Base64.js
-	 */
-
-	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-	function InvalidCharacterError(message) {
-	  this.message = message;
-	}
-
-	InvalidCharacterError.prototype = new Error();
-	InvalidCharacterError.prototype.name = 'InvalidCharacterError';
-
-	function polyfill (input) {
-	  var str = String(input).replace(/=+$/, '');
-	  if (str.length % 4 == 1) {
-	    throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
-	  }
-	  for (
-	    // initialize result and counters
-	    var bc = 0, bs, buffer, idx = 0, output = '';
-	    // get next character
-	    buffer = str.charAt(idx++);
-	    // character found in table? initialize bit storage and add its ascii value;
-	    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
-	      // and if not first of each 4 characters,
-	      // convert the first 8 bits to one ascii character
-	      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
-	  ) {
-	    // try to find character in table (0-63, not found => -1)
-	    buffer = chars.indexOf(buffer);
-	  }
-	  return output;
-	}
-
-
-	module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
-
 
 /***/ },
 /* 260 */
@@ -27391,6 +27455,14 @@
 	'use strict';
 
 	var React = __webpack_require__(5);
+
+	var _require = __webpack_require__(163);
+
+	var Route = _require.Route;
+	var Router = _require.Router;
+	var IndexRoute = _require.IndexRoute;
+	var hashHistory = _require.hashHistory;
+
 	var axios = __webpack_require__(227);
 
 	var JournalCreate = __webpack_require__(262);
@@ -27415,6 +27487,11 @@
 	      searchText: this.props.searchText,
 	      typeFilter: this.props.typeFilter
 	    };
+	  },
+	  componentWillMount: function componentWillMount() {
+	    if (!axios.defaults.headers.common['x-auth']) {
+	      hashHistory.push('/');
+	    }
 	  },
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
@@ -27985,6 +28062,14 @@
 	var axios = __webpack_require__(227);
 	var lodash = __webpack_require__(268);
 
+	var _require = __webpack_require__(163);
+
+	var Route = _require.Route;
+	var Router = _require.Router;
+	var IndexRoute = _require.IndexRoute;
+	var hashHistory = _require.hashHistory;
+
+
 	var EditorWindow = __webpack_require__(270);
 	var EntryAdd = __webpack_require__(272);
 	var EntrySearch = __webpack_require__(273);
@@ -28000,6 +28085,11 @@
 	      selectedEntry: {},
 	      entrySearchText: ''
 	    };
+	  },
+	  componentWillMount: function componentWillMount() {
+	    if (!axios.defaults.headers.common['x-auth']) {
+	      hashHistory.push('/');
+	    }
 	  },
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
