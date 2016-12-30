@@ -20,22 +20,25 @@ app.use(express.static(__dirname + '/../public'));
 // --------------------
 
 // POST new journal
-app.post('/journals', (req, res) => {
+app.post('/journals', authenticate, (req, res) => {
   var journal = new Journal({
     name: req.body.name,
-    type: req.body.type
+    type: req.body.type,
+    _creator: req.user._id
   });
 
   journal.save().then((journal) => {
     res.send(journal);
   }).catch((e) => {
-    res.status(400).send();
+    res.status(400).send(e);
   });
 });
 
 // GET all journals
-app.get('/journals', (req, res) => {
-  Journal.find().then((journals) => {
+app.get('/journals', authenticate, (req, res) => {
+  Journal.find({
+    _creator: req.user._id
+  }).then((journals) => {
     res.send(journals);
   }).catch((e) => {
     res.status(400).send(e);
@@ -43,14 +46,17 @@ app.get('/journals', (req, res) => {
 });
 
 // GET one journal by id
-app.get('/journals/:id', (req, res) => {
+app.get('/journals/:id', authenticate, (req, res) => {
   var id = req.params.id;
 
   if(!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 
-  Journal.findById(id).then((journal) => {
+  Journal.findOne({
+    _id: id,
+    _creator: req.user._id
+  }).then((journal) => {
     if (!journal) {
       return res.status(404).send();
     }
@@ -62,7 +68,7 @@ app.get('/journals/:id', (req, res) => {
 });
 
 // PATCH journal by id
-app.patch('/journals/:id', (req, res) => {
+app.patch('/journals/:id', authenticate, (req, res) => {
   var id = req.params.id;
   var body = _.pick(req.body, ['name', 'type']);
 
@@ -70,7 +76,7 @@ app.patch('/journals/:id', (req, res) => {
     return res.status(404).send();
   }
 
-  Journal.findByIdAndUpdate(id, {$set: body}, {new: true}).then((journal) => {
+  Journal.findByIdAndUpdate({_id: id, _creator: req.user._id}, {$set: body}, {new: true}).then((journal) => {
     if (!journal) {
       return res.status(404).send();
     }
@@ -82,14 +88,17 @@ app.patch('/journals/:id', (req, res) => {
 });
 
 // DELETE journal by id
-app.delete('/journals/:id', (req, res) => {
+app.delete('/journals/:id', authenticate, (req, res) => {
   var id = req.params.id;
 
   if(!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 
-  Journal.findByIdAndRemove(id).then((journal) => {
+  Journal.findOneAndRemove({
+    _id: id,
+    _creator: req.user._id
+  }).then((journal) => {
     if (!journal) {
       return res.status(404).send();
     }
@@ -199,7 +208,7 @@ app.post('/users', (req, res) => {
   user.save().then(() => {
     return user.generateAuthToken();
   }).then((token) => {
-    // res.header('x-auth', token).send(user);
+    res.header('x-auth', token).send(user);
     res.redirect('/');
   }).catch((e) => {
     res.status(400).send(e);

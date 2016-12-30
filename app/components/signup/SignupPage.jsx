@@ -1,29 +1,21 @@
 var React = require('react');
 var axios = require('axios');
 var {hashHistory} = require('react-router');
+var jwtDecode = require('jwt-decode');
+var setAuthorizationToken = require('setAuthorizationToken');
 
 var SignupForm = require('SignupForm');
 
 var SignupPage = React.createClass({
-  getDefaultProps: function () {
-    return {
-      name: '',
-      email: '',
-      password: ''
-    }
-  },
-  getInitialState: function () {
-    return {
-      name: this.props.name,
-      email: this.props.email,
-      password: this.props.password
-    }
-  },
   handleUserSignup: function (newUser) {
     console.log(newUser);
 
-    axios.post('/users', newUser).then(() => {
-      hashHistory.push('/journals');
+    axios.post('/users', newUser).then((res) => {
+      // hashHistory.push('/journals');
+      var token = res.headers['x-auth'];
+      localStorage.setItem('x-auth', token);
+      setAuthorizationToken(token);
+      console.log(jwtDecode(token));
     });
   },
   render: function () {

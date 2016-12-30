@@ -10,6 +10,10 @@ var Journal = mongoose.model('Journal', {
   type: {
     type: String,
     required: true
+  },
+  _creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
   }
 });
 

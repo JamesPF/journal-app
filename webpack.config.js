@@ -22,6 +22,8 @@ module.exports = {
     root: __dirname,
     alias: {
       applicationStyles: 'app/css/app.scss',
+      setAuthorizationToken: 'app/utils/setAuthorizationToken.js',
+      authorizationInfo: 'app/utils/authorizationInfo.js',
       Main: 'app/components/Main.jsx',
       Nav: 'app/components/Nav.jsx',
       SignupPage: 'app/components/signup/SignupPage.jsx',
