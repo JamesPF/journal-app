@@ -13,6 +13,10 @@ var Entry = mongoose.model('Entry', {
   _journal: {
     type: String,
     required: true
+  },
+  _creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
   }
 });
 

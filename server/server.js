@@ -114,11 +114,12 @@ app.delete('/journals/:id', authenticate, (req, res) => {
 // --------------------
 
 // POST new entry
-app.post('/entries', (req, res) => {
+app.post('/entries', authenticate, (req, res) => {
   var entry = new Entry({
     title: req.body.title,
     content: req.body.content,
-    _journal: req.body._journal
+    _journal: req.body._journal,
+    _creator: req.user._id
   });
 
   entry.save().then((entry) => {
@@ -129,8 +130,10 @@ app.post('/entries', (req, res) => {
 });
 
 // GET all entries
-app.get('/entries', (req, res) => {
-  Entry.find().then((entries) => {
+app.get('/entries', authenticate, (req, res) => {
+  Entry.find({
+    _creator: req.user._id
+  }).then((entries) => {
     res.send(entries);
   }).catch((e) => {
     res.status(400).send();
@@ -138,14 +141,17 @@ app.get('/entries', (req, res) => {
 });
 
 // GET one entry by id
-app.get('/entries/:id', (req, res) => {
+app.get('/entries/:id', authenticate, (req, res) => {
   var id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 
-  Entry.findById(id).then((entry) => {
+  Entry.findById({
+    _id: id,
+    _creator: req.user._id
+  }).then((entry) => {
     if (!entry) {
       return res.status(404).send();
     }
@@ -157,7 +163,7 @@ app.get('/entries/:id', (req, res) => {
 });
 
 // PATCH an entry by id
-app.patch('/entries/:id', (req, res) => {
+app.patch('/entries/:id', authenticate, (req, res) => {
   var id = req.params.id;
   var body = _.pick(req.body, ['title', 'content']);
 
@@ -165,7 +171,7 @@ app.patch('/entries/:id', (req, res) => {
     return res.status(404).send();
   }
 
-  Entry.findByIdAndUpdate(id, {$set: body}, {new: true}).then((entry) => {
+  Entry.findOneAndUpdate({_id: id, _creator: req.user._id}, {$set: body}, {new: true}).then((entry) => {
     if (!entry) {
       return res.status(404).send();
     }
@@ -177,14 +183,17 @@ app.patch('/entries/:id', (req, res) => {
 });
 
 // DELETE an entry by id
-app.delete('/entries/:id', (req, res) => {
+app.delete('/entries/:id', authenticate, (req, res) => {
   var id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 
-  Entry.findByIdAndRemove(id).then((entry) => {
+  Entry.findOneAndRemove({
+    _id: id,
+    _creator: req.user._id
+  }).then((entry) => {
     if (!entry) {
       return res.status(404).send();
     }
