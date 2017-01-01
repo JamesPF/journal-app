@@ -1,3 +1,5 @@
+require('./config/config');
+
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -10,7 +12,7 @@ var {User} = require('./models/user');
 var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
-var PORT = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public'));
@@ -251,6 +253,6 @@ app.delete('/users/me/token', authenticate, (req, res) => {
 });
 
 
-app.listen(PORT, function () {
-  console.log('App is listening on port ' + PORT);
+app.listen(port, function () {
+  console.log('App is listening on port ' + port);
 });
