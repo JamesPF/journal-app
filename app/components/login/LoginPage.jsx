@@ -13,7 +13,6 @@ var LoginPage = React.createClass({
     }
   },
   handleUserLogin: function (user) {
-    console.log(user);
 
     axios.post('/users/login', user).then((res) => {
       var token = res.headers['x-auth'];

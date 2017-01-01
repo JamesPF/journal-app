@@ -23,7 +23,6 @@ var EntriesPage = React.createClass({
     }
   },
   componentDidMount: function () {
-    console.log(this.props.location.query.journal);
     var journalId = this.props.location.query.journal;
     axios.get('/entries').then((result) => {
       var entries = result.data;

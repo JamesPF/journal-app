@@ -8,7 +8,6 @@ var EntryTitle = React.createClass({
   onTitleChange: function () {
     var {updateTitle} = this.props;
     var title = this.refs.title.value;
-    // console.log(title);
     updateTitle(title);
   },
   render: function () {

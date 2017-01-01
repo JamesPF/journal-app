@@ -22,7 +22,6 @@ var Journal = React.createClass({
     nameText.contentEditable = 'true';
     triggerTypeEdit(journal);
     nameText.focus();
-    console.log(journal.name);
   },
   exitEditMode: function () {
     var {journal, onUpdateInfo} = this.props;
@@ -32,7 +31,6 @@ var Journal = React.createClass({
     var newName = this.refs.name.textContent;
     var newJournalType = this.refs.typeSelect.value;
 
-    console.log('Submitted');
     onUpdateInfo(journal, newName, newJournalType);
   },
   handleKeyPress: function (e) {
