@@ -1,3 +1,20 @@
 #about-page {
   min-height: 620px;
 }
+
+ul {
+  width: 33.3333%;
+  margin: 0 auto;
+
+  @media screen and (max-width: $break-large) {
+    width: 44.4444%;
+  }
+
+  @media screen and (max-width: $break-medium) {
+    width: 66.6666%;
+  }
+
+  @media screen and (max-width: $break-small) {
+    width: 90%;
+  }
+}
