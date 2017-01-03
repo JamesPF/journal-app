@@ -21,7 +21,7 @@ var SignupForm = React.createClass({
     return (
       <div>
         <h1 className="text-center">Sign Up</h1>
-        <form className="col-xs-8 col-sm-4 signup-form" onSubmit={this.onFormSubmit}>
+        <form className="col-xs-10 col-sm-6 col-md-4 signup-form" onSubmit={this.onFormSubmit}>
           <input className="form-control" type="text" ref="name" placeholder="Enter Name" />
           <br/>
           <input className="form-control" type="email" ref="email" placeholder="Enter Email" />

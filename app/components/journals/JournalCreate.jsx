@@ -25,7 +25,7 @@ var JournalCreate = React.createClass({
   render: function () {
     return (
       <div>
-        <button className="btn btn-success pull-right" data-toggle="modal" data-target="#addJournalModal" onClick={this.triggerAutoFocus}>+ Create New Journal</button>
+        <button className="btn btn-success pull-right" id="create-new-journal-button" data-toggle="modal" data-target="#addJournalModal" onClick={this.triggerAutoFocus}>+ Create New Journal</button>
 
         <div className="modal fade" id="addJournalModal" tabIndex="-1" role="dialog">
           <div className="modal-dialog" role="document">

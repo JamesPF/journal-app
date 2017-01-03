@@ -30,6 +30,10 @@ label {
   vertical-align: top;
 }
 
+#create-new-journal-button {
+  margin-top: -1px;
+}
+
 .create-journal {
   display: block;
   width: 90%;
@@ -52,9 +56,19 @@ label {
 
 #journal-list {
   margin-top: 12px;
+  @media screen and (max-width: 590px) {
+    width: 75%;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+  }
 }
 
 .journal-item {
+  @media screen and (max-width: 590px) {
+    width: 100%;
+  }
 
   .journal-link-container {
     background-color: #ddd;
@@ -90,7 +104,12 @@ label {
       color: #333;
     }
     .journal-title {
+      display: block;
       font-family: $journal-title;
+      padding: 0 5%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .journal-title:hover {
       background: url('/images/pencil-icon.png') no-repeat;

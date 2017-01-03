@@ -52,7 +52,7 @@ var Journal = React.createClass({
     }
 
     return (
-      <div className="col-sm-3 journal-item">
+      <div className="col-xs-6 col-sm-4 col-md-4 col-lg-3 journal-item">
         <div className="journal-link-container">
           <select defaultValue={journal.type} ref="typeSelect" style={displayStyle} onMouseDown={this.typeSelectClicked} onBlur={this.exitEditMode}>
             <option value="Book">A Book</option>

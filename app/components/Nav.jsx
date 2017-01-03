@@ -17,7 +17,7 @@ var Nav = React.createClass({
     var renderNav = () => {
       if (axios.defaults.headers.common['x-auth']) {
         return (
-          <div>
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
               <li><IndexLink to="/journals" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Journals</IndexLink></li>
               <li><Link to="/about" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>About</Link></li>
@@ -30,16 +30,26 @@ var Nav = React.createClass({
         );
       } else {
         return (
-          <ul className="nav navbar-nav">
-            <li><Link to="/about" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>About</Link></li>
-          </ul>
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul className="nav navbar-nav">
+              <li><Link to="/about" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>About</Link></li>
+            </ul>
+          </div>
         );
       }
     };
 
     return (
       <div className="navbar navbar-default">
-        <div className="navbar-brand"><Link to="/">Journal App</Link></div>
+        <div className="navbar-header">
+          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+          <div className="navbar-brand"><Link to="/">Journal App</Link></div>
+        </div>
         {renderNav()}
       </div>
     );
