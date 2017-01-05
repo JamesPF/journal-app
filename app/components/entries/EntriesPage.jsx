@@ -71,33 +71,51 @@ var EntriesPage = React.createClass({
       selectedEntry
     });
   },
-  updateTitle: function (newTitle) {
-    var {entries, selectedEntry} = this.state;
-    var journalId = this.props.location.query.journal;
+  // updateTitle: function (newTitle) {
+  //   var {entries, selectedEntry} = this.state;
+  //   var journalId = this.props.location.query.journal;
+  //
+  //   var entryId = selectedEntry._id;
+  //   axios.patch(`/entries/${entryId}`, {title: newTitle}).then((result) => {
+  //     selectedEntry.title = result.data.title;
+  //
+  //     axios.get('/entries').then((result) => {
+  //       var entries = result.data;
+  //
+  //       var filteredEntries = entries.filter((entry) => {
+  //         return entry._journal === journalId;
+  //       });
+  //
+  //       this.setState({
+  //         entries: filteredEntries
+  //       });
+  //     });
+  //   });
+  // },
+  handleUpdateInfo: function (entry, newTitle) {
+    var {entries} = this.state;
 
-    var entryId = selectedEntry._id;
-    axios.patch(`/entries/${entryId}`, {title: newTitle}).then((entry) => {
-      selectedEntry.title = newTitle;
+    var entryId = entry._id;
 
-      axios.get('/entries').then((result) => {
-        var entries = result.data;
+    if (newTitle.length > 0) {
+      axios.patch(`/entries/${entryId}`, {title: newTitle}).then((entry) => {
+        axios.get('/entries').then((result) => {
+          var entries = result.data;
 
-        var filteredEntries = entries.filter((entry) => {
-          return entry._journal === journalId;
-        });
-
-        this.setState({
-          entries: filteredEntries
+          this.setState({
+            entries
+          });
         });
       });
-    });
+    }
   },
   handleUpdateContent: function (newContent) {
     var {entries, selectedEntry} = this.state;
 
     var entryId = selectedEntry._id;
-    axios.patch(`/entries/${entryId}`, {content: newContent}).then((entry) => {
-      selectedEntry.content = newContent;
+    axios.patch(`/entries/${entryId}`, {content: newContent}).then((result) => {
+      console.log(result.data.content);
+      selectedEntry.content = result.data.content;
     });
   },
   handleEntrySearch: function (entrySearchText) {
@@ -124,7 +142,7 @@ var EntriesPage = React.createClass({
           </div>
           <EntryList entries={matchedEntries} selectEntry={this.selectEntry} />
         </div>
-        <EditorWindow {...this.state} updateTitle={this.updateTitle} onUpdateContent={this.handleUpdateContent} />
+        <EditorWindow {...this.state} onUpdateTitle={this.handleUpdateTitle} onUpdateContent={this.handleUpdateContent} />
       </div>
     );
   }

@@ -3,18 +3,32 @@ var React = require('react');
 var EntryTitle = React.createClass({
   propTypes: {
     selectedEntry: React.PropTypes.object.isRequired,
-    updateTitle: React.PropTypes.func.isRequired
   },
-  onTitleChange: function () {
-    var {updateTitle} = this.props;
-    var title = this.refs.title.value;
-    updateTitle(title);
+  handleEditMode: function () {
+    var nameText = this.refs.title;
+    nameText.contentEditable = 'true';
+    nameText.focus();
+  },
+  exitEditMode: function () {
+    var {selectedEntry, onUpdateTitle} = this.props;
+    var nameText = this.refs.title;
+
+    nameText.contentEditable = 'false';
+    var newTitle = this.refs.title.textContent;
+
+    onUpdateTitle(selectedEntry, newTitle);
+  },
+  handleKeyPress: function (e) {
+    var nameText = this.refs.name;
+    if (e.key === 'Enter') {
+      this.exitEditMode();
+    }
   },
   render: function () {
     var {selectedEntry} = this.props;
 
     return (
-      <input ref="title" id="editor-title" type="text" placeholder="Enter Title Here..." value={selectedEntry.title} onChange={this.onTitleChange} />
+      <p ref="title" id="editor-title" onClick={this.handleEditMode} onKeyPress={this.handleKeyPress}>{selectedEntry.title}</p>
     );
   }
 });

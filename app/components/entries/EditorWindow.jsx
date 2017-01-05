@@ -4,7 +4,6 @@ var EntryTitle = require('EntryTitle');
 var EditorWindow = React.createClass({
   propTypes: {
     selectedEntry: React.PropTypes.object.isRequired,
-    updateTitle: React.PropTypes.func.isRequired,
     onUpdateContent: React.PropTypes.func.isRequired
   },
   enableEditMode: function () {
@@ -17,7 +16,7 @@ var EditorWindow = React.createClass({
     var {selectedEntry, onUpdateContent} = this.props;
     var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;
 
-    contentBody.innerHTML = selectedEntry.content || '';
+    contentBody.innerHTML = selectedEntry.content;
 
     contentBody.addEventListener('keyup', () => {
       onUpdateContent(contentBody.innerHTML);
