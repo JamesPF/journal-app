@@ -95,11 +95,24 @@ var EntriesPage = React.createClass({
   },
   handleUpdateContent: function (newContent) {
     var {entries, selectedEntry} = this.state;
+    var journalId = this.props.location.query.journal;
 
     var entryId = selectedEntry._id;
     axios.patch(`/entries/${entryId}`, {content: newContent}).then((result) => {
       console.log(result.data.content);
       selectedEntry.content = result.data.content;
+
+      axios.get('/entries').then((result) => {
+        var entries = result.data;
+
+        var filteredEntries = entries.filter((entry) => {
+          return entry._journal === journalId;
+        });
+
+        this.setState({
+          entries: filteredEntries
+        });
+      });
     });
   },
   handleEntrySearch: function (entrySearchText) {
