@@ -92,8 +92,9 @@ var EntriesPage = React.createClass({
   //     });
   //   });
   // },
-  handleUpdateInfo: function (entry, newTitle) {
+  handleUpdateTitle: function (entry, newTitle) {
     var {entries} = this.state;
+    var journalId = this.props.location.query.journal;
 
     var entryId = entry._id;
 
@@ -102,8 +103,12 @@ var EntriesPage = React.createClass({
         axios.get('/entries').then((result) => {
           var entries = result.data;
 
+          var filteredEntries = entries.filter((entry) => {
+            return entry._journal === journalId;
+          });
+
           this.setState({
-            entries
+            entries: filteredEntries
           });
         });
       });

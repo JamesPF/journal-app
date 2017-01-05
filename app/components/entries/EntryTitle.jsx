@@ -28,7 +28,7 @@ var EntryTitle = React.createClass({
     var {selectedEntry} = this.props;
 
     return (
-      <p ref="title" id="editor-title" onClick={this.handleEditMode} onKeyPress={this.handleKeyPress}>{selectedEntry.title}</p>
+      <p ref="title" id="editor-title" onClick={this.handleEditMode} onKeyPress={this.handleKeyPress} onBlur={this.exitEditMode}>{selectedEntry.title}</p>
     );
   }
 });
