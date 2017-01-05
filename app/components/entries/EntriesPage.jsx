@@ -71,27 +71,6 @@ var EntriesPage = React.createClass({
       selectedEntry
     });
   },
-  // updateTitle: function (newTitle) {
-  //   var {entries, selectedEntry} = this.state;
-  //   var journalId = this.props.location.query.journal;
-  //
-  //   var entryId = selectedEntry._id;
-  //   axios.patch(`/entries/${entryId}`, {title: newTitle}).then((result) => {
-  //     selectedEntry.title = result.data.title;
-  //
-  //     axios.get('/entries').then((result) => {
-  //       var entries = result.data;
-  //
-  //       var filteredEntries = entries.filter((entry) => {
-  //         return entry._journal === journalId;
-  //       });
-  //
-  //       this.setState({
-  //         entries: filteredEntries
-  //       });
-  //     });
-  //   });
-  // },
   handleUpdateTitle: function (entry, newTitle) {
     var {entries} = this.state;
     var journalId = this.props.location.query.journal;
