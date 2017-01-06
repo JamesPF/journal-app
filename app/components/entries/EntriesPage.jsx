@@ -34,12 +34,18 @@ var EntriesPage = React.createClass({
 
       if (filteredEntries.length) {
         selectedEntry = filteredEntries[0];
+
+        return this.setState({
+          journalId,
+          entries: filteredEntries || [],
+          selectedEntry
+        });
+      } else {
+        this.handleEntryAdd();
       }
 
       this.setState({
-        journalId,
-        entries: filteredEntries || [],
-        selectedEntry
+        journalId
       });
     });
   },
@@ -52,16 +58,18 @@ var EntriesPage = React.createClass({
       content: ''
     };
 
-    axios.post('/entries', entry).then(() => {
+    axios.post('/entries', entry).then((entry) => {
       axios.get('/entries').then((result) => {
         var entries = result.data;
+        var newEntry = entry.data;
 
         var filteredEntries = entries.filter((entry) => {
           return entry._journal === journalId;
         });
 
         this.setState({
-          entries: filteredEntries
+          entries: filteredEntries,
+          selectedEntry: newEntry
         });
       });
     });
