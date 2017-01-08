@@ -8,7 +8,6 @@ var AboutPage = React.createClass({
         <h3 className="text-center">Currently working on...</h3>
         <p className="text-center">Here's what I'm currently working on in order to make this application better.</p>
           <ul className="updates-list">
-            <li>Creating a better, less buggy method for updating entry titles and content</li>
             <li>Displaying journals in alphabetical order</li>
             <li>Displaying entries in terms of most recently updated</li>
             <li>Adding the ability to delete entries</li>

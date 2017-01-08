@@ -11,6 +11,13 @@
   margin: 0 auto;
 }
 
+#search-form {
+  @media screen and (max-width: 602px) {
+    margin: 0 auto;
+    width: 300px;
+  }
+}
+
 #journal-search {
   width: 300px;
   margin-bottom: 10px;
@@ -21,17 +28,30 @@
   border-radius: 5px;
 }
 
-label {
-  margin-right: 10px;
-}
+#type-filter {
+  @media screen and (max-width: 602px) {
+    margin: 0 auto;
+    width: 180px;
+  }
 
-#journal-filter {
-  height: 32px;
-  vertical-align: top;
+  label {
+    margin-right: 10px;
+  }
+
+  #journal-filter {
+    height: 32px;
+  }
 }
 
 #create-new-journal-button {
+  float: right;
   margin-top: -1px;
+
+  @media screen and (max-width: 602px) {
+    float: none;
+    display: block;
+    margin: 20px auto;
+  }
 }
 
 .create-journal {
@@ -56,6 +76,9 @@ label {
 
 #journal-list {
   margin-top: 12px;
+  border-top: 2px solid #ddd;
+  padding-top: 6px;
+
   @media screen and (max-width: 590px) {
     width: 75%;
   }
@@ -119,12 +142,4 @@ label {
       background-color: #fff;
     }
   }
-}
-
-.journal-item:nth-child(odd) {
-  // background: red;
-}
-
-.journal-item:nth-child(even) {
-  // background: blue;
 }
