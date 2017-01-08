@@ -1,5 +1,13 @@
 #text-editor {
   height: 640px;
+
+  @media screen and (max-width: 799px) {
+    height: 960px;
+  }
+
+  @media screen and (max-width: 619px) {
+    height: 1000px;
+  }
 }
 
 .editor-button {
@@ -74,6 +82,10 @@
     height: 520px;
     overflow: scroll;
 
+    @media screen and (max-width: 959px) {
+      height: 500px;
+    }
+
     @media screen and (max-width: 799px) {
       height: 350px;
       width: 90%;
@@ -110,6 +122,10 @@
         p {
           color: #333;
           font-size: 16px;
+          padding: 0 5%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -125,7 +141,12 @@
   height: inherit;
 
   @media screen and (max-width: 799px) {
+    height: 610px;
     width: 100%;
+  }
+
+  @media screen and (max-width: 619px) {
+    height: 650px;
   }
 
   #editor {
