@@ -12,16 +12,6 @@ var EditorWindow = React.createClass({
   componentDidMount: function () {
     this.enableEditMode();
   },
-  // componentDidUpdate: function () {
-  //   var {selectedEntry, onUpdateContent} = this.props;
-  //   var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;
-  //
-  //   contentBody.innerHTML = selectedEntry.content;
-  //
-  //   contentBody.addEventListener('keyup', () => {
-  //     onUpdateContent(contentBody.innerHTML);
-  //   });
-  // },
   componentDidUpdate: function () {
     var {selectedEntry, onUpdateContent} = this.props;
     var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;

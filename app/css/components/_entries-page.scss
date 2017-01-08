@@ -20,6 +20,14 @@
   height: inherit;
   float: left;
 
+  @media screen and (max-width: 799px) {
+    display: block;
+    float: none;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+  }
+
   h3 {
     margin-left: 20px;
     display: inline-block;
@@ -28,10 +36,26 @@
   #add-search {
     height: 120px;
 
+    @media screen and (max-width: 959px) {
+      h3 {
+        display: block;
+        margin-left: 0;
+        text-align: center;
+      }
+    }
+
     #add-entry {
       float: right;
       margin-top: 16px;
       margin-right: 5%;
+
+      @media screen and (max-width: 959px) {
+        display: block;
+        float: none;
+        margin: 0 auto;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
     }
 
     #entry-search {
@@ -50,15 +74,34 @@
     height: 520px;
     overflow: scroll;
 
+    @media screen and (max-width: 799px) {
+      height: 350px;
+      width: 90%;
+      margin: 0 auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+
     ul#entries {
       list-style: none;
       margin-top: 20px;
+
+      @media screen and (max-width: 799px) {
+        list-style: none;
+      }
+
       li {
         display: block;
         margin: 0 auto;
         margin-left: -40px;
         margin-bottom: 20px;
         cursor: pointer;
+
+        @media screen and (max-width: 799px) {
+          width: 138px;
+          margin-right: 30px;
+          display: inline-block;
+        }
 
         img {
           width: 100%;
@@ -80,6 +123,10 @@
   display: inline-block;
   width: 80%;
   height: inherit;
+
+  @media screen and (max-width: 799px) {
+    width: 100%;
+  }
 
   #editor {
     width: 90%;
