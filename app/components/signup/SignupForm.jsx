@@ -22,11 +22,11 @@ var SignupForm = React.createClass({
       <div>
         <h1 className="text-center">Sign Up</h1>
         <form className="col-xs-10 col-sm-6 col-md-4 signup-form" onSubmit={this.onFormSubmit}>
-          <input className="form-control" type="text" ref="name" placeholder="Enter Name" />
+          <input className="form-control" type="text" ref="name" placeholder="Enter a Name" />
           <br/>
-          <input className="form-control" type="email" ref="email" placeholder="Enter Email" />
+          <input className="form-control" type="email" ref="email" placeholder="Enter an Email" />
           <br/>
-          <input className="form-control" type="password" ref="password" placeholder="Enter a Password" />
+          <input className="form-control" type="password" ref="password" placeholder="Enter a Password (six characters minimum)" />
           <br/>
           <button className="btn btn-success form-control" type="submit">Sign Up</button>
         </form>
