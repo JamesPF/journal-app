@@ -41,6 +41,17 @@ app.get('/journals', authenticate, (req, res) => {
   Journal.find({
     _creator: req.user._id
   }).then((journals) => {
+    journals.sort((a, b) => {
+      var nameA = a.name.toLowerCase();
+      var nameB = b.name.toLowerCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
     res.send(journals);
   }).catch((e) => {
     res.status(400).send(e);
