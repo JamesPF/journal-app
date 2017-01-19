@@ -4,8 +4,8 @@ var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 var setAuthorizationToken = require('setAuthorizationToken');
 var Main = require('Main');
-var SignupPage = require('SignupPage');
-var LoginPage = require('LoginPage');
+import SignupPage from 'SignupPage';
+import LoginPage from 'LoginPage';
 var JournalsPage = require('JournalsPage');
 var EntriesPage = require('EntriesPage');
 var AboutPage = require('AboutPage');

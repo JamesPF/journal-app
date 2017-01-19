@@ -1,7 +1,11 @@
-var React = require('react');
+import React, {Component} from 'react';
 
-var SignupForm = React.createClass({
-  onFormSubmit: function (e) {
+class SignupForm extends Component {
+  constructor (props) {
+    super(props);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+  }
+  onFormSubmit (e) {
     e.preventDefault();
 
     var {onUserSignup} = this.props;
@@ -16,8 +20,8 @@ var SignupForm = React.createClass({
     };
 
     onUserSignup(user);
-  },
-  render: function () {
+  }
+  render () {
     return (
       <div>
         <h1 className="text-center">Sign Up</h1>
@@ -33,6 +37,6 @@ var SignupForm = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = SignupForm;
+export default SignupForm;

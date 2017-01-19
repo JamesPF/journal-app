@@ -1,18 +1,22 @@
-var React = require('react');
+import React, {Component} from 'react';
 var axios = require('axios');
 var {Link, hashHistory} = require('react-router');
 var jwtDecode = require('jwt-decode');
 var setAuthorizationToken = require('setAuthorizationToken');
 
-var SignupForm = require('SignupForm');
+import SignupForm from 'SignupForm';
 
-var SignupPage = React.createClass({
-  componentWillMount: function () {
+class SignupPage extends Component {
+  constructor (props) {
+    super(props);
+    this.handleUserSignup = this.handleUserSignup.bind(this);
+  }
+  componentWillMount () {
     if (axios.defaults.headers.common['x-auth']) {
       hashHistory.push('/journals');
     }
-  },
-  handleUserSignup: function (newUser) {
+  }
+  handleUserSignup (newUser) {
 
     axios.post('/users', newUser).then((res) => {
       var token = res.headers['x-auth'];
@@ -20,8 +24,8 @@ var SignupPage = React.createClass({
       setAuthorizationToken(token);
       hashHistory.push('/journals');
     });
-  },
-  render: function () {
+  }
+  render () {
     return (
       <div className="auth-form">
         <SignupForm onUserSignup={this.handleUserSignup}/>
@@ -29,6 +33,6 @@ var SignupPage = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = SignupPage;
+export default SignupPage;

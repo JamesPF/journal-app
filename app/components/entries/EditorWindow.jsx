@@ -18,7 +18,7 @@ var EditorWindow = React.createClass({
 
     contentBody.innerHTML = selectedEntry.content;
 
-    contentBody.addEventListener('blur', () => {
+    contentBody.addEventListener('blur', () => {        
       onUpdateContent(contentBody.innerHTML);
     });
   },

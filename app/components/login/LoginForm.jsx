@@ -1,7 +1,11 @@
-var React = require('react');
+import React, {Component} from 'react';
 
-var LoginForm = React.createClass({
-  onFormSubmit: function (e) {
+class LoginForm extends Component {
+  constructor(props) {
+    super(props);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+  }
+  onFormSubmit(e) {
     e.preventDefault();
 
     var {onUserLogin} = this.props;
@@ -14,8 +18,8 @@ var LoginForm = React.createClass({
     };
 
     onUserLogin(user);
-  },
-  render: function () {
+  }
+  render() {
     return (
       <div>
         <h1 className="text-center">Log In</h1>
@@ -29,6 +33,6 @@ var LoginForm = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = LoginForm;
+export default LoginForm;
