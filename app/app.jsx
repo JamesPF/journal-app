@@ -8,7 +8,7 @@ import SignupPage from 'SignupPage';
 import LoginPage from 'LoginPage';
 var JournalsPage = require('JournalsPage');
 var EntriesPage = require('EntriesPage');
-var AboutPage = require('AboutPage');
+import AboutPage from 'AboutPage';
 
 require('bootstrap/dist/js/bootstrap.js');
 require('style!css!bootstrap/dist/css/bootstrap.css');

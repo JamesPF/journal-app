@@ -1,14 +1,14 @@
-var React = require('react');
+import React, {Component} from 'react';
 
-var AboutPage = React.createClass({
-  render: function () {
+class AboutPage extends Component {
+  render () {
     return (
       <div id="about-page">
         <h1 className="text-center">About</h1>
         <h3 className="text-center">Currently working on...</h3>
         <p className="text-center">Here's what I'm currently working on in order to make this application better.</p>
           <ul className="updates-list">
-            <li>Displaying journals in alphabetical order</li>
+            <li>Converting the application to use Redux</li>
             <li>Displaying entries by most recently updated</li>
             <li>Functionality for deleting entries</li>
             <li>Functionality for deleting journals</li>
@@ -21,6 +21,6 @@ var AboutPage = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = AboutPage;
+export default AboutPage;

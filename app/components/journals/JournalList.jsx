@@ -1,5 +1,5 @@
 var React = require('react');
-var Journal = require('Journal');
+import Journal from 'Journal';
 
 var JournalList = React.createClass({
   propTypes: {

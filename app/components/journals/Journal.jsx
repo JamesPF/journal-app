@@ -1,29 +1,34 @@
-var React = require('react');
+import React, {Component} from 'react';
 var {Link} = require('react-router');
 
-var Journal = React.createClass({
-  propTypes: {
-    journal: React.PropTypes.object.isRequired
-  },
-  typeSelectClicked: function () {
+class Journal extends Component {
+  constructor (props) {
+    super(props);
+    this.typeSelectClicked = this.typeSelectClicked.bind(this);
+    this.exitEditMode = this.exitEditMode.bind(this);
+    this.handleEditMode = this.handleEditMode.bind(this);
+    this.checkTypeSelect = this.checkTypeSelect.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+  typeSelectClicked () {
     var {journal, onTypeSelectClicked} = this.props;
     onTypeSelectClicked(journal);
-  },
-  checkTypeSelect: function () {
+  }
+  checkTypeSelect () {
     var {journal} = this.props;
 
     if (!journal.typeSelectSelected) {
       this.exitEditMode()
     }
-  },
-  handleEditMode: function () {
+  }
+  handleEditMode () {
     var {journal, triggerTypeEdit} = this.props;
     var nameText = this.refs.name;
     nameText.contentEditable = 'true';
     triggerTypeEdit(journal);
     nameText.focus();
-  },
-  exitEditMode: function () {
+  }
+  exitEditMode () {
     var {journal, onUpdateInfo} = this.props;
     var nameText = this.refs.name;
 
@@ -32,14 +37,14 @@ var Journal = React.createClass({
     var newJournalType = this.refs.typeSelect.value;
 
     onUpdateInfo(journal, newName, newJournalType);
-  },
-  handleKeyPress: function (e) {
+  }
+  handleKeyPress (e) {
     var nameText = this.refs.name;
     if (e.key === 'Enter') {
       this.exitEditMode();
     }
-  },
-  render: function () {
+  }
+  render () {
     var {journal} = this.props;
     var journalUrl = `/entries?journal=${journal._id}`;
 
@@ -72,6 +77,6 @@ var Journal = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = Journal;
+export default Journal;
