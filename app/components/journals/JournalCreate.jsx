@@ -1,17 +1,23 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 
-var JournalCreate = React.createClass({
-  triggerAutoFocus: function () {
+class JournalCreate extends Component {
+  constructor (props) {
+    super(props);
+    this.triggerAutoFocus = this.triggerAutoFocus.bind(this);
+    this.onJournalSubmit = this.onJournalSubmit.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
+  }
+  triggerAutoFocus () {
     setTimeout(() => {
       this.refs.journal.focus();
     }, 500);
-  },
-  onSelectChange: function (e) {
+  }
+  onSelectChange (e) {
     var selectValue = e.target.value;
     this.props.onJournalTypeSelect(selectValue);
-  },
-  onJournalSubmit: function (e) {
+  }
+  onJournalSubmit (e) {
     e.preventDefault();
     var journalName = this.refs.journal.value;
     var journalType = this.refs.type.value;
@@ -21,8 +27,8 @@ var JournalCreate = React.createClass({
       this.props.onAddJournal(journalName, journalType);
       $('#addJournalModal').modal('toggle');
     }
-  },
-  render: function () {
+  }
+  render () {
     return (
       <div>
         <button className="btn btn-success" id="create-new-journal-button" data-toggle="modal" data-target="#addJournalModal" onClick={this.triggerAutoFocus}>+ Create New Journal</button>
@@ -60,6 +66,6 @@ var JournalCreate = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = JournalCreate;
+export default JournalCreate;

@@ -1,14 +1,18 @@
-var React = require('react');
+import React, {Component} from 'react';
 
-var JournalSearch = React.createClass({
-  searchJournals: function () {
+class JournalSearch extends Component {
+  constructor (props) {
+    super(props);
+    this.searchJournals = this.searchJournals.bind(this);
+  }
+  searchJournals () {
     var {onSearch} = this.props;
     var searchText = this.refs.searchText.value;
     var typeFilter = this.refs.typeFilter.value;
 
     onSearch(searchText, typeFilter);
-  },
-  render: function () {
+  }
+  render () {
     return (
       <div id="search-form">
         <input ref="searchText" id="journal-search" type="search" placeholder="Search..." onChange={this.searchJournals} />
@@ -28,6 +32,6 @@ var JournalSearch = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = JournalSearch;
+export default JournalSearch;

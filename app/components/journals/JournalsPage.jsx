@@ -2,9 +2,9 @@ var React = require('react');
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 var axios = require('axios');
 
-var JournalCreate = require('JournalCreate');
-var JournalSearch = require('JournalSearch');
-var JournalList = require('JournalList');
+import JournalCreate from 'JournalCreate';
+import JournalSearch from 'JournalSearch';
+import JournalList from 'JournalList';
 
 var JournalsPage = React.createClass({
   getDefaultProps: function () {

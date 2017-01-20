@@ -1,11 +1,11 @@
-var React = require('react');
+import React, {Component} from 'react';
 import Journal from 'Journal';
 
-var JournalList = React.createClass({
-  propTypes: {
-    journals: React.PropTypes.array.isRequired
-  },
-  render: function () {
+class JournalList extends Component {
+  constructor (props) {
+    super(props);
+  }
+  render () {
     return (
       <div id="journal-list" className="col-sm-12 col-centered">
         {this.props.journals.map( (journal) => {
@@ -17,6 +17,6 @@ var JournalList = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = JournalList;
+export default JournalList;
