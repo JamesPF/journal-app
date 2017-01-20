@@ -6,7 +6,7 @@ var setAuthorizationToken = require('setAuthorizationToken');
 var Main = require('Main');
 import SignupPage from 'SignupPage';
 import LoginPage from 'LoginPage';
-var JournalsPage = require('JournalsPage');
+import JournalsPage from 'JournalsPage';
 var EntriesPage = require('EntriesPage');
 import AboutPage from 'AboutPage';
 

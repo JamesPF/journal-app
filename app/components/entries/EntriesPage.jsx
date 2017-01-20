@@ -3,10 +3,10 @@ var axios = require('axios');
 var lodash = require('lodash');
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
-var EditorWindow = require('EditorWindow');
-var EntryAdd = require('EntryAdd');
-var EntrySearch = require('EntrySearch');
-var EntryList = require('EntryList');
+import EditorWindow from 'EditorWindow';
+import EntryAdd from 'EntryAdd';
+import EntrySearch from 'EntrySearch';
+import EntryList from 'EntryList';
 
 var EntriesPage = React.createClass({
   getInitialState: function () {

@@ -1,8 +1,11 @@
-var React = require('react');
-var Entry = require('Entry');
+import React, {Component} from 'react';
+import Entry from 'Entry';
 
-var EntryList = React.createClass({
-  render: function () {
+class EntryList extends Component {
+  constructor (props) {
+    super(props);
+  }
+  render () {
     var {entries} = this.props;
     return (
       <div id="entry-list">
@@ -14,6 +17,6 @@ var EntryList = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = EntryList;
+export default EntryList;

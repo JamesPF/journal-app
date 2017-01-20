@@ -1,34 +1,33 @@
-var React = require('react');
-var EntryTitle = require('EntryTitle');
+import React, {Component} from 'react';
+import EntryTitle from 'EntryTitle';
 
-var EditorWindow = React.createClass({
-  propTypes: {
-    selectedEntry: React.PropTypes.object.isRequired,
-    onUpdateContent: React.PropTypes.func.isRequired
-  },
-  enableEditMode: function () {
+class EditorWindow extends Component {
+  constructor (props) {
+    super(props);
+  }
+  enableEditMode () {
     richTextField.document.designMode = 'On';
-  },
-  componentDidMount: function () {
+  }
+  componentDidMount () {
     this.enableEditMode();
-  },
-  componentDidUpdate: function () {
+  }
+  componentDidUpdate () {
     var {selectedEntry, onUpdateContent} = this.props;
     var contentBody = document.getElementById('content-edit-field').contentWindow.document.body;
 
     contentBody.innerHTML = selectedEntry.content;
 
-    contentBody.addEventListener('blur', () => {        
+    contentBody.addEventListener('blur', () => {
       onUpdateContent(contentBody.innerHTML);
     });
-  },
-  executeCommand: function (command) {
+  }
+  executeCommand (command) {
     richTextField.document.execCommand(command, false, null);
-  },
-  executeCommandWithArgument: function (command) {
+  }
+  executeCommandWithArgument (command) {
     richTextField.document.execCommand(command, false, arg);
-  },
-  render: function () {
+  }
+  render() {
     var {selectedEntry} = this.props;
     var isInEditMode = true;
 
@@ -70,6 +69,6 @@ var EditorWindow = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = EditorWindow;
+export default EditorWindow;

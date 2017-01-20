@@ -1,11 +1,15 @@
-var React = require('react');
+import React, {Component} from 'react';
 
-var Entry = React.createClass({
-  onClick: function () {
+class Entry extends Component {
+  constructor (props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
+  onClick () {
     var {entry, selectEntry} = this.props;
     selectEntry(entry);
-  },
-  render: function () {
+  }
+  render () {
     var {entry} = this.props;
 
     return (
@@ -15,6 +19,6 @@ var Entry = React.createClass({
       </li>
     );
   }
-});
+}
 
-module.exports = Entry;
+export default Entry;

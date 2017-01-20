@@ -1,15 +1,18 @@
-var React = require('react');
+import React, {Component} from 'react';
 
-var EntryTitle = React.createClass({
-  propTypes: {
-    selectedEntry: React.PropTypes.object.isRequired,
-  },
-  handleEditMode: function () {
+class EntryTitle extends Component {
+  constructor (props) {
+    super(props);
+    this.handleEditMode = this.handleEditMode.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.exitEditMode = this.exitEditMode.bind(this);
+  }
+  handleEditMode () {
     var nameText = this.refs.title;
     nameText.contentEditable = 'true';
     nameText.focus();
-  },
-  exitEditMode: function () {
+  }
+  exitEditMode () {
     var {selectedEntry, onUpdateTitle} = this.props;
     var nameText = this.refs.title;
 
@@ -17,20 +20,20 @@ var EntryTitle = React.createClass({
     var newTitle = this.refs.title.textContent;
 
     onUpdateTitle(selectedEntry, newTitle);
-  },
-  handleKeyPress: function (e) {
+  }
+  handleKeyPress (e) {
     var nameText = this.refs.name;
     if (e.key === 'Enter') {
       this.exitEditMode();
     }
-  },
-  render: function () {
+  }
+  render () {
     var {selectedEntry} = this.props;
 
     return (
       <p ref="title" id="editor-title" onClick={this.handleEditMode} onKeyPress={this.handleKeyPress} onBlur={this.exitEditMode}>{selectedEntry.title}</p>
     );
   }
-});
+}
 
-module.exports = EntryTitle;
+export default EntryTitle;
