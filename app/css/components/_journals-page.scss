@@ -1,6 +1,5 @@
 #journal-index {
   width: 80%;
-  min-height: 620px;
   display: block;
   margin: 0 auto;
   overflow: auto;
@@ -46,6 +45,9 @@
 #create-new-journal-button {
   float: right;
   margin-top: -1px;
+  background-color: $highlight;
+  border-color: $highlight;
+  border-radius: 0;
 
   @media screen and (max-width: 602px) {
     float: none;
@@ -71,7 +73,15 @@
 
 #set-journal-type {
   height: 32px;
+  margin-left: 10px;
   vertical-align: bottom;
+}
+
+#addJournalModal {
+  button[type="submit"] {
+    background-color: $highlight;
+    border-color: $highlight;
+  }
 }
 
 #journal-list {
@@ -94,7 +104,7 @@
   }
 
   .journal-link-container {
-    background-color: #ddd;
+    background-color: #F8F1E5;
     border-radius: 3px;
 
     select {

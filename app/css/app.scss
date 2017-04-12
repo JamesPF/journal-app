@@ -1,15 +1,7 @@
 @import 'base/variables';
+@import 'base/general';
 @import 'components/navigation';
 @import 'components/login-signup';
 @import 'components/journals-page';
 @import 'components/entries-page';
 @import 'components/about-page';
-
-footer {
-  height: 60px;
-  border-top: 1px solid #e7e7e7;
-
-  p {
-    margin-top: 25px;
-  }
-}

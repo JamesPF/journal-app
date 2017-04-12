@@ -2,9 +2,11 @@
   font-family: 'Joe Schmoe';
   src: url('/fonts/dk-joe-schmoe.ttf');
 }
-
 $journal-title: 'Joe Schmoe', Helvetica, sans-serif;
 
 $break-large: 1200px;
 $break-medium: 767px;
 $break-small: 480px;
+
+// Highlight color
+$highlight: #DF744A;
