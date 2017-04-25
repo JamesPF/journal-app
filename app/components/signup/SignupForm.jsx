@@ -32,7 +32,7 @@ class SignupForm extends Component {
           <br/>
           <input className="form-control" type="password" ref="password" placeholder="Enter a Password (six characters minimum)" />
           <br/>
-          <button className="btn btn-success form-control" type="submit">Sign Up</button>
+          <button id="login-signup-submit" className="btn btn-success form-control" type="submit">Sign Up</button>
         </form>
       </div>
     );

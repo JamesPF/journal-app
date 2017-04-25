@@ -69,7 +69,7 @@ class Journal extends Component {
             <option value="Other">Other</option>
           </select>
           <Link to={journalUrl}>
-            <img className="journal-icon" src="/images/journal-2.png" />
+            <img className="journal-icon" src="/images/journal-4.png" />
           </Link>
           <p className="text-center journal-title" ref="name" onClick={this.handleEditMode} onBlur={this.checkTypeSelect}
             onKeyPress={this.handleKeyPress}>{journal.name}</p>

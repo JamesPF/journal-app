@@ -104,7 +104,7 @@
   }
 
   .journal-link-container {
-    background-color: #F8F1E5;
+    background-color: #F0F0F0;
     border-radius: 3px;
 
     select {
@@ -139,6 +139,7 @@
     .journal-title {
       display: block;
       font-family: $journal-title;
+      font-size: 15px;
       padding: 0 5%;
       white-space: nowrap;
       overflow: hidden;

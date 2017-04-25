@@ -2,7 +2,12 @@
   font-family: 'Joe Schmoe';
   src: url('/fonts/dk-joe-schmoe.ttf');
 }
-$journal-title: 'Joe Schmoe', Helvetica, sans-serif;
+
+@font-face {
+  font-family: 'Lato Regular';
+  src: url('/fonts/lato-regular.ttf');
+}
+$journal-title: 'Lato Regular', Helvetica, sans-serif;
 
 $break-large: 1200px;
 $break-medium: 767px;

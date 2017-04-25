@@ -28,7 +28,7 @@ class LoginForm extends Component {
           <br/>
           <input className="form-control" type="password" ref="password" placeholder="Password" />
           <br/>
-          <button className="btn btn-success form-control" type="submit">Log In</button>
+          <button id="login-signup-submit" className="btn btn-success form-control" type="submit">Log In</button>
         </form>
       </div>
     );
