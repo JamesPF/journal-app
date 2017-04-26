@@ -23,11 +23,6 @@ var JournalsPage = React.createClass({
       typeFilter: this.props.typeFilter
     }
   },
-  componentWillMount: function () {
-    if (!axios.defaults.headers.common['x-auth']) {
-      hashHistory.push('/');
-    }
-  },
   componentDidMount: function () {
     axios.get('/journals').then((result) => {
       var journals = result.data;

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 var axios = require('axios');
 var {Link, hashHistory} = require('react-router');
-var jwtDecode = require('jwt-decode');
-var setAuthorizationToken = require('setAuthorizationToken');
 
 import LoginForm from 'LoginForm';
 
@@ -11,17 +9,9 @@ class LoginPage extends Component {
     super(props);
     this.handleUserLogin = this.handleUserLogin.bind(this);
   }
-  componentWillMount () {
-    if (axios.defaults.headers.common['x-auth']) {
-      hashHistory.push('/journals');
-    }
-  }
   handleUserLogin (user) {
 
     axios.post('/users/login', user).then((res) => {
-      var token = res.headers['x-auth'];
-      localStorage.setItem('x-auth', token);
-      setAuthorizationToken(token);
       hashHistory.push('/journals');
     });
   }

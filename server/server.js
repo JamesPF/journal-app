@@ -21,6 +21,7 @@ app.use(express.static(__dirname + '/../public'));
 // JOURNALS
 // --------------------
 
+// takes authenticate
 // POST new journal
 app.post('/journals', authenticate, (req, res) => {
   var journal = new Journal({
@@ -36,11 +37,15 @@ app.post('/journals', authenticate, (req, res) => {
   });
 });
 
+// takes authenticate
 // GET all journals
-app.get('/journals', authenticate, (req, res) => {
-  Journal.find({
-    _creator: req.user._id
-  }).then((journals) => {
+app.get('/journals', (req, res) => {
+  // Replace query with this after adding auth
+  // Journal.find({
+  //   _creator: req.user._id
+  // }).then((journals) => {
+
+  Journal.find().then((journals) => {
     journals.sort((a, b) => {
       var nameA = a.name.toLowerCase();
       var nameB = b.name.toLowerCase();
@@ -58,6 +63,7 @@ app.get('/journals', authenticate, (req, res) => {
   });
 });
 
+// takes authenticate
 // GET one journal by id
 app.get('/journals/:id', authenticate, (req, res) => {
   var id = req.params.id;
@@ -80,6 +86,7 @@ app.get('/journals/:id', authenticate, (req, res) => {
   });
 });
 
+// takes authenticate
 // PATCH journal by id
 app.patch('/journals/:id', authenticate, (req, res) => {
   var id = req.params.id;
@@ -100,6 +107,7 @@ app.patch('/journals/:id', authenticate, (req, res) => {
   });
 });
 
+// takes authenticate
 // DELETE journal by id
 app.delete('/journals/:id', authenticate, (req, res) => {
   var id = req.params.id;
@@ -126,6 +134,7 @@ app.delete('/journals/:id', authenticate, (req, res) => {
 // ENTRIES
 // --------------------
 
+// takes authenticate
 // POST new entry
 app.post('/entries', authenticate, (req, res) => {
   var entry = new Entry({
@@ -142,6 +151,7 @@ app.post('/entries', authenticate, (req, res) => {
   });
 });
 
+// takes authenticate
 // GET all entries
 app.get('/entries', authenticate, (req, res) => {
   Entry.find({
@@ -153,6 +163,7 @@ app.get('/entries', authenticate, (req, res) => {
   });
 });
 
+// takes authenticate
 // GET one entry by id
 app.get('/entries/:id', authenticate, (req, res) => {
   var id = req.params.id;
@@ -175,6 +186,7 @@ app.get('/entries/:id', authenticate, (req, res) => {
   });
 });
 
+// takes authenticate
 // PATCH an entry by id
 app.patch('/entries/:id', authenticate, (req, res) => {
   var id = req.params.id;
@@ -195,6 +207,7 @@ app.patch('/entries/:id', authenticate, (req, res) => {
   });
 });
 
+// takes authenticate
 // DELETE an entry by id
 app.delete('/entries/:id', authenticate, (req, res) => {
   var id = req.params.id;
@@ -237,6 +250,7 @@ app.post('/users', (req, res) => {
   });
 });
 
+// takes authenticate
 app.get('/users/me', authenticate, (req, res) => {
   res.send(req.user);
 });
@@ -248,12 +262,14 @@ app.post('/users/login', (req, res) => {
   User.findByCredentials(body.email, body.password).then((user) => {
     return user.generateAuthToken().then((token) => {
       res.header('x-auth', token).send(user);
+      console.log('successfully logged in');
     });
   }).catch((e) => {
     res.status(400).send();
   });
 });
 
+// takes authenticate
 // DELETE users logout
 app.delete('/users/me/token', authenticate, (req, res) => {
   req.user.removeToken(req.token).then(() => {

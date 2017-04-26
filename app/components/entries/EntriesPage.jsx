@@ -17,11 +17,6 @@ var EntriesPage = React.createClass({
       entrySearchText: ''
     }
   },
-  componentWillMount: function () {
-    if (!axios.defaults.headers.common['x-auth']) {
-      hashHistory.push('/');
-    }
-  },
   componentDidMount: function () {
     var journalId = this.props.location.query.journal;
     axios.get('/entries').then((result) => {
