@@ -45,5 +45,8 @@
     "validator": "^6.2.0",
     "webpack": "^1.13.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "react-redux": "^4.4.1",
+    "redux": "^3.3.1"
+  }
 }

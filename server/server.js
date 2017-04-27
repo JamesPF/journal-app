@@ -137,10 +137,11 @@ app.delete('/journals/:id', authenticate, (req, res) => {
 // takes authenticate
 // POST new entry
 app.post('/entries', authenticate, (req, res) => {
+  // Uncomment _journal after Redux is put back in
   var entry = new Entry({
     title: req.body.title,
     content: req.body.content,
-    _journal: req.body._journal,
+    // _journal: req.body._journal,
     _creator: req.user._id
   });
 
@@ -154,9 +155,11 @@ app.post('/entries', authenticate, (req, res) => {
 // takes authenticate
 // GET all entries
 app.get('/entries', authenticate, (req, res) => {
-  Entry.find({
-    _creator: req.user._id
-  }).then((entries) => {
+  // Use commented out query once Redux is implemented
+  // Entry.find({
+  //   _creator: req.user._id
+  // })
+  Entry.find().then((entries) => {
     res.send(entries);
   }).catch((e) => {
     res.status(400).send();

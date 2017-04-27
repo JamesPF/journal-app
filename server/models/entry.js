@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+// Uncomment _journal after front end Redux is set up
 var Entry = mongoose.model('Entry', {
   title: {
     type: String,
@@ -10,10 +11,10 @@ var Entry = mongoose.model('Entry', {
   content: {
     type: String
   },
-  _journal: {
-    type: String,
-    required: true
-  },
+  // _journal: {
+  //   type: String,
+  //   required: true
+  // },
   _creator: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
