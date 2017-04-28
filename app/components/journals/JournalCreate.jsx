@@ -6,16 +6,11 @@ class JournalCreate extends Component {
     super(props);
     this.triggerAutoFocus = this.triggerAutoFocus.bind(this);
     this.onJournalSubmit = this.onJournalSubmit.bind(this);
-    this.onSelectChange = this.onSelectChange.bind(this);
   }
   triggerAutoFocus () {
     setTimeout(() => {
       this.refs.journal.focus();
     }, 500);
-  }
-  onSelectChange (e) {
-    var selectValue = e.target.value;
-    this.props.onJournalTypeSelect(selectValue);
   }
   onJournalSubmit (e) {
     e.preventDefault();
@@ -44,7 +39,7 @@ class JournalCreate extends Component {
                 <div className="modal-body">
                     <input ref="journal" className="create-journal" type="text" placeholder="Journal title..." />
                     <label id="journal-type-label" htmlFor="set-journal-type">Notes for:</label>
-                    <select ref="type" value={this.props.type} name="set-journal-type" id="set-journal-type" onChange={this.onSelectChange}>
+                    <select ref="type" defaultValue="Select Type" name="set-journal-type" id="set-journal-type">
                       <option value="Select Type">Select Type</option>
                       <option value="Book">A Book</option>
                       <option value="Course">A Course</option>

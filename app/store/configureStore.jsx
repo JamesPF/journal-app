@@ -8,7 +8,8 @@ export var configure = () => {
   });
 
   var store = redux.createStore(reducer, redux.compose(
-    redux.applyMiddleware(thunk);
+    redux.applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   ));
 
   return store;
